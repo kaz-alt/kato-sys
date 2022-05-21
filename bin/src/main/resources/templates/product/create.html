@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="product-create-modal">
+    <section class="content">
+	  <!-- Detail Modal -->
+	  <div class="modal fade" id="product-create-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	    <div class="modal-dialog modal-lg" role="document">
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <h5 class="modal-title"><i class="fas fa-plus"></i>&nbsp;新規製品・サービス登録</h5>
+		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <span aria-hidden="true">×</span>
+		      </button>
+		    </div>
+		    <div class="modal-body">
+		      <form th:action="@{/product/create}" method="POST" class="container" id="product-form" th:object="${productForm}">
+			    <div class="card">
+			      <div class="card-body">
+			        <div class="row">
+			          <div class="form-group col-7">
+			            <label for="industry">顧客名&nbsp;<span class="text-danger">*必須</span>：</label>
+			            <select class="form-control" th:field="*{clientId}"
+			              th:data-href="@{/client/api/get_client}">
+			              <option value=0>---顧客名を入力して下さい---</option>
+				        </select>
+				        <span class="text-danger" th:if="${#fields.hasErrors('clientId')}"th:errors="*{clientId}"></span>
+			          </div>
+			        </div>
+			        <div class="row">
+			          <div class="form-group col-7">
+			            <label for="industry">製品・サービス名&nbsp;<span class="text-danger">*必須</span>：</label>
+			            <input type="text" class="form-control" th:field="*{productName}">
+			            <span class="text-danger" th:if="${#fields.hasErrors('productName')}"th:errors="*{productName}"></span>
+			          </div>
+			          <div class="form-group col-4">
+			            <label for="industry">数量&nbsp;<span class="text-danger">*必須</span>：</label>
+			            <div class="input-group">
+					      <input type="number" class="form-control group" th:field="*{productQuantity}" min=0>
+					      <div class="input-group-append">
+					        <span class="input-group-text">個</span>
+					      </div>
+					    </div>
+					    <span class="text-danger" th:if="${#fields.hasErrors('productQuantity')}"th:errors="*{productQuantity}"></span>
+			          </div>
+			        </div>
+			        <div class="row">
+			          <div class="form-group col-7">
+			            <label for="industry">売上金額&nbsp;<span class="text-danger">*必須</span>：</label>
+			            <div class="input-group">
+					      <input type="number" class="form-control group" th:field="*{productSales}" min=0>
+					      <div class="input-group-append">
+					        <span class="input-group-text">万円</span>
+					      </div>
+					    </div>
+					    <span class="text-danger" th:if="${#fields.hasErrors('productSales')}"th:errors="*{productSales}"></span>
+			          </div>
+			          <div class="form-group col-7">
+			            <label for="industry">受注日&nbsp;<span class="text-danger">*必須</span>：</label>
+			            <input type="text" class="form-control datepicker" th:field="*{purchasedDate}"
+			              placeholder="クリックして日付を入力">
+			            <span class="text-danger" th:if="${#fields.hasErrors('purchasedDate')}"th:errors="*{purchasedDate}"></span>
+			          </div>
+			        </div>
+			        <div class="row">
+			          <div class="form-group col-12">
+			            <label for="industry">備考：</label>
+			            <textarea class="form-control" th:field="*{productRemarks}"></textarea>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </form>
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+		      <button type="button" class="btn btn-primary" id="create-button">登録</button>
+		    </div>
+		  </div>
+		</div>
+	  </div>
+    </section>
+  </div>
+</body>
+</html>

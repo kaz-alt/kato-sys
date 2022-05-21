@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>社員一覧</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">社員一覧</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-user-friends"></i>&nbsp;社員一覧</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="mb-3">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staff-create-modal">
+              <i class="fas fa-plus"></i>&nbsp;社員登録
+            </button>
+          </div>
+          <div id="staff-table-div" class="dataTables_wrapper">
+            <div class="row">
+              <div class="col-sm-12 table-responsive">
+                <table id="staff-table" class="table table-bordered table-striped dataTable text-nowrap">
+	              <thead>
+	                <tr role="row">
+	                  <th class="text-center">氏名</th>
+	                  <th class="text-center">担当部署</th>
+	                  <th class="text-center">役職</th>
+	                  <th class="text-center">電話番号</th>
+	                  <th class="text-center">メールアドレス</th>
+	                  <th class="text-center">入社年月</th>
+	                  <th class="text-center">編集</th>
+	                  <th class="text-center">削除</th>
+	                </tr>
+	              </thead>
+                  <tbody>
+	                <tr th:each="s : ${list}">
+	                  <td th:text="${s.name}"></td>
+	                  <td th:text="${s.department}"></td>
+	                  <td th:text="${s.position}"></td>
+	                  <td th:text="${s.tel}"></td>
+	                  <td th:text="${s.email}"></td>
+	                  <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
+	                  <td>
+	                    <button type="button" class="btn btn-info staff-edit-button" data-toggle="modal"
+	                      data-target="#staff-edit-modal" th:attr="data-href=@{/staff/show}, data-id=${s.id}">
+	                      <i class="far fa-edit"></i>&nbsp;編集
+	                    </button>
+	                  </td>
+	                  <td>
+	                    <button type="button" class="btn btn-danger staff-del-button"
+	                      th:attr="data-href=@{/staff/delete}, data-id=${s.id}">
+	                      <i class="far fa-trash-alt"></i>&nbsp;削除
+	                    </button>
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	      <th:block th:include="/layout/pagination::pagination"></th:block>
+	    </div>
+	    <!-- /.card-body -->
+	  </div>
+	  <!-- Create modal -->
+	  <th:block th:replace="staff/create::staff-create-modal"></th:block>
+	  <!-- Edit modal -->
+	  <th:block th:replace="staff/edit::staff-edit-modal"></th:block>
+    </section>
+  </div>
+</body>
+</html>
