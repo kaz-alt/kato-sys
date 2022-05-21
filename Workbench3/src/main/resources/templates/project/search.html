@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="project-search-modal">
+    <section class="content">
+	  <!-- Detail Modal -->
+	  <div class="modal fade" id="project-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	    <div class="modal-dialog modal-xl" role="document">
+		  <div class="modal-content">
+		    <div class="modal-header">
+		      <h5 class="modal-title"><i class="fas fa-search"></i>&nbsp;案件情報検索</h5>
+		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        <span aria-hidden="true">×</span>
+		      </button>
+		    </div>
+		    <div class="modal-body">
+		      <div class="card card-warning">
+            <div class="card-header">
+              <h3 class="card-title">案件情報検索</h3>
+            </div>
+            <div class="card-body" style="display: block;">
+              <!-- form start -->
+              <form th:action="@{/project/search}" method="GET" id="projectSearchForm" class="form-horizontal"
+                th:object="${projectSearchForm}">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">顧客：</label>
+                    <div class="col-sm-9">
+                      <select class="form-control select2" multiple="multiple" name="clientIdList" style="width:100%;"
+                        th:data-href="@{/client/api/get_client}">
+                        <option th:each="client : ${selectedClient}" th:text="${client.name}"
+                          th:value="${client.id}" selected/>
+				      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">案件名：</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" th:field="*{targetProjectName}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">当社担当者：</label>
+                    <div class="col-sm-7">
+                      <select class="form-control select2" multiple="multiple" name="ourEmployeeIdList"
+                        th:data-href="@{/staff/api/get_employee}">
+                        <option th:each="employee : ${selectedEmployee}" th:text="${employee.name}"
+                          th:value="${employee.id}" selected/>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">進捗：</label>
+                    <div class="col-sm-6 col-md-6">
+			          <select class="form-control select2 col-sm-12" multiple="multiple" name="progressIdList">
+			            <option th:each="p : ${progresses}" th:value="${p.id}" th:text="${p.name}"
+			              th:selected="${#lists.contains(projectSearchForm.progressIdList, p.id)}"/>
+			          </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">受注確度：</label>
+                    <div class="col-sm-7 col-md-7 row pl-3">
+                      <div class="input-group col-sm-5 col-md-5 row">
+                        <input type="number" class="form-control search"
+                          th:field="*{startOrderProbability}" min=0>
+					    <div class="input-group-append">
+					      <span class="input-group-text">%</span>
+					    </div>
+					  </div>
+					  <span class="text-danger" th:if="${#fields.hasErrors('startOrderProbability')}">正しい確度を入力してください。</span>
+                      <p class="text-center m-1 col-sm-1">〜</p>
+                      <div class="input-group col-sm-5 col-md-5 row">
+                        <input type="number" class="form-control search" th:field="*{endOrderProbability}" min=0>
+					    <div class="input-group-append">
+					      <span class="input-group-text">%</span>
+					    </div>
+					  </div>
+					  <span class="text-danger" th:if="${#fields.hasErrors('endOrderProbability')}">正しい確度を入力してください。</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">受注（予定）金額：</label>
+                    <div class="col-sm-10 col-md-10 row pl-3">
+                      <div class="input-group col-sm-5 col-md-5 row">
+                        <input type="number" class="form-control search"
+                          th:field="*{startEstimatedOrderAmount}" min=0>
+					    <div class="input-group-append">
+					      <span class="input-group-text">万円</span>
+					    </div>
+					  </div>
+					  <span class="text-danger" th:if="${#fields.hasErrors('startEstimatedOrderAmount')}">正しい金額を入力してください。</span>
+                      <p class="text-center m-1 col-sm-1">〜</p>
+                      <div class="input-group col-sm-5 col-md-5 row">
+                        <input type="number" class="form-control search" th:field="*{endEstimatedOrderAmount}" min=0>
+					    <div class="input-group-append">
+					      <span class="input-group-text">万円</span>
+					    </div>
+					  </div>
+					  <span class="text-danger" th:if="${#fields.hasErrors('endEstimatedOrderAmount')}">正しい金額を入力してください。</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">受注（予定）日：</label>
+                    <div class="col-sm-9 row pl-3">
+                      <input type="text" class="form-control col-sm-5 datepicker-search"
+                        th:field="*{startExpectedOrderDate}"
+                        placeholder="クリックして日付を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('startExpectedOrderDate')}">正しい日付を入力してください。</span>
+                      <p class="text-center m-1 col-sm-1">〜</p>
+                      <input type="text" class="form-control col-sm-5 datepicker-search"
+                        th:field="*{endExpectedOrderDate}"
+                        placeholder="クリックして日付を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('endExpectedOrderDate')}">正しい日付を入力してください。</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">進捗：</label>
+                    <div class="col-sm-6 col-md-6">
+                      <select class="form-control select2 col-sm-12" multiple name="approachRootIdList">
+			            <option th:each="a : ${approachRoots}" th:value="${a.id}" th:text="${a.name}"
+			              th:selected="${#lists.contains(projectSearchForm.approachRootIdList, a.id)}"/>
+			          </select>
+                    </div>
+                  </div>
+                  <input type="hidden" th:field="*{sortData}"/>
+                  <input type="hidden" th:field="*{sortOrder}"/>
+                  <input type="hidden" th:field="*{pageNumber}"/>
+                </div>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-warning btn-lg search-btn ml-3 float-right">検索</button>
+                  <a class="d-none reset-search-form-btn" th:href="@{/project}">
+                    <button type="button" class="btn btn-warning btn-lg search-btn float-right">検索条件クリア</button>
+                  </a>
+                </div>
+              </form>
+            </div>
+          </div>
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+		    </div>
+		  </div>
+		</div>
+	  </div>
+    </section>
+  </div>
+</body>
+</html>

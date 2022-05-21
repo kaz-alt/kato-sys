@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/workbench
+    username: root
+    password: kazuyakato13+
+  jpa:
+    properties:
+      org:
+        hibernate:
+          envers:
+            audit_table_suffix: _history
+            revision_field_name: audit_id
+            revision_type_field_name: audit_type
+            store_data_at_delete: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+    type:
+      descriptor:
+        sql:
+          BasicBinder: TRACE
+
+server:
+  servlet:
+    session:
+      timeout: 1500
