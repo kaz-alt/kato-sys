@@ -209,18 +209,18 @@ img {
   transform: translateY(-50%);
 }
 .box_step05 ul li.active {
-  background: #32CD32;
+  background: #00d1d1;
 }
 
 .box_step05 ul li.done {
-  background: #00d1d1;
+  background: #32CD32;
 }
 
 .box_step05 ul li.active:before {
   content: "";
   position: absolute;
   top: 50%;
-  border: 0 solid #32CD32;
+  border: 0 solid #00d1d1;
   border-width: 24.9px 20px;
   width: 0;
   height: 0;
@@ -236,7 +236,7 @@ img {
   content: "";
   position: absolute;
   top: 50%;
-  border: 0 solid #00d1d1;
+  border: 0 solid #32CD32;
   border-width: 24.9px 20px;
   width: 0;
   height: 0;
@@ -256,26 +256,26 @@ img {
 }
 .box_step05 ul li.active span {
   color: #fff;
-  background: #32CD32;
+  background: #00d1d1;
 }
 
 .box_step05 ul li.done span {
   color: #fff;
-  background: #00d1d1;
-}
-
-.box_step05 ul li.active span:before {
   background: #32CD32;
 }
 
-.box_step05 ul li.done span:before {
+.box_step05 ul li.active span:before {
   background: #00d1d1;
 }
 
+.box_step05 ul li.done span:before {
+  background: #32CD32;
+}
+
 .box_step05 ul li.active span:after {
-  border-left-color: #32CD32;
+  border-left-color: #00d1d1;
 }
 
 .box_step05 ul li.done span:after {
-  border-left-color: #00d1d1;
+  border-left-color: #32CD32;
 }

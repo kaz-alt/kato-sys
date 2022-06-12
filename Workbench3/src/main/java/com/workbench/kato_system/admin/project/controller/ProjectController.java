@@ -141,7 +141,12 @@ public class ProjectController {
 	}
 
 	@GetMapping(value = "/detail/{id}")
-	public String detail(@PathVariable("id") Integer id) {
+	public String detail(@PathVariable("id") Integer id, Model model) {
+
+    Project data = projectService.getOne(id);
+
+		model.addAttribute("data", data);
+
 		return "project/detail";
 	}
 
