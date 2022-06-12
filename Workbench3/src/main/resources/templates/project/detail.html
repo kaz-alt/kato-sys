@@ -56,10 +56,11 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="box_step05">
+                    <div class="box_step05 for-change-progress" th:attr="data-project-id=${data.id}, data-change-progress=@{/project/change_progress}">
                       <ul>
                         <th:block th:each="progress, stat : ${progresses}">
-                          <li th:class="${progress.id eq data.progressId ? 'active' : progress.id lt data.progressId ? 'done' : ''}">
+                          <li class="mouse-pointer progress-changeable" th:classappend="${progress.id eq data.progressId ? 'active' : progress.id lt data.progressId ? 'done' : ''}" 
+                            th:data-progress-id="${progress.id}">
                             <span th:text="${progress.name}"></span>
                           </li>
                         </th:block>

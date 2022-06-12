@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
 import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
 import com.workbench.kato_system.admin.project.model.ApproachRoot;
@@ -140,6 +141,9 @@ public class ProjectController {
 
 	}
 
+  /**
+	 * 詳細表示
+	 */
 	@GetMapping(value = "/detail/{id}")
 	public String detail(@PathVariable("id") Integer id, Model model) {
 
@@ -148,6 +152,17 @@ public class ProjectController {
 		model.addAttribute("data", data);
 
 		return "project/detail";
+	}
+
+  /**
+	 * 進捗変更
+	 */
+	@PostMapping(value = "/change_progress")
+	public String changeProgress(ProjectChangeProgressForm form) {
+
+		projectService.changeProgress(form);
+
+    return "redirect:/project";
 	}
 
 	/**

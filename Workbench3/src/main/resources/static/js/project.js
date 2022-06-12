@@ -3,6 +3,37 @@ $(function(){
 
 	let path = location.pathname;
 
+  $(document).on('click', '.progress-changeable', function(e) {
+    let progressName = $(this).find('span').text();
+    let progressId = $(this).data('progress-id');
+    let projectId = $('div.for-change-progress').data('project-id');
+    let projectUrl = $('div.for-change-progress').data('change-progress');
+    let _csrf = $('meta[name="_csrf"]').attr('content');
+
+    let confirm = window.confirm('進捗を' + progressName + 'に変更しますか？');
+
+    $form = $('<form/>', {action: projectUrl, method: 'post'})
+        .append($('<input/>', {type: 'hidden', name: 'projectId', value: projectId}))
+        .append($('<input/>', {type: 'hidden', name: 'progressId', value: progressId}))
+        .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
+        .appendTo(document.body)
+
+    if (confirm) {
+      $.ajax({
+        type : $form.attr('method'),
+        url : $form.attr('action'),
+				data: $form.serialize()
+      }).done(function(){
+				alert('進捗を変更しました。');
+				location.reload();
+			}).fail(function(){
+				alert("進捗の変更に失敗しました");
+			})
+    } else {
+      return;
+    }
+  });
+
 	/**
 	 * 検索用ページネーション
 	 */

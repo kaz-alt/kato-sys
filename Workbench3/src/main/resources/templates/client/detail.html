@@ -15,9 +15,11 @@
       <div class="container-fluid">
         <div class="row mb-2 bg-white">
           <div class="col-sm-6">
-            <button type="button" class="btn bg-gradient-primary btn-lg ml-3" id="return-btn">
-              <i class="fas fa-reply"></i>&nbsp;戻る
-            </button>
+            <a th:href="@{/client}">
+              <button type="button" class="btn bg-gradient-primary btn-lg ml-3">
+                <i class="fas fa-reply"></i>&nbsp;顧客一覧へ戻る
+              </button>
+            </a>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">

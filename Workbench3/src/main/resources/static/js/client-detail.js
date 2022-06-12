@@ -20,10 +20,6 @@ $(function(){
 		$('#purchasedYearForm').submit();
 	});
 
-	$('#return-btn').on('click', function() {
-		history.back();
-	});
-
 	$('.table th').removeClass('sort-pointer').find('i').hide();
 
 	let dateFlg = 0;
