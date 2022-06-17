@@ -12,7 +12,7 @@ $(function(){
 
     let confirm = window.confirm('進捗を' + progressName + 'に変更しますか？');
 
-    $form = $('<form/>', {action: projectUrl, method: 'post'})
+    let $form = $('<form/>', {action: projectUrl, method: 'post'})
         .append($('<input/>', {type: 'hidden', name: 'projectId', value: projectId}))
         .append($('<input/>', {type: 'hidden', name: 'progressId', value: progressId}))
         .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
