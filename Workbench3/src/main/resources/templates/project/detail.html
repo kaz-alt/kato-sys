@@ -15,9 +15,11 @@
       <div class="container-fluid">
         <div class="row mb-2 bg-white">
           <div class="col-sm-6">
-            <button type="button" class="btn bg-gradient-primary btn-lg ml-3" id="return-btn">
-              <i class="fas fa-reply"></i>&nbsp;戻る
-            </button>
+            <a th:href="@{/project}">
+              <button type="button" class="btn bg-gradient-primary btn-lg ml-3">
+                <i class="fas fa-reply"></i>&nbsp;案件一覧へ戻る
+              </button>
+            </a>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -36,47 +38,98 @@
         <!-- content-body -->
         <div class="card-body" style="background:#BAD3FF;">
           <div class="container-fluid">
-  		    <div class="row">
-  		      <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-12">
                 <div class="card">
+                  <div class="card-header">
+                    <h3><i class="fas fa-business-time"></i>&nbsp;<span id="page-title">案件名：</span><span th:text="${data.name}"></span></h3>
+                    <div class="text-right">
+                      <button type="button" class="btn btn-info project-edit-button" id="project-edit-button"
+                        th:attr="data-href=@{/project/show?id={id}(id=${data.id})}"
+                        data-toggle="modal" data-target="#project-edit-modal">
+                        <i class="far fa-edit"></i>編集
+                      </button>
+                      <button type="button" class="btn btn-danger project-del-button"
+                        th:attr="data-href=@{/project/delete}, data-id=${data.id}, data-project=@{/project}">
+                        <i class="far fa-trash-alt"></i>削除
+                      </button>
+                    </div>
+                  </div>
                   <div class="card-body">
-                    <div id="stepbar-div">
-			          <ul class="nav nav-tabs row d-flex justify-content-center">
-			            <th:block th:each="progress, stat : ${progresses}">
-			              <li class="nav-item col-sm-1 " th:classappend="${stat.index eq 0 ? 'active' : ''}">
-			                <a href="#" th:text="${progress.name}"></a>
-			              </li>
-			            </th:block>
-				      </ul>
-			        </div>
-                    <div id="smartwizard" class="sw-theme-arrows">
-				      <ul class="nav nav-tabs step-anchor">
-				        <th:block th:each="progress, stat : ${progresses}">
-				          <li class="nav-item m-1" th:classappend="${stat.index eq 0 ? 'active' : ''}">
-				            <a href="#step-1" th:text="${progress.name}"></a>
-				          </li>
-				        </th:block>
-					  </ul>
-			        </div>
+                    <div class="box_step05 for-change-progress" th:attr="data-project-id=${data.id}, data-change-progress=@{/project/change_progress}">
+                      <ul>
+                        <th:block th:each="progress, stat : ${progresses}">
+                          <li class="mouse-pointer progress-changeable" th:classappend="${progress.id eq data.progressId ? 'active' : progress.id lt data.progressId ? 'done' : ''}" 
+                            th:data-progress-id="${progress.id}">
+                            <span th:text="${progress.name}"></span>
+                          </li>
+                        </th:block>
+                      </ul>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="col-sm-9">
+              <div class="col-sm-12">
                 <div class="card">
-                  <div class="card-header">
-          		    <h3><i class="fas fa-building"></i>&nbsp;<span id="page-title"></span></h3>
-                  </div>
                   <div class="card-body">
-                  aaa
+                    <div class="table-responsive">
+                      <table class="table" style="table-layout:fixed; width:100%;">
+                        <tbody>
+                          <tr>
+                            <th>顧客名</th>
+                            <th>アプローチルート</th>
+                            <th>競合先</th>
+                            <th>担当者</th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a th:href="@{/client/detail/{id}(id=${data.client?.id})}"
+                              th:text="${data.client?.name}"></a>
+                            </td>
+                            <td th:text="${data.approachRoot != null ? data.approachRoot?.name : ''}"></td>
+                            <td th:text="${data.competitor}"></td>
+                            <td>
+                              <span
+                                th:each="pe, stat : ${data.projectEmployee}"
+                                th:text="${stat.last ? pe.staff?.name : pe.staff?.name + '、'}"></span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="table-responsive mt-3">
+                      <table class="table" style="table-layout:fixed; width:100%;">
+                        <tbody>
+                          <tr>
+                            <th>受注（予定）日</th>
+                            <th>受注確度</th>
+                            <th>受注（予定）金額</th>
+                            <th>勝敗要因</th>
+                          </tr>
+                          <tr>
+                            <td th:text="${data.expectedOrderDate}"></td>
+                            <td>
+                              <span th:if="${data.orderProbability != null}" th:text="|${data.orderProbability}％|"></span>
+                            </td>
+                            <td>
+                              <span th:if="${data.estimatedOrderAmount != null}"
+                                th:text="|¥${#numbers.formatInteger(data.estimatedOrderAmount, 1, 'COMMA')}|"></span>
+                            </td>
+                            <td th:text="${data.factor != null ? data.factor?.name : ''}"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-	    </div>
-	    <!-- /.card-body -->
-	  </div>
-	  <!-- client edit modal -->
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- product edit modal -->
+      <th:block th:replace="project/edit::project-edit-modal"></th:block>
     </section>
   </div>
 </body>

@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
+import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
 import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
 import com.workbench.kato_system.admin.project.model.ApproachRoot;
@@ -99,6 +100,18 @@ public class ProjectService {
 			p.setDelFlg(true);
 			projectRepository.save(p);
 		}
+	}
+
+	public void changeProgress(ProjectChangeProgressForm form) {
+
+		Optional<Project> project = projectRepository.findById(form.getProjectId());
+
+		if (project.isPresent()) {
+			Project p = project.get();
+			p.setProgressId(form.getProgressId());
+			projectRepository.save(p);
+		}
+
 	}
 
 	public Page<Project> getSearchResult(Integer pageNum, ProjectSearchForm form) {

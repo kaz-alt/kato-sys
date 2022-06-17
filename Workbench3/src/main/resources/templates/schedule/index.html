@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>スケジュール管理</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">スケジュール管理</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fa fa-calendar-day"></i>&nbsp;スケジュール管理</h3>
+        </div>
+        <!-- /.card-header -->
+
+        <div id="ref" th:data-ref="@{/schedule/create}"></div>
+        <div class="card-body">
+          <div id="calendar"></div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </section>
+  </div>
+</body>
+</html>

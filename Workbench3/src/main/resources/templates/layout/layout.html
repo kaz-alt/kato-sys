@@ -32,6 +32,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <script th:src="@{/js/inquiryRequirementComplaint.js}"></script>
     <script th:src="@{/js/business_card.js}"></script>
     <script th:src="@{/js/project.js}"></script>
+    <script th:src="@{/js/schedule.js}"></script>
 
 	<!-- Datatables -->
     <link rel="stylesheet" th:href="@{/dist/datatables/css/dataTables.bootstrap4.min.css}">
@@ -52,8 +53,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <!-- Validation -->
     <script th:src="@{/dist/validation/jquery.validate.min.js}"></script>
 
-	<!-- AdminLTE App -->
-	<script th:src="@{/dist/adminlte/js/adminlte.min.js}"></script>
+    <!-- AdminLTE App -->
+    <script th:src="@{/dist/adminlte/js/adminlte.min.js}"></script>
+
+    <!-- FullCalendar -->
+    <link rel="stylesheet" th:href="@{/dist/fullcalendar/css/main.min.css}">
+    <script th:src="@{/dist/fullcalendar/js/main.min.js}"></script>
+    <script th:src="@{/dist/fullcalendar/js/ja.js}"></script>
 
   </head>
 <body class="hold-transition sidebar-mini">
@@ -251,7 +257,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 </a>
               </li>
               <li class="nav-item ml-2">
-                <a href="#" class="nav-link">
+                <a th:href="@{/schedule}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p> スケジュール管理</p>
                 </a>

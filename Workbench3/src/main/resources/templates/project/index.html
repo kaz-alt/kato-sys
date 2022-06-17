@@ -50,126 +50,126 @@
               <div class="col-sm-12 table-scroll">
                 <span class="text-danger" th:if="${hasErrors}">※検索フォームの項目にエラーがあります。</span>
                 <table id="project-table" class="table table-bordered table-striped dataTable text-nowrap" style="width:100%;">
-	              <thead>
-	                <tr class="text-center bg-warning" role="row"
-	                  th:with="sortOrder = ${projectSearchForm.sortOrder}, sortData = ${projectSearchForm.sortData}">
-	                  <th th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
-	                    詳細
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="clientId" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'clientId' ? 'active' : ''}"
-	                    th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
-	                    顧客名
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'clientId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'clientId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="name" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'name' ? 'active' : ''}">
-	                    案件名
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'name' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'name' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                    </th>
-	                  <th>担当者</th>
-	                  <th class="sort-pointer" data-sort-data="progressId" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'progressId' ? 'active' : ''}">
-	                    進捗
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'progressId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'progressId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="orderProbability" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'orderProbability' ? 'active' : ''}">
-	                    受注確度
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'orderProbability' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'orderProbability' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="estimatedOrderAmount" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'estimatedOrderAmount' ? 'active' : ''}">
-	                    受注（予定）金額
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'estimatedOrderAmount' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'estimatedOrderAmount' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="expectedOrderDate" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'expectedOrderDate' ? 'active' : ''}">
-	                    受注（予定）日
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'expectedOrderDate' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'expectedOrderDate' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="approachRootId" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'approachRootId' ? 'active' : ''}">
-	                    アプローチルート
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'approachRootId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'approachRootId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                    </th>
-	                  <th class="sort-pointer" data-sort-data="competitor" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'competitor' ? 'active' : ''}">
-	                    競合先
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'competitor' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'competitor' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th class="sort-pointer" data-sort-data="factorId" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'factorId' ? 'active' : ''}">
-	                    勝敗要因
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'factorId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'factorId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
-	                  </th>
-	                  <th style="width:10%;">編集</th>
-	                  <th style="width:10%;">削除</th>
-	                </tr>
-	              </thead>
-                  <tbody>
-	                <tr th:each="p, stat: ${projectList}">
-	                  <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}"
-	                    data-toggle="tooltip" data-placement="top" title="詳細ページへ">
-                        <a th:href="@{/project/detail/{id}(id=${p.id})}" class="w-100 h-100" style="display:block;">
-                          <i class="fas fa-external-link-alt fa-2x"></i>
-                        </a>
-	                  </td>
-	                  <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
-	                    <a th:unless="${p.client?.delFlg}" th:href="@{/client/detail/{id}(id=${p.client?.id})}"
-	                      th:text="${p.client?.name}"></a>
-	                    <div><span class="text-danger" th:text="${p.client?.name}" th:if="${p.client?.delFlg}"></span></div>
-	                    <div><span th:if="${p.client?.delFlg}" class="text-danger font-italic">※この顧客は既に削除されています</span></div>
-	                  </td>
-	                  <td th:text="${p.name}"></td>
-	                  <td>
-	                    <th:block th:each="pe : ${p.projectEmployee}">
-	                      <div><span th:text="${pe.staff?.name}"></span></div>
-	                    </th:block>
-	                  </td>
-	                  <td th:text="${p.progress?.name}"></td>
-	                  <td class="text-right">
-	                    <span th:if="${p.orderProbability != null}" th:text="|${p.orderProbability}％|"></span>
-	                  </td>
-	                  <td class="text-right">
-	                    <span th:if="${p.estimatedOrderAmount != null}"
-	                      th:text="|¥${#numbers.formatInteger(p.estimatedOrderAmount, 1, 'COMMA')}|"></span>
-	                  </td>
-	                  <td th:text="${p.expectedOrderDate}"></td>
-	                  <td th:text="${p.approachRoot != null ? p.approachRoot?.name : ''}"></td>
-	                  <td th:text="${p.competitor}"></td>
-	                  <td th:text="${p.factor != null ? p.factor?.name : ''}"></td>
-	                  <td class="text-center">
-	                    <button type="button" class="btn btn-info project-edit-button" id="project-edit-button"
-	                      th:attr="data-href=@{/project/show?id={id}(id=${p.id})}"
-	                      data-toggle="modal" data-target="#project-edit-modal">
-	                      <i class="far fa-edit"></i>
-	                    </button>
-	                  </td>
-	                  <td class="text-center">
-	                    <button type="button" class="btn btn-danger project-del-button"
-	                      th:attr="data-href=@{/project/delete}, data-id=${p.id}">
-	                      <i class="far fa-trash-alt"></i>
-	                    </button>
-	                  </td>
-	                </tr>
-	              </tbody>
-	            </table>
-	          </div>
-	        </div>
-	      </div>
-	      <div th:if="${not #lists.isEmpty(list)}">
-	        <th:block th:include="/layout/pagination::pagination"></th:block>
-	      </div>
-	    </div>
-	    <!-- /.card-body -->
-	  </div>
-	  <!-- search modal -->
-	  <th:block th:replace="project/search::project-search-modal"></th:block>
-	  <!-- create modal -->
-	  <th:block th:replace="project/create::project-create-modal"></th:block>
-	  <!-- edit modal -->
-	  <th:block th:replace="project/edit::project-edit-modal"></th:block>
+                  <thead>
+                    <tr class="text-center bg-warning" role="row"
+                      th:with="sortOrder = ${projectSearchForm.sortOrder}, sortData = ${projectSearchForm.sortData}">
+                      <th th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
+                        詳細
+                      </th>
+                      <th class="sort-pointer" data-sort-data="clientId" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'clientId' ? 'active' : ''}"
+                        th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
+                        顧客名
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'clientId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'clientId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="name" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'name' ? 'active' : ''}">
+                        案件名
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'name' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'name' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                        </th>
+                      <th>担当者</th>
+                      <th class="sort-pointer" data-sort-data="progressId" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'progressId' ? 'active' : ''}">
+                        進捗
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'progressId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'progressId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="orderProbability" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'orderProbability' ? 'active' : ''}">
+                        受注確度
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'orderProbability' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'orderProbability' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="estimatedOrderAmount" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'estimatedOrderAmount' ? 'active' : ''}">
+                        受注（予定）金額
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'estimatedOrderAmount' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'estimatedOrderAmount' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="expectedOrderDate" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'expectedOrderDate' ? 'active' : ''}">
+                        受注（予定）日
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'expectedOrderDate' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'expectedOrderDate' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="approachRootId" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'approachRootId' ? 'active' : ''}">
+                        アプローチルート
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'approachRootId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'approachRootId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                        </th>
+                      <th class="sort-pointer" data-sort-data="competitor" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'competitor' ? 'active' : ''}">
+                        競合先
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'competitor' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'competitor' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th class="sort-pointer" data-sort-data="factorId" th:data-sort-order="${sortOrder}"
+                        th:classappend="${sortData == 'factorId' ? 'active' : ''}">
+                        勝敗要因
+                        <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'factorId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'factorId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+                      </th>
+                      <th style="width:10%;">編集</th>
+                      <th style="width:10%;">削除</th>
+                    </tr>
+                  </thead>
+                    <tbody>
+                    <tr th:each="p, stat: ${projectList}">
+                      <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}"
+                        data-toggle="tooltip" data-placement="top" title="詳細ページへ">
+                          <a th:href="@{/project/detail/{id}(id=${p.id})}" class="w-100 h-100" style="display:block;">
+                            <i class="fas fa-external-link-alt fa-2x"></i>
+                          </a>
+                      </td>
+                      <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
+                        <a th:unless="${p.client?.delFlg}" th:href="@{/client/detail/{id}(id=${p.client?.id})}"
+                          th:text="${p.client?.name}"></a>
+                        <div><span class="text-danger" th:text="${p.client?.name}" th:if="${p.client?.delFlg}"></span></div>
+                        <div><span th:if="${p.client?.delFlg}" class="text-danger font-italic">※この顧客は既に削除されています</span></div>
+                      </td>
+                      <td th:text="${p.name}"></td>
+                      <td>
+                        <th:block th:each="pe : ${p.projectEmployee}">
+                          <div><span th:text="${pe.staff?.name}"></span></div>
+                        </th:block>
+                      </td>
+                      <td th:text="${p.progress?.name}"></td>
+                      <td class="text-right">
+                        <span th:if="${p.orderProbability != null}" th:text="|${p.orderProbability}％|"></span>
+                      </td>
+                      <td class="text-right">
+                        <span th:if="${p.estimatedOrderAmount != null}"
+                          th:text="|¥${#numbers.formatInteger(p.estimatedOrderAmount, 1, 'COMMA')}|"></span>
+                      </td>
+                      <td th:text="${p.expectedOrderDate}"></td>
+                      <td th:text="${p.approachRoot != null ? p.approachRoot?.name : ''}"></td>
+                      <td th:text="${p.competitor}"></td>
+                      <td th:text="${p.factor != null ? p.factor?.name : ''}"></td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-info project-edit-button" id="project-edit-button"
+                          th:attr="data-href=@{/project/show?id={id}(id=${p.id})}"
+                          data-toggle="modal" data-target="#project-edit-modal">
+                          <i class="far fa-edit"></i>
+                        </button>
+                      </td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-danger project-del-button"
+                          th:attr="data-href=@{/project/delete}, data-id=${p.id}">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div th:if="${not #lists.isEmpty(list)}">
+            <th:block th:include="/layout/pagination::pagination"></th:block>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- search modal -->
+      <th:block th:replace="project/search::project-search-modal"></th:block>
+      <!-- create modal -->
+      <th:block th:replace="project/create::project-create-modal"></th:block>
+      <!-- edit modal -->
+      <th:block th:replace="project/edit::project-edit-modal"></th:block>
     </section>
   </div>
 </body>
