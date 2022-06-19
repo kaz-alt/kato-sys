@@ -16,7 +16,8 @@ $(function(){
     selectable: true,
     select: function (info) {
       // 入力ダイアログ
-      const eventName = prompt("イベントを入力してください");
+      $('#schedule-create-modal').modal('show');
+      const eventName = $('#schedule-form').find('input[name="title"]').val();
       if (eventName) {
 
         let url = $('#ref').data('ref');
