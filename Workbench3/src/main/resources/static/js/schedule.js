@@ -1,6 +1,11 @@
 $(function(){
 	"user strict";
 
+  /**
+	 * 担当者名取得
+	 */
+  window.main.createEmployeeOptionWithId($('#schedule-form select[name="employeeIdList"]'));
+
 	const calendarEl = document.querySelector('#calendar');
   const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {

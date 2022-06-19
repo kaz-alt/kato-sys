@@ -30,23 +30,31 @@
                 <div class="row">
                   <div class="form-group col-md-8 col-sm-8">
                     <label for="industry">担当者&nbsp;<span class="text-danger">*必須</span>：</label>
-                    <select class="select2 form-control" multiple="multiple"
-                      th:data-href="@{/staff/api/get_employee}" th:data-url="@{/staff/api/get_employee_by_client_id}">
+                    <select class="select2 form-control" multiple="multiple" th:field="*{employeeIdList}"
+                      th:data-href="@{/staff/api/get_employee}">
+                      <option value=0>---担当者名を入力して下さい---</option>
                     </select>
-                    <span class="text-danger"></span>
+                    <span class="text-danger" th:if="${#fields.hasErrors('employeeIdList')}"th:errors="*{employeeIdList}"></span>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="form-group col-7">
+                  <div class="form-group col-6">
                     <label for="industry">開始時間&nbsp;<span class="text-danger">*必須</span>：</label>
-                    <input type="text" class="form-control datepicker" th:field="*{startTime}"
+                    <input type="text" class="form-control datetimepicker" th:field="*{startTime}"
                       placeholder="クリックして日時を入力">
                   </div>
+                  <span class="text-danger" th:if="${#fields.hasErrors('startTime')}"th:errors="*{startTime}"></span>
+                  <div class="form-group col-6">
+                    <label for="industry">終了時間&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control datetimepicker" th:field="*{endTime}"
+                      placeholder="クリックして日時を入力">
+                  </div>
+                  <span class="text-danger" th:if="${#fields.hasErrors('endTime')}"th:errors="*{endTime}"></span>
                 </div>
                 <div class="row">
                   <div class="form-group col-12">
                     <label for="industry">詳細</label>
-                    <textarea th:field="*{detail}"></textarea>
+                    <textarea  class="form-control" th:field="*{detail}"></textarea>
                   </div>
                 </div>
               </div>
