@@ -2,10 +2,12 @@ package com.workbench.kato_system.admin.schedule.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
 import com.workbench.kato_system.admin.schedule.model.Schedule;
 import com.workbench.kato_system.admin.schedule.model.ScheduleEmployee;
@@ -22,8 +24,13 @@ public class ScheduleService {
 	private final ScheduleRepository scheduleRepository;
 	private final StaffRepository staffRepository;
 
-	public List<Schedule> getAll() {
-		return scheduleRepository.findAll();
+	public List<ScheduleDto> getAll() {
+		return scheduleRepository.fetchDto();
+	}
+
+	public Schedule getOne(Integer id) {
+		Optional<Schedule> schedule = scheduleRepository.findById(id);
+		return schedule.orElse(null);
 	}
 
 	public void save(ScheduleForm form) {

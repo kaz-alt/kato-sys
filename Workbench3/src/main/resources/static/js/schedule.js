@@ -6,6 +6,15 @@ $(function(){
 	 */
   window.main.createEmployeeOptionWithId($('#schedule-form select[name="employeeIdList"]'));
 
+  function formatDate(dt, isEnd) {
+    var y = dt.getFullYear();
+    var m = ('00' + (dt.getMonth()+1)).slice(-2);
+    var d = ('00' + dt.getDate()).slice(-2);
+    var h = isEnd ? ('00' + (dt.getHours() + 1)).slice(-2) : ('00' + (dt.getHours())).slice(-2);
+    var mm = ('00' + (dt.getMinutes())).slice(-2);
+    return (y + '-' + m + '-' + d + ' ' + h + ':' + mm);
+  }
+
 	const calendarEl = document.querySelector('#calendar');
   const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
@@ -21,17 +30,17 @@ $(function(){
     selectable: true,
     select: function (info) {
       // 入力ダイアログ
+      const start = info.start;
+      let $form = $('#schedule-form');
+      $form.find('input[name="startTime"]').val(formatDate(start, false));
+      $form.find('input[name="endTime"]').val(formatDate(start, true));
       $('#schedule-create-modal').modal('show');
-      const eventName = $('#schedule-form').find('input[name="title"]').val();
+
+      const eventName = $form.find('input[name="title"]').val();
+
       if (eventName) {
 
         let url = $('#ref').data('ref');
-        let $form = $('<form/>')
-          .append($('<input/>', {type: 'hidden', name: 'startTime', value: '2022-06-17 23:20'}))
-          .append($('<input/>', {type: 'hidden', name: 'endTime', value: '2022-06-17 23:50'}))
-          .append($('<input/>', {type: 'hidden', name: 'title', value: eventName}))
-          .append($('<input/>', {type: 'hidden', name: '_csrf', value: $('meta[name="_csrf"]').attr('content')}))
-          .appendTo(document.body);
 
         $.ajax({
           type : "POST",
@@ -45,6 +54,36 @@ $(function(){
         })
       }
     },
+    events: function (info, successCallback, failureCallback){
+
+      let url = $('#ref').data('initial-ref');
+
+      $.ajax({
+        type : "GET",
+        url : url,
+      }).done(function(response){
+        calendar.removeAllEvents();
+        successCallback(response);
+      }).fail(function(){
+        alert("fail...");
+      })
+    },
+    eventClick: function (info) {
+      let id = info.event.id;
+      let url = $('#ref').data('detail-ref');
+
+      $.ajax({
+        type : "GET",
+        url : url,
+        data: {id: id},
+        dataType : "html"
+      }).done(function(data){
+        $('#schedule-edit-form').html(data);
+        $('#schedule-edit-modal').modal('show');
+      }).fail(function(){
+        alert("fail...");
+      })
+    }
   });
 
   calendar.render();
