@@ -2,8 +2,6 @@ package com.workbench.kato_system.admin.schedule.controller;
 
 import java.util.List;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,9 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
 import com.workbench.kato_system.admin.schedule.model.Schedule;
@@ -61,25 +58,18 @@ public class ScheduleController {
 	 * スケジュール登録
 	 */
 	@PostMapping(value = "/create")
-	public String create(@Validated ScheduleForm form, BindingResult result) {
+	public String create(@Validated ScheduleForm form, BindingResult result, RedirectAttributes attributes) {
 
-		String text = "NG";
+		return save(form, result, attributes);
+	}
 
-		if (result.hasErrors()) {
-			return text;
-		}
+  /**
+	 * スケジュール編集
+	 */
+	@PostMapping(value = "/edit")
+	public String edit(@Validated ScheduleForm form, BindingResult result, RedirectAttributes attributes) {
 
-		try {
-
-			scheduleService.save(form);
-
-		} catch (Exception e) {
-
-			text = "error occurred...";
-
-		}
-
-		return "redirect:/schedule";
+		return save(form, result, attributes);
 	}
 
   /**
@@ -95,5 +85,19 @@ public class ScheduleController {
 
 		return "schedule/edit :: schedule-edit";
 	}
+
+  private String save(ScheduleForm form, BindingResult result, RedirectAttributes attributes) {
+
+		if (result.hasErrors()) {
+
+      attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
+			attributes.addFlashAttribute("scheduleForm", form);
+			return "redirect:/schedule";
+		}
+
+		scheduleService.save(form);
+
+		return "redirect:/schedule";
+  }
 
 }

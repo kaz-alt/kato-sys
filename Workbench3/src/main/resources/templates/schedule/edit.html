@@ -41,13 +41,13 @@
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="industry">開始時間&nbsp;<span class="text-danger">*必須</span>：</label>
-                      <input type="text" class="form-control datetimepicker" th:value="${#temporals.format(data.startTime, 'yyyy-MM-dd HH:mm')}"
+                      <input type="text" class="form-control datetimepicker" name="startTime" th:value="${#temporals.format(data.startTime, 'yyyy-MM-dd HH:mm')}"
                         placeholder="クリックして日時を入力">
                     </div>
                     <span class="text-danger" th:if="${#fields.hasErrors('startTime')}"th:errors="*{startTime}"></span>
                     <div class="form-group col-6">
                       <label for="industry">終了時間&nbsp;<span class="text-danger">*必須</span>：</label>
-                      <input type="text" class="form-control datetimepicker" th:value="${#temporals.format(data.endTime, 'yyyy-MM-dd HH:mm')}"
+                      <input type="text" class="form-control datetimepicker" name="endTime" th:value="${#temporals.format(data.endTime, 'yyyy-MM-dd HH:mm')}"
                         placeholder="クリックして日時を入力">
                     </div>
                     <span class="text-danger" th:if="${#fields.hasErrors('endTime')}"th:errors="*{endTime}"></span>

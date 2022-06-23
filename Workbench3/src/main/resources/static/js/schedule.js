@@ -6,15 +6,6 @@ $(function(){
 	 */
   window.main.createEmployeeOptionWithId($('#schedule-form select[name="employeeIdList"]'));
 
-  function formatDate(dt, isEnd) {
-    var y = dt.getFullYear();
-    var m = ('00' + (dt.getMonth()+1)).slice(-2);
-    var d = ('00' + dt.getDate()).slice(-2);
-    var h = isEnd ? ('00' + (dt.getHours() + 1)).slice(-2) : ('00' + (dt.getHours())).slice(-2);
-    var mm = ('00' + (dt.getMinutes())).slice(-2);
-    return (y + '-' + m + '-' + d + ' ' + h + ':' + mm);
-  }
-
 	const calendarEl = document.querySelector('#calendar');
   const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
@@ -98,5 +89,22 @@ $(function(){
   });
 
   calendar.render();
+
+  $('#edit-schedule-button').click(function(){
+
+    let $form = $('#schedule-edit-modal').find('form');
+
+    $form.submit();
+
+	});
+
+  function formatDate(dt, isEnd) {
+    var y = dt.getFullYear();
+    var m = ('00' + (dt.getMonth()+1)).slice(-2);
+    var d = ('00' + dt.getDate()).slice(-2);
+    var h = isEnd ? ('00' + (dt.getHours() + 1)).slice(-2) : ('00' + (dt.getHours())).slice(-2);
+    var mm = ('00' + (dt.getMinutes())).slice(-2);
+    return (y + '-' + m + '-' + d + ' ' + h + ':' + mm);
+  }
 
 })
