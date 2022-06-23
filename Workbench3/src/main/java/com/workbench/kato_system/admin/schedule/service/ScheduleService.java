@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.schedule.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -42,19 +43,20 @@ public class ScheduleService {
 		schedule.setDetail(form.getDetail());
 		schedule = scheduleRepository.save(schedule);
 
-		Set<ScheduleEmployee> employeeSet = new HashSet<>();
+		List<ScheduleEmployee> employeeList = new ArrayList<>();
 
 		List<Staff> staffList = staffRepository.findByIdIn(form.getEmployeeIdList());
 
 		for (Staff staff : staffList) {
 
 			ScheduleEmployee se = new ScheduleEmployee();
-			se.setEmployeeId(staff.getId());
+			se.setStaffId(staff.getId());
 			se.setScheduleId(schedule.getId());
-			employeeSet.add(se);
+			se.setStaff(staff);
+			employeeList.add(se);
 		}
 
-		schedule.setScheduleEmployee(employeeSet);
+		schedule.setScheduleEmployee(employeeList);
 
 		scheduleRepository.save(schedule);
 	}

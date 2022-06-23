@@ -79,6 +79,17 @@ $(function(){
         dataType : "html"
       }).done(function(data){
         $('#schedule-edit-form').html(data);
+        $('#schedule-edit-form .select2').select2({
+          placeholder: "※ 入力または選択（複数）が可能です。",
+          allowClear: false,
+          language: "ja"
+        });
+        window.main.createEmployeeOptionWithId($('#schedule-edit-form select[name="employeeIdList"]'));
+        $('.datetimepicker').datetimepicker({
+          format: 'Y-m-d H:i',
+          minDate: 0,
+          step:15,
+        });
         $('#schedule-edit-modal').modal('show');
       }).fail(function(){
         alert("fail...");

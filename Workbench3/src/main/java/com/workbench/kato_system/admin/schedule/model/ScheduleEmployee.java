@@ -2,11 +2,9 @@ package com.workbench.kato_system.admin.schedule.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,13 +31,13 @@ import lombok.Data;
 @Data
 public class ScheduleEmployee implements Serializable {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "schedule_id", insertable = false, updatable = false)
 	private Schedule schedule;
 
 	/* 担当者 */
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	@ManyToOne
+	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
 	private Staff staff;
 
 	@Id
@@ -52,7 +50,7 @@ public class ScheduleEmployee implements Serializable {
 	private Integer scheduleId;
 
 	/* 終了時間 */
-	@Column(name = "employee_id")
-	private Integer employeeId;
+	@Column(name = "staff_id")
+	private Integer staffId;
 
 }

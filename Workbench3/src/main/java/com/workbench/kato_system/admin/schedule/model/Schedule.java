@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.schedule.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -38,7 +39,7 @@ public class Schedule implements Serializable {
 
 	/* 担当者 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy ="schedule", cascade = CascadeType.ALL)
-	private Set<ScheduleEmployee> scheduleEmployee;
+	private List<ScheduleEmployee> scheduleEmployee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
