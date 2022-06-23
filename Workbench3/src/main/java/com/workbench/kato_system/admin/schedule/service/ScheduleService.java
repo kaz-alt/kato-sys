@@ -47,6 +47,8 @@ public class ScheduleService {
 		schedule.setEndTime(form.getEndTime());
 		schedule.setTitle(form.getTitle());
 		schedule.setDetail(form.getDetail());
+		schedule.setPlace(form.getPlace());
+		schedule.setIsAllDay(form.getIsAllDay());
 		schedule = scheduleRepository.save(schedule);
 
 		List<ScheduleEmployee> employeeList = new ArrayList<>();

@@ -62,6 +62,14 @@ public class Schedule implements Serializable {
 	@Column(name = "detail")
 	private String detail;
 
+	/* 場所 */
+	@Column(name = "place")
+	private String place;
+
+	/* 終日フラグ */
+	@Column(name = "is_all_day")
+	private Boolean isAllDay;
+
 	/* 作成者 */
 	@Column(name = "created_by")
 	@CreatedBy

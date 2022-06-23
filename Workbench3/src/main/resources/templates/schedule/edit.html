@@ -38,6 +38,14 @@
                       </select>
                     </div>
                   </div>
+                  <div class="input-group mb-3 mt-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input type="checkbox" id="isAllDay" th:field="*{isAllDay}" style="transform:scale(1.5);">
+                      </div>
+                    </div>
+                    <label class="form-control" for="isAllDay">終日</label>
+                  </div>
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="industry">開始時間&nbsp;<span class="text-danger">*必須</span>：</label>
@@ -54,7 +62,13 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="industry">詳細</label>
+                      <label for="industry">場所：</label>
+                      <input type="text" class="form-control" th:field="*{place}">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label for="industry">詳細：</label>
                       <textarea  class="form-control" th:field="*{detail}"></textarea>
                     </div>
                   </div>
