@@ -29,4 +29,7 @@ public class ScheduleDto {
   @JsonProperty("description")
 	private String detail;
 
+  @JsonProperty("allDay")
+	private Boolean allDay;
+
 }

@@ -27,6 +27,8 @@ $(function(){
       $form.find('input[name="endTime"]').val(formatDate(start, true));
       $('#schedule-create-modal').modal('show');
 
+      setAllDay($form, start);
+
       const eventName = $form.find('input[name="title"]').val();
 
       if (eventName) {
@@ -53,7 +55,6 @@ $(function(){
         type : "GET",
         url : url,
       }).done(function(response){
-        calendar.removeAllEvents();
         successCallback(response);
       }).fail(function(){
         alert("fail...");
@@ -61,6 +62,7 @@ $(function(){
     },
     eventClick: function (info) {
       let id = info.event.id;
+      let start = info.event.start;
       let url = $('#ref').data('detail-ref');
 
       $.ajax({
@@ -82,6 +84,19 @@ $(function(){
           step:15,
         });
         $('#schedule-edit-modal').modal('show');
+        $('#schedule-edit-form input[name="isAllDay"], #schedule-edit-form .all-day-label').on('click', function(e) {
+          let isChecked = $('#schedule-edit-form input[name="isAllDay"]').prop('checked');
+
+          if (isChecked) {
+            $('#schedule-edit-form input[name="isAllDay"]').prop('checked', false);
+            $('#schedule-edit-form input[name="startTime"]').val(formatDate(start, false));
+            $('#schedule-edit-form input[name="endTime"]').val(formatDate(start, true));
+            $('#schedule-edit-form .time-body').slideToggle();
+          } else {
+            $('#schedule-edit-form input[name="isAllDay"]').prop('checked', true);
+            $('#schedule-edit-form .time-body').slideToggle();
+          }
+        })
       }).fail(function(){
         alert("fail...");
       })
@@ -105,6 +120,21 @@ $(function(){
     var h = isEnd ? ('00' + (dt.getHours() + 1)).slice(-2) : ('00' + (dt.getHours())).slice(-2);
     var mm = ('00' + (dt.getMinutes())).slice(-2);
     return (y + '-' + m + '-' + d + ' ' + h + ':' + mm);
+  }
+
+  function setAllDay($form, start) {
+    $form.find('input[name="isAllDay"]').on('click', function(e) {
+      let isChecked = $form.find('input[name="isAllDay"]').prop('checked');
+
+      if (isChecked) {
+        $form.find('input[name="startTime"]').val(formatDate(start, false));
+        $form.find('input[name="endTime"]').val(formatDate(start, true));
+
+        $form.find('.time-body').slideToggle();
+      } else {
+        $form.find('.time-body').slideToggle();
+      }
+    })
   }
 
 })

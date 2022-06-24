@@ -38,15 +38,15 @@
                       </select>
                     </div>
                   </div>
-                  <div class="input-group mb-3 mt-4">
+                  <div class="input-group mb-3 mt-3">
                     <div class="input-group-prepend">
                       <div class="input-group-text">
                         <input type="checkbox" id="isAllDay" th:field="*{isAllDay}" style="transform:scale(1.5);">
                       </div>
                     </div>
-                    <label class="form-control" for="isAllDay">終日</label>
+                    <label class="form-control all-day-label" for="isAllDay">終日</label>
                   </div>
-                  <div class="row">
+                  <div class="row time-body" th:style="*{isAllDay ? 'display:none' : ''}">
                     <div class="form-group col-6">
                       <label for="industry">開始時間&nbsp;<span class="text-danger">*必須</span>：</label>
                       <input type="text" class="form-control datetimepicker" name="startTime" th:value="${#temporals.format(data.startTime, 'yyyy-MM-dd HH:mm')}"
