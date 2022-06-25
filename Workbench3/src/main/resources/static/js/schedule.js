@@ -70,31 +70,10 @@ $(function(){
         data: {id: id},
         dataType : "html"
       }).done(function(data){
-        $('#schedule-edit-form').html(data);
-        $('#schedule-edit-form .select2').select2({
-          placeholder: "※ 入力または選択（複数）が可能です。",
-          allowClear: false,
-          language: "ja"
-        });
-        window.main.createEmployeeOptionWithId($('#schedule-edit-form select[name="employeeIdList"]'));
-        $('.datetimepicker').datetimepicker({
-          format: 'Y-m-d H:i',
-          minDate: 0,
-          step:15,
-        });
-        $('#schedule-edit-modal').modal('show');
-        $('#schedule-edit-form input[name="isAllDay"], #schedule-edit-form .all-day-label').on('click', function(e) {
-          let isChecked = $('#schedule-edit-form input[name="isAllDay"]').prop('checked');
-
-          if (isChecked) {
-            $('#schedule-edit-form input[name="isAllDay"]').prop('checked', false);
-            $('#schedule-edit-form input[name="startTime"]').val(formatDate(start, false));
-            $('#schedule-edit-form input[name="endTime"]').val(formatDate(start, true));
-            $('#schedule-edit-form .time-body').slideToggle();
-          } else {
-            $('#schedule-edit-form input[name="isAllDay"]').prop('checked', true);
-            $('#schedule-edit-form .time-body').slideToggle();
-          }
+        $('#schedule-detail-body').html(data);
+        $('#schedule-detail-modal').modal('show');
+        $('#detail-edit-button').on('click', function() {
+          fetchEditDetail(id, start)
         })
       }).fail(function(){
         alert("fail...");
@@ -105,6 +84,46 @@ $(function(){
   calendar.render();
 
   setAllDay();
+
+  function fetchEditDetail(id, start) {
+    let url = $('#ref').data('detail-edit-ref');
+
+    $.ajax({
+      type : "GET",
+      url : url,
+      data: {id: id},
+      dataType : "html"
+    }).done(function(data){
+      $('#schedule-edit-form').html(data);
+      $('#schedule-edit-form .select2').select2({
+        placeholder: "※ 入力または選択（複数）が可能です。",
+        allowClear: false,
+        language: "ja"
+      });
+      window.main.createEmployeeOptionWithId($('#schedule-edit-form select[name="employeeIdList"]'));
+      $('.datetimepicker').datetimepicker({
+        format: 'Y-m-d H:i',
+        minDate: 0,
+        step:15,
+      });
+      $('#schedule-edit-modal').modal('show');
+      $('#schedule-edit-form input[name="isAllDay"], #schedule-edit-form .all-day-label').on('click', function(e) {
+        let isChecked = $('#schedule-edit-form input[name="isAllDay"]').prop('checked');
+
+        if (isChecked) {
+          $('#schedule-edit-form input[name="isAllDay"]').prop('checked', false);
+          $('#schedule-edit-form input[name="startTime"]').val(formatDate(start, false));
+          $('#schedule-edit-form input[name="endTime"]').val(formatDate(start, true));
+          $('#schedule-edit-form .time-body').slideToggle();
+        } else {
+          $('#schedule-edit-form input[name="isAllDay"]').prop('checked', true);
+          $('#schedule-edit-form .time-body').slideToggle();
+        }
+      })
+    }).fail(function(){
+      alert("fail...");
+    })
+  };
 
   $('#edit-schedule-button').click(function(){
 

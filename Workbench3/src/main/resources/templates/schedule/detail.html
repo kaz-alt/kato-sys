@@ -16,7 +16,7 @@
               </button>
             </div>
             <div class="modal-body" th:fragment="schedule-detail">
-              <div>
+              <div id="schedule-detail-body">
                 <th:block th:object="${data}" th:if="${data != null}">
                   <input type="hidden" name="id" th:value=${data.id}>
                   <div class="card">
@@ -61,7 +61,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
               <button type="button" class="btn btn-danger" id="delete-schedule-button">削除</button>
-              <button type="button" class="btn btn-info" id="edit-schedule-button">編集</button>
+              <button type="button" class="btn btn-info" id="detail-edit-button">編集</button>
             </div>
           </div>
         </div>

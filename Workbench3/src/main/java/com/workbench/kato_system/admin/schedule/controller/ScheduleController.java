@@ -86,6 +86,20 @@ public class ScheduleController {
 		return "schedule/detail :: schedule-detail";
 	}
 
+  /**
+	 * 編集モーダル用
+	 * fragmentを利用してHTMLを返す
+	 */
+	@GetMapping(value = "/detail_edit")
+	public String detailEdit(Model model, @RequestParam("id") Integer id) {
+
+		Schedule data = scheduleService.getOne(id);
+
+		model.addAttribute("data", data);
+
+		return "schedule/edit :: schedule-edit";
+	}
+
   private String save(ScheduleForm form, BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
