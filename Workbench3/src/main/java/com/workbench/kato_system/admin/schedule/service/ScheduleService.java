@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.schedule.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +26,8 @@ public class ScheduleService {
 	private final ScheduleEmployeeRepository scheduleEmployeeRepository;
 	private final StaffRepository staffRepository;
 
-	public List<ScheduleDto> getAll() {
-		return scheduleRepository.fetchDto();
+	public List<ScheduleDto> getSchedules(LocalDateTime start, LocalDateTime end) {
+		return scheduleRepository.fetchDto(start, end);
 	}
 
 	public Schedule getOne(Integer id) {

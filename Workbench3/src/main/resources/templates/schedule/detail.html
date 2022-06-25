@@ -26,8 +26,8 @@
                         <table class="table" style="table-layout:fixed; width:100%;">
                           <tbody>
                             <tr>
-                              <th class="w-25"><i class="fa fa-user"></i>&nbsp;担当者：</th>
-                              <td class="w-75">
+                              <th><i class="fa fa-user"></i>&nbsp;担当者：</th>
+                              <td>
                                 <span th:each="se, stat: ${data.scheduleEmployee}"
                                   th:text="${stat.last ? se.staff?.name : se.staff?.name + '、'}"></span>
                               </td>

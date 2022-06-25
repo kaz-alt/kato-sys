@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.schedule.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
+import com.workbench.kato_system.admin.schedule.form.ScheduleShowForm;
 import com.workbench.kato_system.admin.schedule.model.Schedule;
 import com.workbench.kato_system.admin.schedule.service.ScheduleService;
 
@@ -47,9 +49,9 @@ public class ScheduleController {
 	 */
   @ResponseBody
 	@GetMapping("/show")
-	public List<ScheduleDto> show() {
+	public List<ScheduleDto> show(ScheduleShowForm form) {
 
-		List<ScheduleDto> dtoList = scheduleService.getAll();
+		List<ScheduleDto> dtoList = scheduleService.getSchedules(form.getStart(), form.getEnd());
 
 		return dtoList;
 	}

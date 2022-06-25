@@ -49,10 +49,13 @@ $(function(){
     events: function (info, successCallback, failureCallback){
 
       let url = $('#ref').data('initial-ref');
+      let start = formatDate(info.start, false);
+      let end = formatDate(info.end, false);
 
       $.ajax({
         type : "GET",
         url : url,
+        data : {start : start, end : end}
       }).done(function(response){
         successCallback(response);
       }).fail(function(){
