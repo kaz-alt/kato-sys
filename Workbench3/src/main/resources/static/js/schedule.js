@@ -17,11 +17,14 @@ $(function(){
     businessHours: true,
     editable: true,
     locale: 'ja',
+    // contentHeight: 'auto',
+    nowIndicator: true,
+    dayMaxEvents: true,
     // 日付をクリック、または範囲を選択したイベント
     selectable: true,
     select: function (info) {
       // 入力ダイアログ
-      const start = info.start;
+      let start = info.start;
       const allDay = info.allDay;
       let $form = $('#schedule-form');
       $form.find('input[name="startTime"]').val(formatDate(start, false));
@@ -35,25 +38,13 @@ $(function(){
       }
       $('#schedule-create-modal').modal('show');
 
-      setAllDay($form, start);
-
-      const eventName = $form.find('input[name="title"]').val();
-
-      if (eventName) {
-
-        let url = $('#ref').data('ref');
-
-        $.ajax({
-          type : "POST",
-          url : url,
-          data: $form.serialize(),
-        }).done(function(){
-          alert('success!');
-          location.reload();
-        }).fail(function(){
-          alert("fail...");
-        })
-      }
+      $(document).on('click', '#schedule-form input[name="isAllDay"]', function (e) {
+        let isAllDay = $(this).prop('checked');
+        if (isAllDay) {
+          $('#schedule-form input[name="startTime"]').val(formatDate(start, false));
+          $('#schedule-form input[name="endTime"]').val(formatDate(start, true));
+        }
+      })
     },
     events: function (info, successCallback, failureCallback){
 
@@ -113,6 +104,8 @@ $(function(){
 
   calendar.render();
 
+  setAllDay();
+
   $('#edit-schedule-button').click(function(){
 
     let $form = $('#schedule-edit-modal').find('form');
@@ -130,18 +123,9 @@ $(function(){
     return (y + '-' + m + '-' + d + ' ' + h + ':' + mm);
   }
 
-  function setAllDay($form, start) {
-    $form.find('input[name="isAllDay"]').on('click', function(e) {
-      let isChecked = $form.find('input[name="isAllDay"]').prop('checked');
-
-      if (isChecked) {
-        $form.find('input[name="startTime"]').val(formatDate(start, false));
-        $form.find('input[name="endTime"]').val(formatDate(start, true));
-
-        $form.find('.time-body').slideToggle();
-      } else {
-        $form.find('.time-body').slideToggle();
-      }
+  function setAllDay() {
+    $(document).on('click', '#schedule-form input[name="isAllDay"]', function(e) {
+      $('#schedule-form .time-body').slideToggle();
     })
   }
 
