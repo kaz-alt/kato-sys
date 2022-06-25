@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="schedule-detail-modal">
+    <section class="content">
+      <!-- Detail Modal -->
+      <div class="modal fade" id="schedule-detail-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;スケジュール詳細</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" th:fragment="schedule-detail">
+              <div>
+                <th:block th:object="${data}" th:if="${data != null}">
+                  <input type="hidden" name="id" th:value=${data.id}>
+                  <div class="card">
+                    <div class="card-header bg-primary"><h4 th:text="*{title}"></h4></div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table" style="table-layout:fixed; width:100%;">
+                          <tbody>
+                            <tr>
+                              <th class="w-25"><i class="fa fa-user"></i>&nbsp;担当者：</th>
+                              <td class="w-75">
+                                <span th:each="se, stat: ${data.scheduleEmployee}"
+                                  th:text="${stat.last ? se.staff?.name : se.staff?.name + '、'}"></span>
+                              </td>
+                            </tr>
+                            <tr class="text-success" th:if="*{isAllDay}">
+                              <th><i class="fa fa-clock"></i>&nbsp;終日</th>
+                              <td th:text="*{isAllDay ? '◯' : ''}"></td>
+                            </tr>
+                            <tr class="text-danger" th:unless="*{isAllDay}">
+                              <th><i class="fa fa-clock"></i>&nbsp;開始時間：</th>
+                              <td th:text="${#temporals.format(data.startTime, 'MM/dd HH:mm')}"></td>
+                            </tr>
+                            <tr class="text-primary" th:unless="*{isAllDay}">
+                              <th><i class="fa fa-clock"></i>&nbsp;終了時間：</th>
+                              <td th:text="${#temporals.format(data.endTime, 'MM/dd HH:mm')}"></td>
+                            </tr>
+                            <tr>
+                              <th><i class="fa fa-map-pin"></i>&nbsp;場所：</th>
+                              <td th:text="*{place}"></td>
+                            </tr>
+                            <th><i class="fa fa-info"></i>&nbsp;詳細：</th>
+                            <td th:text="*{detail}"></td>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </th:block>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">閉じる</button>
+              <button type="button" class="btn btn-danger" id="delete-schedule-button">削除</button>
+              <button type="button" class="btn btn-info" id="edit-schedule-button">編集</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

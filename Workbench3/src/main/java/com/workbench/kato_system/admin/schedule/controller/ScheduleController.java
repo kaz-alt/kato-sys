@@ -83,7 +83,7 @@ public class ScheduleController {
 
 		model.addAttribute("data", data);
 
-		return "schedule/edit :: schedule-edit";
+		return "schedule/detail :: schedule-detail";
 	}
 
   private String save(ScheduleForm form, BindingResult result, RedirectAttributes attributes) {
