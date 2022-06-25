@@ -85,6 +85,25 @@ $(function(){
 
   setAllDay();
 
+  $('#schedule-delete-button').click(function(){
+
+    let id = $('input[name="id"]').val();
+    let url = $(this).data('href');
+
+		let _csrf = $('meta[name="_csrf"]').attr('content');
+
+		let confirm = window.confirm('スケジュールを削除します。よろしいですか？');
+
+		if(confirm){
+
+			let $form = $('<form/>', {action: url, method: 'post'})
+        .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
+        .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
+        .appendTo(document.body);
+      $form.submit();
+		}
+	})
+
   function fetchEditDetail(id, start) {
     let url = $('#ref').data('detail-edit-ref');
 

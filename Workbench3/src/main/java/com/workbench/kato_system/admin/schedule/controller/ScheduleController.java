@@ -73,15 +73,25 @@ public class ScheduleController {
 	}
 
   /**
-	 * 編集モーダル用
+	 * 削除
+	 */
+	@PostMapping(value = "/delete")
+	public String delete(@RequestParam("id") Integer id) {
+
+		scheduleService.delete(id);
+
+		return "redirect:/schedule";
+
+	}
+
+  /**
+	 * 詳細表示用
 	 * fragmentを利用してHTMLを返す
 	 */
 	@GetMapping(value = "/detail")
 	public String detail(Model model, @RequestParam("id") Integer id) {
 
-		Schedule data = scheduleService.getOne(id);
-
-		model.addAttribute("data", data);
+    setUpDetail(id, model);
 
 		return "schedule/detail :: schedule-detail";
 	}
@@ -93,9 +103,7 @@ public class ScheduleController {
 	@GetMapping(value = "/detail_edit")
 	public String detailEdit(Model model, @RequestParam("id") Integer id) {
 
-		Schedule data = scheduleService.getOne(id);
-
-		model.addAttribute("data", data);
+    setUpDetail(id, model);
 
 		return "schedule/edit :: schedule-edit";
 	}
@@ -112,6 +120,13 @@ public class ScheduleController {
 		scheduleService.save(form);
 
 		return "redirect:/schedule";
+  }
+
+  private void setUpDetail(Integer id, Model model) {
+
+    Schedule data = scheduleService.getOne(id);
+
+		model.addAttribute("data", data);
   }
 
 }

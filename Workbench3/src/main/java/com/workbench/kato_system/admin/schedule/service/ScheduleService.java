@@ -68,4 +68,14 @@ public class ScheduleService {
 
 		scheduleRepository.save(schedule);
 	}
+
+	public void delete(Integer id) {
+
+		Optional<Schedule> schedule = scheduleRepository.findById(id);
+
+		if (schedule.isPresent()) {
+			Schedule s = schedule.get();
+			scheduleRepository.delete(s);
+		}
+	}
 }
