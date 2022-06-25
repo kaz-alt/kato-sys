@@ -36,6 +36,7 @@ $(function(){
         $form.find('input[name="isAllDay"]').prop('checked', false);
         $form.find('.time-body').show();
       }
+      $('label.error').empty();
       $('#schedule-create-modal').modal('show');
 
       $(document).on('click', '#schedule-form input[name="isAllDay"]', function (e) {
@@ -61,6 +62,20 @@ $(function(){
       }).fail(function(){
         alert("fail...");
       })
+    },
+    eventDrop: function(info) {
+
+      let confirm = window.confirm('スケジュールを変更します。よろしいですか？');
+
+      if(confirm) {
+        let url = $('#ref').data('edit-ref');
+        let $form = $('<form/>', {action: url, method: 'post'})
+        .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
+        .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
+        .appendTo(document.body);
+      $form.submit();
+      }
+
     },
     eventClick: function (info) {
       let id = info.event.id;
@@ -172,13 +187,17 @@ $(function(){
 
   $.extend($.validator.messages, {
     required: '*入力必須です',
-    datetime: "*正しい日時形式で入力してください"
+    datetime: "*正しい日時形式で入力してください",
+    greaterThan: "*開始時間よりも未来の時間にしてください"
   });
 
 	//追加ルールの定義
   let methods = {
     dateTimeFormat: function(value, element){
       return this.optional(element) || /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(value);
+    },
+    greaterThan: function(value, element){
+      return $('input[name="startTime"]').val() < value;
     }
   };
 
@@ -192,7 +211,7 @@ $(function(){
     title: {required: true},
     employeeIdList: {required: true},
     startTime: {required: true, dateTimeFormat: true},
-    endTime: {required: true, dateTimeFormat: true},
+    endTime: {required: true, dateTimeFormat: true, greaterThan: true},
   };
 
   //入力項目ごとのエラーメッセージ定義
