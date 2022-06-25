@@ -33,13 +33,22 @@
         </div>
         <!-- /.card-header -->
 
-        <div id="ref" th:data-ref="@{/schedule/create}"></div>
+        <div id="ref" th:data-initial-ref="@{/schedule/show}"
+          th:data-detail-ref="@{/schedule/detail}" th:data-ref="@{/schedule/create}"
+          th:data-detail-edit-ref="@{/schedule/detail_edit}" th:data-edit-ref="@{/schedule/edit}"></div>
         <div class="card-body">
           <div id="calendar"></div>
         </div>
         <!-- /.card-body -->
       </div>
+      <!-- create modal -->
+      <th:block th:replace="schedule/create::schedule-create-modal"></th:block>
+      <!-- detail modal -->
+      <th:block th:replace="schedule/detail::schedule-detail-modal"></th:block>
+      <!-- edit modal -->
+      <th:block th:replace="schedule/edit::schedule-edit-modal"></th:block>
     </section>
+    <script th:src="@{/js/schedule.js}"></script>
   </div>
 </body>
 </html>

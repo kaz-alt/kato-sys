@@ -1,6 +1,8 @@
 package com.workbench.kato_system.admin.schedule.form;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -17,16 +19,22 @@ public class ScheduleForm {
 
 	private Integer id;
 
-	private Integer staffId;
+	private List<Integer> employeeIdList = new ArrayList<>();
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@NotNull(message = REQUIRED_MESSAGE)
 	private LocalDateTime startTime;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@NotNull(message = REQUIRED_MESSAGE)
 	private LocalDateTime endTime;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
 	private String title;
 
 	private String detail;
+
+	private String place;
+
+	private Boolean isAllDay;
 }

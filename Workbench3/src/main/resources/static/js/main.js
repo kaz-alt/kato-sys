@@ -7,7 +7,7 @@ $(function(){
         ordering: false,
         info: false,
         language: getLanguageForDataTable()
-	} );
+  } );
 
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -70,26 +70,26 @@ $(".table-scroll").mousedragscrollable();
 		language: "ja",
 		placeholder: "例）〇〇株式会社",
 		ajax: {
-          url: $select.data('href'),
-          data: function(params) {
-	        let data = {};
-            data.name = params.term;
-            term = params.term;
-           return data;
-           },
-          processResults: function(data) {
-			let path = location.pathname;
-	        if (data.length) {
-			  let resultList = [];
-	          for (let i in data) {
-		        let map = {};
-		        map.id = data[i];
-                map.text = data[i];
-                resultList.push(map);
-	          }
-	          return {
-                results: resultList
-              };
+      url: $select.data('href'),
+      data: function(params) {
+      let data = {};
+        data.name = params.term;
+        term = params.term;
+        return data;
+        },
+        processResults: function(data) {
+    let path = location.pathname;
+        if (data.length) {
+      let resultList = [];
+          for (let i in data) {
+          let map = {};
+          map.id = data[i];
+              map.text = data[i];
+              resultList.push(map);
+          }
+          return {
+              results: resultList
+            };
 			} else {
 				if (path.indexOf('/business_card') >= 0) {
 					return {
@@ -192,6 +192,11 @@ $(".table-scroll").mousedragscrollable();
 
   $('.datepicker').datepicker(datepicker()).datepicker('setDate', new Date());
   $('.datepicker-search').datepicker(datepicker());
+  $('.datetimepicker').datetimepicker({
+    format: 'Y-m-d H:i',
+    minDate: 0,
+    step:15,
+  });
 
   function setPagenationForSearch($form, path) {
 	if(path.indexOf('/search') > 0){

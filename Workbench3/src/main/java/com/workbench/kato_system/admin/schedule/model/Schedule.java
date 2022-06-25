@@ -2,13 +2,18 @@ package com.workbench.kato_system.admin.schedule.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -32,14 +37,14 @@ import lombok.Data;
 @Data
 public class Schedule implements Serializable {
 
+	/* 担当者 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy ="schedule", cascade = CascadeType.ALL)
+	private List<ScheduleEmployee> scheduleEmployee;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-
-	/* 社員ID */
-	@Column(name = "staff_id")
-	private Integer staffId;
 
 	/* 開始時間 */
 	@Column(name = "start_time")
@@ -56,6 +61,14 @@ public class Schedule implements Serializable {
 	/* 詳細 */
 	@Column(name = "detail")
 	private String detail;
+
+	/* 場所 */
+	@Column(name = "place")
+	private String place;
+
+	/* 終日フラグ */
+	@Column(name = "is_all_day")
+	private Boolean isAllDay;
 
 	/* 作成者 */
 	@Column(name = "created_by")
