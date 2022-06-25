@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,9 +23,11 @@ public class ScheduleForm {
 	private List<Integer> employeeIdList = new ArrayList<>();
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@NotNull(message = REQUIRED_MESSAGE)
 	private LocalDateTime startTime;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+	@NotNull(message = REQUIRED_MESSAGE)
 	private LocalDateTime endTime;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)

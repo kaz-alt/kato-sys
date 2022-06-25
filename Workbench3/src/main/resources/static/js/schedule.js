@@ -22,9 +22,17 @@ $(function(){
     select: function (info) {
       // 入力ダイアログ
       const start = info.start;
+      const allDay = info.allDay;
       let $form = $('#schedule-form');
       $form.find('input[name="startTime"]').val(formatDate(start, false));
       $form.find('input[name="endTime"]').val(formatDate(start, true));
+      if (allDay) {
+        $form.find('input[name="isAllDay"]').prop('checked', true);
+        $form.find('.time-body').hide();
+      } else {
+        $form.find('input[name="isAllDay"]').prop('checked', false);
+        $form.find('.time-body').show();
+      }
       $('#schedule-create-modal').modal('show');
 
       setAllDay($form, start);
@@ -136,5 +144,74 @@ $(function(){
       }
     })
   }
+
+  $.extend($.validator.messages, {
+    required: '*入力必須です',
+    datetime: "*正しい日時形式で入力してください"
+  });
+
+	//追加ルールの定義
+  let methods = {
+    dateTimeFormat: function(value, element){
+      return this.optional(element) || /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/.test(value);
+    }
+  };
+
+	//メソッドの追加
+  $.each(methods, function(key) {
+    $.validator.addMethod(key, this);
+  });
+
+  	//入力項目の検証ルール定義
+  let rules = {
+    title: {required: true},
+    employeeIdList: {required: true},
+    startTime: {required: true, dateTimeFormat: true},
+    endTime: {required: true, dateTimeFormat: true},
+  };
+
+  //入力項目ごとのエラーメッセージ定義
+  let messages = {
+    projetitlectName: {
+      required: "*タイトルを入力してください"
+    },
+    employeeIdList: {
+      required: "*担当者を入力してください",
+    },
+    startTime: {
+      required: "*開始時刻を入力してください",
+      dateTimeFormat: "*正しい日時形式で入力してください"
+    },
+    endTime: {
+      required: "*終了時刻を入力してください",
+      dateTimeFormat: "*正しい日時形式で入力してください"
+    },
+  };
+
+validate($("#schedule-form"));
+
+validate($("#schedule-edit-form"));
+
+function validate($form){
+
+  $form.validate({
+    rules: rules,
+    messages: messages,
+
+    //エラーメッセージ出力箇所調整
+    errorPlacement: function(error, element){
+      error.addClass('text-danger');
+      if (element.is('select')) {
+        error.appendTo(element.parent());
+      }else {
+        if(element.hasClass('group')){
+          error.appendTo(element.parent().parent());
+        } else {
+        error.insertAfter(element);
+        }
+      }
+    }
+  });
+}
 
 })
