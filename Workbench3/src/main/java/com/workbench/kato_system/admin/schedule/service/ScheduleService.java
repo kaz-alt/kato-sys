@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
@@ -52,22 +53,25 @@ public class ScheduleService {
 		schedule.setIsAllDay(form.getIsAllDay());
 		schedule = scheduleRepository.save(schedule);
 
-		List<ScheduleEmployee> employeeList = new ArrayList<>();
+    if (!CollectionUtils.isEmpty(form.getEmployeeIdList())) {
 
-		List<Staff> staffList = staffRepository.findByIdIn(form.getEmployeeIdList());
+      List<ScheduleEmployee> employeeList = new ArrayList<>();
 
-		for (Staff staff : staffList) {
+      List<Staff> staffList = staffRepository.findByIdIn(form.getEmployeeIdList());
 
-			ScheduleEmployee se = new ScheduleEmployee();
-			se.setStaffId(staff.getId());
-			se.setScheduleId(schedule.getId());
-			se.setStaff(staff);
-			employeeList.add(se);
-		}
+      for (Staff staff : staffList) {
 
-		schedule.setScheduleEmployee(employeeList);
+        ScheduleEmployee se = new ScheduleEmployee();
+        se.setStaffId(staff.getId());
+        se.setScheduleId(schedule.getId());
+        se.setStaff(staff);
+        employeeList.add(se);
+      }
 
-		scheduleRepository.save(schedule);
+      schedule.setScheduleEmployee(employeeList);
+
+      scheduleRepository.save(schedule);
+    }
 	}
 
 	public void delete(Integer id) {

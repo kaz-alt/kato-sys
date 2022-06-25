@@ -68,14 +68,25 @@ $(function(){
       let confirm = window.confirm('スケジュールを変更します。よろしいですか？');
 
       if(confirm) {
+        let id = info.event.id;
+        let title = info.event.title;
+        let isAllDay = info.event.allDay;
+        let start = info.event.start;
+        let end = info.event.end;
+        let _csrf = $('meta[name="_csrf"]').attr('content');
         let url = $('#ref').data('edit-ref');
         let $form = $('<form/>', {action: url, method: 'post'})
-        .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
-        .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
-        .appendTo(document.body);
-      $form.submit();
+          .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
+          .append($('<input/>', {type: 'hidden', name: 'title', value: title}))
+          .append($('<input/>', {type: 'hidden', name: 'isAllDay', value: isAllDay}))
+          .append($('<input/>', {type: 'hidden', name: 'startTime', value: formatDate(start, true)}))
+          .append($('<input/>', {type: 'hidden', name: 'endTime', value: formatDate(end, true)}))
+          .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
+          .appendTo(document.body);
+        $form.submit();
+      } else {
+        info.revert();
       }
-
     },
     eventClick: function (info) {
       let id = info.event.id;

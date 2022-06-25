@@ -19,7 +19,6 @@ public class ScheduleForm {
 
 	private Integer id;
 
-	@NotEmpty(message = REQUIRED_MESSAGE)
 	private List<Integer> employeeIdList = new ArrayList<>();
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
