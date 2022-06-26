@@ -64,7 +64,12 @@ public class StaffService {
 
 		staff.setId(form.getId() == null ? null : form.getId());
 
-		staff.setName(form.getName());
+		staff.setName(form.getLastName() + form.getFirstName());
+    staff.setLastName(form.getLastName());
+    staff.setFirstName(form.getFirstName());
+    staff.setNameKana(form.getLastNameKana() + form.getFirstNameKana());
+    staff.setLastNameKana(form.getLastNameKana());
+    staff.setFirstNameKana(form.getFirstNameKana());
 		staff.setDepartment(form.getDepartment());
 		staff.setPosition(form.getPosition());
 		staff.setTel(form.getTel());

@@ -41,6 +41,26 @@ public class Staff implements Serializable {
 	@Column(name = "name")
 	private String name;
 
+  /* 姓 */
+	@Column(name = "last_name")
+	private String lastName;
+
+  /* 名 */
+	@Column(name = "first_name")
+	private String firstName;
+
+	/* 氏名カナ */
+	@Column(name = "name_kana")
+	private String nameKana;
+
+  /* 姓 */
+	@Column(name = "last_name_kana")
+	private String lastNameKana;
+
+  /* 名 */
+	@Column(name = "first_name_kana")
+	private String firstNameKana;
+
 	/* 担当部署 */
 	@Column(name = "department")
 	private String department;

@@ -43,52 +43,54 @@
             <div class="row">
               <div class="col-sm-12 table-responsive">
                 <table id="staff-table" class="table table-bordered table-striped dataTable text-nowrap">
-	              <thead>
-	                <tr role="row">
-	                  <th class="text-center">氏名</th>
-	                  <th class="text-center">担当部署</th>
-	                  <th class="text-center">役職</th>
-	                  <th class="text-center">電話番号</th>
-	                  <th class="text-center">メールアドレス</th>
-	                  <th class="text-center">入社年月</th>
-	                  <th class="text-center">編集</th>
-	                  <th class="text-center">削除</th>
-	                </tr>
-	              </thead>
+                  <thead>
+                    <tr role="row">
+                      <th class="text-center">氏名</th>
+                      <th class="text-center">氏名カナ</th>
+                      <th class="text-center">担当部署</th>
+                      <th class="text-center">役職</th>
+                      <th class="text-center">電話番号</th>
+                      <th class="text-center">メールアドレス</th>
+                      <th class="text-center">入社年月</th>
+                      <th class="text-center">編集</th>
+                      <th class="text-center">削除</th>
+                    </tr>
+                  </thead>
                   <tbody>
-	                <tr th:each="s : ${list}">
-	                  <td th:text="${s.name}"></td>
-	                  <td th:text="${s.department}"></td>
-	                  <td th:text="${s.position}"></td>
-	                  <td th:text="${s.tel}"></td>
-	                  <td th:text="${s.email}"></td>
-	                  <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
-	                  <td>
-	                    <button type="button" class="btn btn-info staff-edit-button" data-toggle="modal"
-	                      data-target="#staff-edit-modal" th:attr="data-href=@{/staff/show}, data-id=${s.id}">
-	                      <i class="far fa-edit"></i>&nbsp;編集
-	                    </button>
-	                  </td>
-	                  <td>
-	                    <button type="button" class="btn btn-danger staff-del-button"
-	                      th:attr="data-href=@{/staff/delete}, data-id=${s.id}">
-	                      <i class="far fa-trash-alt"></i>&nbsp;削除
-	                    </button>
-	                  </td>
-	                </tr>
-	              </tbody>
-	            </table>
-	          </div>
-	        </div>
-	      </div>
-	      <th:block th:include="/layout/pagination::pagination"></th:block>
-	    </div>
-	    <!-- /.card-body -->
-	  </div>
-	  <!-- Create modal -->
-	  <th:block th:replace="staff/create::staff-create-modal"></th:block>
-	  <!-- Edit modal -->
-	  <th:block th:replace="staff/edit::staff-edit-modal"></th:block>
+                    <tr th:each="s : ${list}">
+                      <td th:text="${s.lastName + ' ' + s.firstName}"></td>
+                      <td th:text="${s.lastNameKana + ' ' + s.firstNameKana}"></td>
+                      <td th:text="${s.department}"></td>
+                      <td th:text="${s.position}"></td>
+                      <td th:text="${s.tel}"></td>
+                      <td th:text="${s.email}"></td>
+                      <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
+                      <td>
+                        <button type="button" class="btn btn-info staff-edit-button" data-toggle="modal"
+                          data-target="#staff-edit-modal" th:attr="data-href=@{/staff/show}, data-id=${s.id}">
+                          <i class="far fa-edit"></i>
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger staff-del-button"
+                          th:attr="data-href=@{/staff/delete}, data-id=${s.id}">
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <th:block th:include="/layout/pagination::pagination"></th:block>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- Create modal -->
+      <th:block th:replace="staff/create::staff-create-modal"></th:block>
+      <!-- Edit modal -->
+      <th:block th:replace="staff/edit::staff-edit-modal"></th:block>
     </section>
   </div>
 </body>

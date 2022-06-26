@@ -5,90 +5,107 @@
 <body>
   <div class="contents" th:fragment="staff-create-modal">
     <section class="content">
-	  <!-- Detail Modal -->
-	  <div class="modal fade" id="staff-create-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-	    <div class="modal-dialog modal-lg" role="document">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <h5 class="modal-title">社員登録</h5>
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">×</span>
-		      </button>
-		    </div>
-		    <div class="modal-body">
-		      <form th:action="@{/staff/create}" method="POST" class="container" id="staff-form" th:object="${staffForm}">
-		        <div class="card">
-			      <div class="card-body">
-		            <div class="row">
-			          <div class="form-group col-8">
-			            <label for="name">氏名&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="text" class="form-control" th:field="*{name}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('name')}"th:errors="*{name}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="name">担当部署&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="text" class="form-control" th:field="*{department}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('department')}"th:errors="*{department}"></span>
-			          </div>
-			          <div class="form-group col-5">
-			            <label for="name">役職：</label>
-			            <input type="text" class="form-control" th:field="*{position}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('position')}"th:errors="*{position}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-5">
-			            <label for="name">電話番号（ハイフン含む）&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="tel" class="form-control" th:field="*{tel}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
-			          </div>
-			          <div class="form-group col-7">
-			            <label for="name">メールアドレス&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="email" class="form-control" th:field="*{email}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-5">
-			            <label for="industry">入社年：</label>
-			            <div class="input-group">
-			              <select class="form-control" th:field="*{joinYear}">
-			                <th:block th:each="y : ${yearList}">
-			                  <option th:value="${y}" th:text="${y}"></option>
-			                </th:block>
-				          </select>
-					      <div class="input-group-append">
-					        <span class="input-group-text">年</span>
-					      </div>
-					    </div>
-			          </div>
-			          <div class="form-group col-3">
-			            <label for="type">入社月：</label>
-			            <div class="input-group">
-			              <select class="form-control" th:field="*{joinMonth}">
-			                <th:block th:each="m : ${monthList}">
-			                  <option th:value="${m}" th:text="${m}"></option>
-			                </th:block>
-				          </select>
-					      <div class="input-group-append">
-					        <span class="input-group-text">月</span>
-					      </div>
-					    </div>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			  </form>
-		    </div>
-		    <div class="modal-footer">
-		      <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
-		      <button type="button" class="btn btn-primary" id="create-button">登録</button>
-		    </div>
-		  </div>
-		</div>
-	  </div>
+      <!-- Detail Modal -->
+      <div class="modal fade" id="staff-create-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">社員登録</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{/staff/create}" method="POST" class="container" id="staff-form" th:object="${staffForm}">
+              <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label for="lastName">姓&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control" th:field="*{lastName}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('lastName')}"th:errors="*{lastName}"></span>
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="firstName">名&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control" th:field="*{firstName}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('firstName')}"th:errors="*{firstName}"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-6">
+                    <label for="lastNameKana">姓カナ&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control" th:field="*{lastNameKana}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('lastNameKana')}"th:errors="*{lastNameKana}"></span>
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="firstNameKana">名カナ&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control" th:field="*{firstNameKana}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('firstNameKana')}"th:errors="*{firstNameKana}"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-7">
+                    <label for="name">担当部署&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="text" class="form-control" th:field="*{department}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('department')}"th:errors="*{department}"></span>
+                  </div>
+                  <div class="form-group col-5">
+                    <label for="name">役職：</label>
+                    <input type="text" class="form-control" th:field="*{position}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('position')}"th:errors="*{position}"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-5">
+                    <label for="name">電話番号（ハイフン含む）&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="tel" class="form-control" th:field="*{tel}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
+                  </div>
+                  <div class="form-group col-7">
+                    <label for="name">メールアドレス&nbsp;<span class="text-danger">*必須</span>：</label>
+                    <input type="email" class="form-control" th:field="*{email}">
+                    <span class="text-danger" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group col-5">
+                    <label for="industry">入社年：</label>
+                    <div class="input-group">
+                      <select class="form-control" th:field="*{joinYear}">
+                        <th:block th:each="y : ${yearList}">
+                          <option th:value="${y}" th:text="${y}"></option>
+                        </th:block>
+                    </select>
+                  <div class="input-group-append">
+                    <span class="input-group-text">年</span>
+                  </div>
+                </div>
+                  </div>
+                  <div class="form-group col-3">
+                    <label for="type">入社月：</label>
+                    <div class="input-group">
+                      <select class="form-control" th:field="*{joinMonth}">
+                        <th:block th:each="m : ${monthList}">
+                          <option th:value="${m}" th:text="${m}"></option>
+                        </th:block>
+                    </select>
+                  <div class="input-group-append">
+                    <span class="input-group-text">月</span>
+                  </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            <button type="button" class="btn btn-primary" id="create-button">登録</button>
+          </div>
+        </div>
+      </div>
+      </div>
     </section>
   </div>
 </body>

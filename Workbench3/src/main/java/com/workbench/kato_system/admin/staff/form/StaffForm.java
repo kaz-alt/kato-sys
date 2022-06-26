@@ -13,7 +13,16 @@ public class StaffForm {
 	private Integer id;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
-	private String name;
+	private String lastName;
+
+	@NotEmpty(message=REQUIRED_MESSAGE)
+	private String firstName;
+
+	@NotEmpty(message=REQUIRED_MESSAGE)
+	private String lastNameKana;
+
+	@NotEmpty(message=REQUIRED_MESSAGE)
+	private String firstNameKana;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
 	private String department;
