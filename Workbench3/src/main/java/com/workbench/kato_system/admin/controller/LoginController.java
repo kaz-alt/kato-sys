@@ -17,7 +17,7 @@ public class LoginController {
 	public String index(Model model, @RequestParam(value = "error", required = false) boolean error){
 
 		if(error) {
-		  model.addAttribute("hasError",true);
+      model.addAttribute("hasError",true);
 		}
 
 		return "loginForm";

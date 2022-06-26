@@ -39,7 +39,7 @@ import lombok.Data;
 public class Product implements Serializable {
 
 	/* 顧客 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
 	private Client client;
 

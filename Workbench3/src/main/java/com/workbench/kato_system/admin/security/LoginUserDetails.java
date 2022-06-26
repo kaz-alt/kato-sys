@@ -20,6 +20,10 @@ public class LoginUserDetails implements UserDetails{
 		return user;
 	}
 
+	public Integer getUserId() {
+		return this.user.getUserId();
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return AuthorityUtils.createAuthorityList("ROLE_" + this.user.getRoleName().name());
@@ -54,12 +58,4 @@ public class LoginUserDetails implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-
-
-
-
-
-
-
-
 }

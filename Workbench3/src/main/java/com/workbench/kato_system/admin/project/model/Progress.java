@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 進捗
@@ -16,7 +17,8 @@ import lombok.Data;
  */
 @Entity
 @Table(name = "progress")
-@Data
+@Getter
+@Setter
 public class Progress implements Serializable {
 
 	@Id

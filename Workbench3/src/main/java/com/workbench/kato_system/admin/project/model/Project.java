@@ -29,7 +29,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 案件
@@ -40,7 +41,8 @@ import lombok.Data;
 @Table(name = "project")
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-@Data
+@Setter
+@Getter
 public class Project implements Serializable {
 
 	/* 顧客 */
@@ -135,4 +137,8 @@ public class Project implements Serializable {
 	/* 削除フラグ */
 	@Column(name = "del_flg")
 	private Boolean delFlg;
+
+	public Progress getSuperProgress() {
+		return this.progress;
+	}
 }

@@ -16,11 +16,14 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
 
 	@Override
 	@Query(value = "select p from Project p "
-			+ "left join fetch p.client "
+      + "inner join fetch p.progress "
+      + "inner join fetch p.client "
+      + "inner join fetch p.approachRoot "
+      + "left join fetch p.factor "
 			+ "left join fetch p.projectEmployee pe "
 			+ "left join fetch pe.staff "
 			+ "where p.delFlg = 0", countQuery = "select p from Project p "
-					+ "left join p.client "
+          + "left join p.factor "
 					+ "left join p.projectEmployee pe "
 					+ "left join pe.staff "
 					+ "where p.delFlg = 0")
