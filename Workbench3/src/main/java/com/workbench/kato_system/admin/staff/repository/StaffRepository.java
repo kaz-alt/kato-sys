@@ -18,6 +18,5 @@ public interface StaffRepository extends JpaRepository<Staff, Integer> {
 
 	List<Staff> findByIdIn(List<Integer> idList);
 
-	@Query("select s from Staff s where s.name like %:name% and s.delFlg = 0")
-	List<Staff> findByName(@Param("name") String name);
+	List<Staff> findByNameStartingWithOrNameKanaStartingWithAndDelFlgFalse(String name, String nameKana);
 }

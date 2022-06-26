@@ -15,6 +15,7 @@ import com.workbench.kato_system.admin.staff.model.Staff;
 import com.workbench.kato_system.admin.staff.model.StaffClient;
 import com.workbench.kato_system.admin.staff.repository.StaffClientRepository;
 import com.workbench.kato_system.admin.staff.repository.StaffRepository;
+import com.workbench.kato_system.admin.utils.SearchUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +31,7 @@ public class StaffService {
 	}
 
 	public List<EmployeeDto> getEmployeeDtoByName(String name) {
-		List<Staff> staffList = staffRepository.findByName(name);
+		List<Staff> staffList = staffRepository.findByNameStartingWithOrNameKanaStartingWithAndDelFlgFalse(name, SearchUtils.HiraganaToKatakana(name));
 		return model2Dto(staffList);
 	}
 
