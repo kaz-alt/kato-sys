@@ -1,6 +1,12 @@
 $(function(){
 	"user strict";
 
+  let path = location.pathname;
+    /**
+	 * 検索用ページネーション
+	 */
+	window.main.setPagenationForSearch($('#staffSearchForm'), path);
+
 	$('.staff-edit-button').on('click', function(event){
 		event.preventDefault();
 
@@ -16,7 +22,14 @@ $(function(){
 		}).fail(function(){
 			alert("データ取得に失敗しました");
 		})
-	})
+	});
+
+  window.main.controlResetSearchFormButton('#staffSearchForm');
+
+	$('.search-btn').on('click', function(){
+		$('#staffForm').find('#pageNumber').val(1);
+		$('#staffSearchForm').submit();
+	});
 
 	$('#edit-staff-button').click(function(){
 

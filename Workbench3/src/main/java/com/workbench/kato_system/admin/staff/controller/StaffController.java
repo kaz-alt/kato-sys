@@ -78,7 +78,7 @@ public class StaffController {
 	@PostMapping(value = "/create")
 	public String create(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
-		return save(model, form, result, attributes);
+		return save(form, result, attributes);
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class StaffController {
 	@PostMapping(value = "/edit")
 	public String edit(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
-		return save(model, form, result, attributes);
+		return save(form, result, attributes);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public class StaffController {
 	/**
 	 * 永続化処理
 	 */
-	private String save(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
+	private String save(@Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 

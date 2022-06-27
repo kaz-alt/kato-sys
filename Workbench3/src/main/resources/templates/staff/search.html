@@ -47,7 +47,7 @@
                         <label for="targetJoinYear" class="col-sm-2 col-form-label">入社年月：</label>
                         <div class="col-lg-3 col-sm-4 col-md-5 row mr-1">
                           <select class="form-control" th:field="*{targetJoinYear}">
-                            <option value="0">-- 未選択 --</option>
+                            <option value="">-- 未選択 --</option>
                             <th:block th:each="y : ${yearList}">
                               <option th:value="${y}" th:text="|${y}年|"></option>
                             </th:block>
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col-lg-3 col-sm-4 col-md-5 row">
                           <select class="form-control" th:field="*{targetJoinMonth}">
-                            <option value="0">-- 未選択 --</option>
+                            <option value="">-- 未選択 --</option>
                             <th:block th:each="m : ${monthList}">
                               <option th:value="${m}" th:text="|${m}月|"></option>
                             </th:block>

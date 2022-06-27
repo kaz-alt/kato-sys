@@ -89,7 +89,8 @@ public class StaffService {
 
   public Specification<Staff> nameContains(String name) {
 		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
-			return cb.like(root.get("name"), "%" + name + "%");
+			return cb.or(cb.like(root.get("name"), "%" + name + "%"), 
+        cb.like(root.get("nameKana"), "%" + SearchUtils.HiraganaToKatakana(name) + "%"));
 		};
 	}
 
