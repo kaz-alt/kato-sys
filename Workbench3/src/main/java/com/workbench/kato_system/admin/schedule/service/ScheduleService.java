@@ -32,7 +32,7 @@ public class ScheduleService {
 	}
 
 	public Schedule getOne(Integer id) {
-		Optional<Schedule> schedule = scheduleRepository.findById(id);
+		Optional<Schedule> schedule = scheduleRepository.findByScheduleId(id);
 		return schedule.orElse(null);
 	}
 
