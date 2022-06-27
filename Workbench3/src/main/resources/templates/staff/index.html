@@ -38,6 +38,9 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staff-create-modal">
               <i class="fas fa-plus"></i>&nbsp;社員登録
             </button>
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#staff-search-modal">
+              <i class="fas fa-search"></i>&nbsp;社員検索
+            </button>
           </div>
           <div id="staff-table-div" class="dataTables_wrapper">
             <div class="row">
@@ -87,6 +90,8 @@
         </div>
         <!-- /.card-body -->
       </div>
+      <!-- Search modal -->
+      <th:block th:replace="staff/search::staff-search-modal"></th:block>
       <!-- Create modal -->
       <th:block th:replace="staff/create::staff-create-modal"></th:block>
       <!-- Edit modal -->

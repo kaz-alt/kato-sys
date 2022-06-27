@@ -11,15 +11,17 @@ import lombok.Data;
 @Data
 public class StaffSearchForm {
 
-	private List<String> companyNameList = new ArrayList<>();
-
 	private String targetName;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate startExchangeDate;
+	private String targetDepartment;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate endExchangeDate;
+	private String targetPosition;
+
+	private Integer targetJoinYear;
+
+	private Integer targetJoinMonth;
+
+	private Integer condition;
 
 	private Integer pageNumber = 1;
 }

@@ -16,7 +16,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="card card-olive">
+              <div class="card card-light">
                 <div class="card-header">
                   <h3 class="card-title">社員情報検索</h3>
                 </div>
@@ -27,54 +27,47 @@
                     <div class="card-body">
                       <div class="form-group row">
                         <label for="targetName" class="col-sm-2 col-form-label">氏名：</label>
-                        <div class="col-sm-8 row">
+                        <div class="col-sm-5 row">
                           <input type="text" class="form-control" th:field="*{targetName}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="targetDepartment" class="col-sm-2 col-form-label">担当部署：</label>
-                        <div class="col-sm-8 row">
+                        <div class="col-sm-6 row">
                           <input type="text" class="form-control" th:field="*{targetDepartment}">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="targetPosition" class="col-sm-2 col-form-label">役職：</label>
-                        <div class="col-sm-8 row">
+                        <div class="col-sm-6 row">
                           <input type="text" class="form-control" th:field="*{targetPosition}">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="targetJoinYear">入社年：</label>
-                        <div class="input-group">
+                        <label for="targetJoinYear" class="col-sm-2 col-form-label">入社年月：</label>
+                        <div class="col-lg-3 col-sm-4 col-md-5 row mr-1">
                           <select class="form-control" th:field="*{targetJoinYear}">
+                            <option value="0">-- 未選択 --</option>
                             <th:block th:each="y : ${yearList}">
-                              <option th:value="${y}" th:text="${y}"></option>
+                              <option th:value="${y}" th:text="|${y}年|"></option>
                             </th:block>
                           </select>
-                          <div class="input-group-append">
-                            <span class="input-group-text">年</span>
-                          </div>
                         </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="targetJoinMonth">入社月：</label>
-                        <div class="input-group">
+                        <div class="col-lg-3 col-sm-4 col-md-5 row">
                           <select class="form-control" th:field="*{targetJoinMonth}">
+                            <option value="0">-- 未選択 --</option>
                             <th:block th:each="m : ${monthList}">
-                              <option th:value="${m}" th:text="${m}"></option>
+                              <option th:value="${m}" th:text="|${m}月|"></option>
                             </th:block>
                           </select>
-                          <div class="input-group-append">
-                            <span class="input-group-text">月</span>
-                          </div>
                         </div>
                       </div>
                       <input type="hidden" th:field="*{pageNumber}"/>
                     </div>
                     <div class="card-footer">
-                      <button type="button" class="btn btn-light bg-olive btn-lg search-btn ml-3 float-right">検索</button>
+                      <button type="button" class="btn btn-light bg-navy btn-lg search-btn ml-3 float-right">検索</button>
                       <a class="d-none reset-search-form-btn" th:href="@{/staff}">
-                        <button type="button" class="btn btn-light bg-olive btn-lg search-btn float-right">検索条件クリア</button>
+                        <button type="button" class="btn btn-light bg-navy btn-lg search-btn float-right">検索条件クリア</button>
                       </a>
                     </div>
                   </form>
