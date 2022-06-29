@@ -111,11 +111,11 @@ public class StaffService {
       String joinYear = "joinYear";
       switch (condition) {
         case 1:
-          return cb.equal(root.get(joinYear), year);
-        case 2:
-          return cb.greaterThanOrEqualTo(root.get(joinYear), year);
-        case 3:
           return cb.lessThanOrEqualTo(root.get(joinYear), year);
+        case 2:
+          return cb.equal(root.get(joinYear), year);
+        case 3:
+          return cb.greaterThanOrEqualTo(root.get(joinYear), year);
         default:
           break;
       }
@@ -128,11 +128,11 @@ public class StaffService {
 			String joinMonth = "joinMonth";
       switch (condition) {
         case 1:
-          return cb.equal(root.get(joinMonth), month);
-        case 2:
-          return cb.greaterThanOrEqualTo(root.get(joinMonth), month);
-        case 3:
           return cb.lessThanOrEqualTo(root.get(joinMonth), month);
+        case 2:
+          return cb.equal(root.get(joinMonth), month);
+        case 3:
+          return cb.greaterThanOrEqualTo(root.get(joinMonth), month);
         default:
           break;
       }
