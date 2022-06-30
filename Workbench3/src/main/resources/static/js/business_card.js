@@ -84,7 +84,6 @@ $(function(){
 		}
 	})
 
-   window.main.controlResetSearchFormButton('#businessCardSearchForm');
    window.main.resetForm('#businessCardSearchForm');
 
 	$('.search-btn').on('click', function(){

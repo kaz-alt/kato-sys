@@ -24,7 +24,6 @@ $(function(){
 		})
 	});
 
-  window.main.controlResetSearchFormButton('#staffSearchForm');
   window.main.resetForm('#staffSearchForm');
 
 	$('.search-btn').on('click', function(){
