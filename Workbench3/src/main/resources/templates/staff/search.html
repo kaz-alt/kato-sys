@@ -65,17 +65,17 @@
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input" type="radio" id="before" value="1"
+                          <input class="form-check-input staff-radio" type="radio" id="before" value="1"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="before">より前</label>
                         </div>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input" type="radio" id="equal" value="2"
+                          <input class="form-check-input staff-radio" type="radio" id="equal" value="2"
                             style="transform:scale(1.5);" name="condition" checked>
                           <label class="form-check-label" for="equal">と同じ</label>
                         </div>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input" type="radio" id="after" value="3"
+                          <input class="form-check-input staff-radio" type="radio" id="after" value="3"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="after">より後</label>
                         </div>
@@ -84,9 +84,7 @@
                     </div>
                     <div class="card-footer">
                       <button type="button" class="btn btn-light bg-navy btn-lg search-btn ml-3 float-right">検索</button>
-                      <a class="d-none reset-search-form-btn" th:href="@{/staff}">
-                        <button type="button" class="btn btn-light bg-navy btn-lg search-btn float-right">検索条件クリア</button>
-                      </a>
+                      <button type="button" class="d-none btn btn-light bg-navy btn-lg reset-search-form-btn float-right">検索条件クリア</button>
                     </div>
                   </form>
                 </div>

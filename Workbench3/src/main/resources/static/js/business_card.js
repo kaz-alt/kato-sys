@@ -85,6 +85,7 @@ $(function(){
 	})
 
    window.main.controlResetSearchFormButton('#businessCardSearchForm');
+   window.main.resetForm('#businessCardSearchForm');
 
 	$('.search-btn').on('click', function(){
 		$('#businessCardSearchForm').find('#pageNumber').val(1);

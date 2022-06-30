@@ -25,6 +25,7 @@ $(function(){
 	});
 
   window.main.controlResetSearchFormButton('#staffSearchForm');
+  window.main.resetForm('#staffSearchForm');
 
 	$('.search-btn').on('click', function(){
 		$('#staffForm').find('#pageNumber').val(1);
