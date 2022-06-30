@@ -35,7 +35,7 @@ $(function(){
 	});
 
 	window.main.sortTableColumn('#inquiry-table', '#inquirySearchForm');
-	window.main.controlResetSearchFormButton('#inquirySearchForm');
+	window.main.resetForm('#inquirySearchForm');
 
 	$('#inquiry-form .solved-body').hide();
 	$('#inquiry-form').on('click', '.hasSolved', function(){

@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.schedule.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,8 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     + "s.id, s.title, s.startTime, s.endTime, s.detail, s.isAllDay) FROM Schedule s "
     + "WHERE s.startTime >= :start AND s.endTime < :end")
   List<ScheduleDto> fetchDto(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
+
+  @Query("SELECT s FROM Schedule s LEFT JOIN FETCH s.scheduleEmployee WHERE s.id = :id")
+  Optional<Schedule> findByScheduleId(@Param("id") Integer id);
 
 }

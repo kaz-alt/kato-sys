@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.criteria.JoinType;
+
 import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -91,7 +93,10 @@ public class ProductService {
 
 	public Specification<Product> delFlgIsFalse() {
 		return (root, query, cb) -> {
-			query.distinct(true);
+			if (Long.class != query.getResultType()) {
+				query.distinct(true);
+				root.fetch("client", JoinType.INNER);
+			}
 			return cb.isFalse(root.get("delFlg"));
 		};
 	}

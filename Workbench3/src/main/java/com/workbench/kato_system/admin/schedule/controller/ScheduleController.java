@@ -1,6 +1,5 @@
 package com.workbench.kato_system.admin.schedule.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,8 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleController {
 
 	private final ScheduleService scheduleService;
+
+  private final String REDIRECT = "redirect:/schedule";
 
 	@ModelAttribute
 	ScheduleForm setUpScheduleForm() {
@@ -82,7 +83,7 @@ public class ScheduleController {
 
 		scheduleService.delete(id);
 
-		return "redirect:/schedule";
+		return REDIRECT;
 
 	}
 
@@ -116,12 +117,12 @@ public class ScheduleController {
 
       attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("scheduleForm", form);
-			return "redirect:/schedule";
+			return REDIRECT;
 		}
 
 		scheduleService.save(form);
 
-		return "redirect:/schedule";
+		return REDIRECT;
   }
 
   private void setUpDetail(Integer id, Model model) {

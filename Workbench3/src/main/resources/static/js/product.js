@@ -60,7 +60,7 @@ $(function(){
 	}
 
 	window.main.sortTableColumn('#product-table', '#productSearchForm');
-	window.main.controlResetSearchFormButton('#productSearchForm');
+	window.main.resetForm('#productSearchForm');
 
 	$('.product-edit-button').on('click', function(event){
 		event.preventDefault();

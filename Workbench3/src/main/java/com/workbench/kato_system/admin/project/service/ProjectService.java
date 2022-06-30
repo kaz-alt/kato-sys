@@ -61,7 +61,7 @@ public class ProjectService {
 	}
 
 	public Project getOne(Integer id) {
-		Optional<Project> project = projectRepository.findById(id);
+		Optional<Project> project = projectRepository.findByProjectId(id);
 		return project.orElse(null);
 	}
 
@@ -138,6 +138,9 @@ public class ProjectService {
 			if (Long.class != query.getResultType()) {
 				query.distinct(true);
 				root.fetch("client", JoinType.INNER);
+				root.fetch("progress", JoinType.INNER);
+				root.fetch("approachRoot", JoinType.INNER);
+				root.fetch("factor", JoinType.LEFT);
 				root.fetch("projectEmployee", JoinType.LEFT).fetch("staff", JoinType.LEFT);
 			}
 			return cb.isFalse(root.get("delFlg"));

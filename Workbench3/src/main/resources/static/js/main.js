@@ -254,29 +254,18 @@ $(".table-scroll").mousedragscrollable();
   window.main= window.main|| {};
   window.main.sortTableColumn = sortTableColumn;
 
-  function controlResetSearchFormButton(searchFormName) {
-	let path = location.pathname;
-	if(path.indexOf('search') > -1){
-		let values = $(searchFormName).serializeArray();
-		if (values.length) {
-			for(let idx in values){
-				let key = values[idx]['name'];
-				if(key != "sortData" && key != "sortOrder" && key != "pageNumber"){
-					let value = values[idx]['value'];
-
-					if(value != null && value != "" && value != 0){
-						$('.reset-search-form-btn').removeClass('d-none');
-						return false;
-					} else {
-						$('.reset-search-form-btn').addClass('d-none');
-					}
-				}
-			}
-		}
-	}
+  function resetForm(form) {
+    $(form).find('.reset-search-form-btn').on('click', function() {
+      $(form)
+        .find("textarea, :text, select").val("").end()
+        .find(":not(.staff-radio):checked").prop("checked", false).end()
+        .find("select").val(null).trigger("change").end()
+        .find('input[type="number"]').val(null).trigger("change").end()
+        .find('input[type="email"]').val("").trigger("change");
+    });
   }
   window.main= window.main|| {};
-  window.main.controlResetSearchFormButton = controlResetSearchFormButton;
+  window.main.resetForm = resetForm;
 
   function getLanguageForDataTable(){
 	return {

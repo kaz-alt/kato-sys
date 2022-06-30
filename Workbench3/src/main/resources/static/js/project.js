@@ -48,7 +48,7 @@ $(function(){
 	 * ソート
 	 */
 	window.main.sortTableColumn('#project-table', '#projectSearchForm');
-	window.main.controlResetSearchFormButton('#projectSearchForm');
+  window.main.resetForm('#projectSearchForm');
 
 	/**
 	 * 顧客名取得
@@ -64,7 +64,7 @@ $(function(){
 	window.main.createEmployeeOptionWithId($('#projectSearchForm select[name="ourEmployeeIdList"]'));
 
 	window.main.sortTableColumn('#product-table', '#productSearchForm');
-	window.main.controlResetSearchFormButton('#productSearchForm');
+  window.main.resetForm('#productSearchForm');
 
 	$('#project-table').dataTable({
 		bDestroy: true,

@@ -7,7 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 勝敗要因
@@ -16,7 +17,8 @@ import lombok.Data;
  */
 @Entity
 @Table(name = "factor")
-@Data
+@Setter
+@Getter
 public class Factor implements Serializable {
 
 	@Id

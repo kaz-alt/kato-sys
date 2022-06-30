@@ -22,7 +22,8 @@ $(function(){
 	});
 
 	window.main.sortTableColumn('#client-table', '#clientSearchForm');
-	window.main.controlResetSearchFormButton('#clientSearchForm');
+	window.main.resetForm('#clientSearchModal');
+
 	/**
 	 * 顧客名取得
 	 */

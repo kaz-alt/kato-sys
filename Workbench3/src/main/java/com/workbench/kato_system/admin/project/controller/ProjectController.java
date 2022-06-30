@@ -36,7 +36,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/project")
 public class ProjectController {
 
-	private final int size = 10;
+	private final int SIZE = 10;
+  private final String REDIRECT = "redirect:/project";
 
 	private final ClientService clientService;
 	private final ProjectService projectService;
@@ -75,7 +76,7 @@ public class ProjectController {
 
 		Page<Project> page = projectService.getPageList(
 				PageNumberUtils.getPageable(
-						PageNumberUtils.revisePageNumber(pageNumber), size, "id"));
+						PageNumberUtils.revisePageNumber(pageNumber), SIZE, "id"));
 		model.addAttribute("page", page);
 		model.addAttribute("projectList", page.getContent());
 
@@ -94,7 +95,7 @@ public class ProjectController {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("projectSearchForm", form);
 			attributes.addFlashAttribute("hasErrors", result.hasErrors());
-			return "redirect:/project";
+			return REDIRECT;
 		}
 
 		Page<Project> page = projectService.getSearchResult(
@@ -137,7 +138,7 @@ public class ProjectController {
 
 		projectService.delete(projectId);
 
-		return "redirect:/project";
+		return REDIRECT;
 
 	}
 
@@ -162,7 +163,7 @@ public class ProjectController {
 
 		projectService.changeProgress(form);
 
-    return "redirect:/project";
+    return REDIRECT;
 	}
 
 	/**
@@ -189,11 +190,11 @@ public class ProjectController {
 
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("projectForm", form);
-			return "redirect:/project";
+			return REDIRECT;
 		}
 
 		projectService.save(form, user);
 
-		return "redirect:/project";
+		return REDIRECT;
 	}
 }

@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.staff.dto.EmployeeDto;
 import com.workbench.kato_system.admin.staff.form.StaffForm;
+import com.workbench.kato_system.admin.staff.form.StaffSearchForm;
 import com.workbench.kato_system.admin.staff.model.Staff;
 import com.workbench.kato_system.admin.staff.service.StaffService;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
@@ -30,7 +31,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/staff")
 public class StaffController {
 
-	private final int size = 30;
+	private final int SIZE = 30;
+  private final String REDIRECT = "redirect:/staff";
 
 	private final StaffService staffService;
 
@@ -39,18 +41,33 @@ public class StaffController {
 		return new StaffForm();
 	}
 
+	@ModelAttribute
+	StaffSearchForm setUpStaffSearchForm() {
+		return new StaffSearchForm();
+	}
+
 	/**
 	 * 一覧表示
 	 */
 	@GetMapping(value = "")
 	public String index(Model model, @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
 
-		Page<Staff> page = staffService.getPageList(PageNumberUtils.getPageable(pageNumber, size, "id"));
+		Page<Staff> page = staffService.getPageList(PageNumberUtils.getPageable(pageNumber, SIZE, "id"));
 
-		model.addAttribute("page", page);
-		model.addAttribute("list", page.getContent());
-		model.addAttribute("yearList", createYearList());
-		model.addAttribute("monthList", createMonthList());
+    setUpModel(model, page);
+
+		return "staff/index";
+	}
+
+  /**
+	 * 条件検索
+	 */
+	@GetMapping(value = "/search")
+	public String search(Model model, StaffSearchForm form) {
+
+		Page<Staff> page = staffService.getSearchResult(form);
+
+    setUpModel(model, page);
 
 		return "staff/index";
 	}
@@ -61,7 +78,7 @@ public class StaffController {
 	@PostMapping(value = "/create")
 	public String create(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
-		return save(model, form, result, attributes);
+		return save(form, result, attributes);
 	}
 
 	/**
@@ -70,7 +87,7 @@ public class StaffController {
 	@PostMapping(value = "/edit")
 	public String edit(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
-		return save(model, form, result, attributes);
+		return save(form, result, attributes);
 	}
 
 	/**
@@ -81,7 +98,7 @@ public class StaffController {
 
 		staffService.delete(staffId);
 
-		return "redirect:/staff";
+		return REDIRECT;
 	}
 
 	/**
@@ -118,21 +135,31 @@ public class StaffController {
 		return staffService.getEmployeeDtoByClientId(clientId);
 	}
 
+  /**
+	 * モデル共通処理
+	 */
+  private void setUpModel(Model model, Page<Staff> page) {
+    model.addAttribute("page", page);
+		model.addAttribute("list", page.getContent());
+		model.addAttribute("yearList", createYearList());
+		model.addAttribute("monthList", createMonthList());
+  }
+
 	/**
 	 * 永続化処理
 	 */
-	private String save(Model model, @Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
+	private String save(@Validated StaffForm form, BindingResult result, RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {
 
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("staffForm", form);
-			return "redirect:/staff";
+			return REDIRECT;
 		}
 
 		staffService.save(form);
 
-		return "redirect:/staff";
+		return REDIRECT;
 	}
 
 	/**
