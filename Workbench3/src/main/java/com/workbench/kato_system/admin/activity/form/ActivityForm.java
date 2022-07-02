@@ -2,10 +2,10 @@ package com.workbench.kato_system.admin.activity.form;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +28,7 @@ public class ActivityForm {
 	private LocalDate activityDate;
 
 	@NotEmpty(message = REQUIRED_MESSAGE)
-	@Max(value = 2000, message = "2,000文字以内でご記入ください")
+	@Size(max = 2000, message = "2,000文字以内でご記入ください")
 	private String content;
 
 	private Integer projectId;

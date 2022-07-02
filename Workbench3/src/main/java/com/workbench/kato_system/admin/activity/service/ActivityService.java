@@ -1,10 +1,8 @@
 package com.workbench.kato_system.admin.activity.service;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javax.persistence.criteria.JoinType;
 
@@ -21,13 +19,6 @@ import com.workbench.kato_system.admin.activity.form.ActivityForm;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.activity.model.Activity;
 import com.workbench.kato_system.admin.activity.repository.ActivityRepository;
-import com.workbench.kato_system.admin.business_card.form.BusinessCardForm;
-import com.workbench.kato_system.admin.business_card.form.BusinessCardSearchForm;
-import com.workbench.kato_system.admin.business_card.model.BusinessCard;
-import com.workbench.kato_system.admin.business_card.repository.BusinessCardRepository;
-import com.workbench.kato_system.admin.client.model.entity.Client;
-import com.workbench.kato_system.admin.client.model.entity.ClientStaff;
-import com.workbench.kato_system.admin.client.repository.ClientRepository;
 import com.workbench.kato_system.admin.staff.model.Staff;
 import com.workbench.kato_system.admin.staff.repository.StaffRepository;
 
@@ -50,7 +41,7 @@ public class ActivityService {
 		if (pageable == null) {
 			return null;
 		}
-		return activityRepository.findAll(pageable);
+		return activityRepository.findPageList(pageable);
 	}
 
 	public Activity getOne(Integer id) {
