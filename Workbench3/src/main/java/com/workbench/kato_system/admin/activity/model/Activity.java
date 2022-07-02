@@ -12,7 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -39,7 +39,7 @@ import lombok.Data;
 public class Activity implements Serializable {
 
 	/* 社員 */
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
 	private Staff staff;
 

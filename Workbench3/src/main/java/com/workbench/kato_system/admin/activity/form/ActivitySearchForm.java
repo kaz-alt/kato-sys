@@ -23,5 +23,9 @@ public class ActivitySearchForm {
 
 	private List<Integer> projectIdList = new ArrayList<>();
 
+	private String sortData = "activityDate";
+
+	private String sortOrder = "asc";
+
 	private Integer pageNumber = 1;
 }
