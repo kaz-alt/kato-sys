@@ -120,8 +120,8 @@ public class ActivityController {
 	@GetMapping(value = "/show")
 	public String show(Model model, @RequestParam("id") Integer id) {
 
-		Activity data = activityService.getOne(id);
-		model.addAttribute("data", data);
+		Activity activities = activityService.getOne(id);
+		model.addAttribute("activities", activities);
 
 		return "activity/edit :: activity-edit";
 	}

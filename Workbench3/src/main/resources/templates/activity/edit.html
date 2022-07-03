@@ -17,8 +17,8 @@
             </div>
             <div class="modal-body" th:fragment="activity-edit">
               <form th:action="@{/activity/edit}" method="POST" class="container" id="activity-edit-form" th:object="${activityForm}">
-                <th:block th:object="${data}" th:if="${data != null}">
-                  <input type="hidden" name="id" th:value=${data.id}>
+                <th:block th:object="${activities}" th:if="${activities != null}">
+                  <input type="hidden" name="id" th:value=${activities.id}>
                   <div class="card">
                     <div class="card-body">
                       <div class="row">
@@ -35,7 +35,7 @@
                           <label for="industry">社員名&nbsp;<span class="text-danger">*必須</span>：</label>
                           <select class="select2 form-control" name="staffId"
                             th:data-href="@{/staff/api/get_employee}">
-                            <option th:text="${data.staff?.name}" th:value="${data.staff?.id}" selected/>
+                            <option th:text="${activities.staff?.name}" th:value="${activities.staff?.id}" selected/>
                           </select>
                           <span class="text-danger" th:if="${#fields.hasErrors('staffId')}"th:errors="*{staffId}"></span>
                         </div>
@@ -52,7 +52,7 @@
                           <label for="industry">関連案件名：</label>
                           <select class="select2 form-control" name="projectId"
                             th:data-href="@{/project/api/get_project}">
-                            <option th:text="${data.projectId}" th:value="${data.projectId}" selected/>
+                            <option th:text="${activities.project?.name}" th:value="${activities.projectId}" selected/>
                           </select>
                           <span class="text-danger" th:if="${#fields.hasErrors('projectId')}"th:errors="*{projectId}"></span>
                         </div>
