@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Immutable;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,7 +25,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.workbench.kato_system.admin.staff.model.Staff;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 活動記録
@@ -35,12 +37,14 @@ import lombok.Data;
 @Table(name = "activity")
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-@Data
+@Getter
+@Setter
 public class Activity implements Serializable {
 
 	/* 社員 */
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
+  @Immutable
 	private Staff staff;
 
 	@Id

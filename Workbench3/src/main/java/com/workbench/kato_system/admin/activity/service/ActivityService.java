@@ -45,7 +45,7 @@ public class ActivityService {
 	}
 
 	public Activity getOne(Integer id) {
-		Optional<Activity> a = activityRepository.findById(id);
+		Optional<Activity> a = activityRepository.findEntityById(id);
 		return a.orElse(new Activity());
 	}
 
@@ -122,7 +122,6 @@ public class ActivityService {
 		if (staff.isPresent()) {
 			Staff s = staff.get();
 			a.setStaffId(s.getId());
-			a.setStaff(s);
 		}
 
 		a.setActivityDate(form.getActivityDate());
