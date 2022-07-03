@@ -77,6 +77,11 @@ public class ProjectService {
 		return projectRepository.fetchDtoByName(name);
 	}
 
+  public List<Project> getSelectedProject(List<Integer> idList) {
+
+		return projectRepository.findByIdIn(idList);
+	}
+
 	public List<ApproachRoot> getAllApproachRoot() {
 		return approachRootRepository.findAll();
 	}

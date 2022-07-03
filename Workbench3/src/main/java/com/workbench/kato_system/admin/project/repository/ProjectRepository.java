@@ -61,4 +61,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
   @Query("SELECT new com.workbench.kato_system.admin.project.dto.ProjectDto(p.id, p.name) FROM Project p WHERE p.delFlg = 0 AND p.name LIKE %:name%")
   List<ProjectDto> fetchDtoByName(@Param("name") String name);
 
+
+List<Project> findByIdIn(List<Integer> idList);
+
 }

@@ -16,6 +16,8 @@ import com.workbench.kato_system.admin.activity.form.ActivityForm;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.activity.model.Activity;
 import com.workbench.kato_system.admin.activity.service.ActivityService;
+import com.workbench.kato_system.admin.project.service.ProjectService;
+import com.workbench.kato_system.admin.staff.service.StaffService;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -29,6 +31,8 @@ public class ActivityController {
   private final String REDIRECT = "redirect:/activity";
 
 	private final ActivityService activityService;
+  private final StaffService staffService;
+  private final ProjectService projectService;
 
 	@ModelAttribute
 	ActivityForm setUpActivityForm() {
@@ -70,6 +74,9 @@ public class ActivityController {
 
 		Page<Activity> page = activityService.getSearchResult(
 				PageNumberUtils.revisePageNumber(pageNumber), form);
+    model.addAttribute("selectedEmployee",
+      staffService.getSelectedEmployee(form.getStaffIdList()));
+    model.addAttribute("selectedProject", projectService.getSelectedProject(form.getProjectIdList()));
 		return list(page, model);
 	}
 

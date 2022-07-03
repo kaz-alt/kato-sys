@@ -69,9 +69,10 @@ public class ActivityService {
 		return activityRepository.findAll(Specification
         .where(fetchRelationEntity())
 				.and(staffIdContains(form.getStaffIdList()))
-        .and(contentContains(form.getTargetContent()))
 				.and(dateGreaterThan(form.getStartActivityDate()))
-				.and(dateLessThan(form.getEndActivityDate())),
+				.and(dateLessThan(form.getEndActivityDate()))
+        .and(contentContains(form.getTargetContent()))
+        .and(projectIdContains(form.getProjectIdList())),
 				PageRequest.of(pageNum, SEARCH_SIZE, Sort.by(Sort.Direction.ASC, "id")));
 	}
 
@@ -108,6 +109,12 @@ public class ActivityService {
 			return cb.like(root.get("content"), "%" + content + "%");
 		};
   }
+
+  public Specification<Activity> projectIdContains(List<Integer> projectIdList) {
+		return CollectionUtils.isEmpty(projectIdList) ? null : (root, query, cb) -> {
+			return root.get("projectId").in(projectIdList);
+		};
+	}
 
 	private Activity form2Activity(ActivityForm form) {
 
