@@ -60,15 +60,15 @@
 	                      <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'name' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'name' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 	                    </th>
 	                    <th class="text-center sort-pointer" data-sort-data="industry"
-	                    th:data-sort-order="${sortOrder}" th:classappend="${sortData == 'industry' ? 'active' : ''}">顧客業種
+	                    th:data-sort-order="${sortOrder}" th:classappend="${sortData == 'industry' ? 'active' : ''}">業種
 	                      <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'industry' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'industry' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 	                    </th>
 	                    <th class="text-center sort-pointer" data-sort-data="clientType"
 	                    th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'clientType' ? 'active' : ''}">顧客タイプ
+	                    th:classappend="${sortData == 'clientType' ? 'active' : ''}">タイプ
 	                      <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'clientType' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'clientType' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 	                    </th>
-	                    <th class="text-center">案件件数</th>
+	                    <th class="text-center">案件数</th>
 	                    <th class="text-center">連絡先</th>
 	                    <th class="text-center">当社担当者</th>
 	                    <th class="text-center sort-pointer" data-sort-data="firstInterviewDate"

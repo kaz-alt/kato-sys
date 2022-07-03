@@ -70,58 +70,88 @@
                 </div>
               </div>
               <div class="col-sm-12">
-                <div class="card">
+                <div class="card card-primary card-tabs">
+                  <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="project-detail-tabls" role="tablist">
+                      <li class="nav-item">
+                        <a class="nav-link active" id="project-tab" data-toggle="pill" href="#tab-project"
+                          role="tab" aria-controls="custom-tabs-one-project" aria-selected="false">案件</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" id="activity-tab" data-toggle="pill" href="#tab-activity"
+                          role="tab" aria-controls="custom-tabs-one-activity" aria-selected="true">関連活動</a>
+                      </li>
+                    </ul>
+                  </div>
                   <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table" style="table-layout:fixed; width:100%;">
-                        <tbody>
-                          <tr>
-                            <th>顧客名</th>
-                            <th>アプローチルート</th>
-                            <th>競合先</th>
-                            <th>担当者</th>
-                          </tr>
-                          <tr>
-                            <td>
-                              <a th:href="@{/client/detail/{id}(id=${data.client?.id})}"
-                              th:text="${data.client?.name}"></a>
-                            </td>
-                            <td th:text="${data.approachRoot != null ? data.approachRoot?.name : ''}"></td>
-                            <td th:text="${data.competitor}"></td>
-                            <td>
-                              <span
-                                th:each="pe, stat : ${data.projectEmployee}"
-                                th:text="${stat.last ? pe.staff?.name : pe.staff?.name + '、'}"></span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="table-responsive mt-3">
-                      <table class="table" style="table-layout:fixed; width:100%;">
-                        <tbody>
-                          <tr>
-                            <th>受注（予定）日</th>
-                            <th>受注確度</th>
-                            <th>受注（予定）金額</th>
-                            <th>勝敗要因</th>
-                          </tr>
-                          <tr>
-                            <td th:text="${data.expectedOrderDate}"></td>
-                            <td>
-                              <span th:if="${data.orderProbability != null}" th:text="|${data.orderProbability}％|"></span>
-                            </td>
-                            <td>
-                              <span th:if="${data.estimatedOrderAmount != null}"
-                                th:text="|¥${#numbers.formatInteger(data.estimatedOrderAmount, 1, 'COMMA')}|"></span>
-                            </td>
-                            <td th:text="${data.factor != null ? data.factor?.name : ''}"></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="tab-content" id="custom-tabs-one-tabContent">
+                      <div class="tab-pane fade active show" id="tab-project" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-project-tab">
+                        <div class="table-responsive">
+                          <table class="table" style="table-layout:fixed; width:100%;">
+                            <tbody>
+                              <tr>
+                                <th>顧客名</th>
+                                <th>アプローチルート</th>
+                                <th>競合先</th>
+                                <th>担当者</th>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a th:href="@{/client/detail/{id}(id=${data.client?.id})}"
+                                  th:text="${data.client?.name}"></a>
+                                </td>
+                                <td th:text="${data.approachRoot != null ? data.approachRoot?.name : ''}"></td>
+                                <td th:text="${data.competitor}"></td>
+                                <td>
+                                  <span
+                                    th:each="pe, stat : ${data.projectEmployee}"
+                                    th:text="${stat.last ? pe.staff?.name : pe.staff?.name + '、'}"></span>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="table-responsive mt-3">
+                          <table class="table" style="table-layout:fixed; width:100%;">
+                            <tbody>
+                              <tr>
+                                <th>受注（予定）日</th>
+                                <th>受注確度</th>
+                                <th>受注（予定）金額</th>
+                                <th>勝敗要因</th>
+                              </tr>
+                              <tr>
+                                <td th:text="${data.expectedOrderDate}"></td>
+                                <td>
+                                  <span th:if="${data.orderProbability != null}" th:text="|${data.orderProbability}％|"></span>
+                                </td>
+                                <td>
+                                  <span th:if="${data.estimatedOrderAmount != null}"
+                                    th:text="|¥${#numbers.formatInteger(data.estimatedOrderAmount, 1, 'COMMA')}|"></span>
+                                </td>
+                                <td th:text="${data.factor != null ? data.factor?.name : ''}"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="tab-pane fade" id="tab-activity" role="tabpanel"
+                        aria-labelledby="custom-tabs-one-active-tab">
+                        <div class="mb-3">
+                          <a th:href="@{/activity}">
+                            <button type="button" class="btn btn-outline-success" data-toggle="tooltip"
+                            data-placement="right">
+                              活動記録へ
+                            </button>
+                          </a>
+                        </div>
+                        <div th:include="/activity/index::activity-table"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
@@ -130,6 +160,8 @@
       </div>
       <!-- product edit modal -->
       <th:block th:replace="project/edit::project-edit-modal"></th:block>
+      <!-- Activity edit modal -->
+			<th:block th:replace="activity/edit::activity-edit-modal"></th:block>
     </section>
   </div>
 </body>

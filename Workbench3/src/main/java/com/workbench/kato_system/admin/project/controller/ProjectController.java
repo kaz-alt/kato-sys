@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
 import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
@@ -151,6 +154,8 @@ public class ProjectController {
     Project data = projectService.getOne(id);
 
 		model.addAttribute("data", data);
+    model.addAttribute("list", data.getActivity());
+    model.addAttribute("activitySearchForm", new ActivitySearchForm());
 
 		return "project/detail";
 	}
@@ -196,5 +201,14 @@ public class ProjectController {
 		projectService.save(form, user);
 
 		return REDIRECT;
+	}
+
+  /**
+	 * 担当者を取得するAPI
+	 */
+	@GetMapping("/api/get_project")
+	@ResponseBody
+	public List<ProjectDto> getEmployee(@RequestParam("name") String name) {
+		return projectService.getProjectDtoByName(name);
 	}
 }

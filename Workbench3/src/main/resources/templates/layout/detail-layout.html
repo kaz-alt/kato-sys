@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_csrf" th:content="${_csrf.token}">
     <meta name="_csrf_header" th:content="${_csrf.headerName}">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" >
     <title layout:title-pattern="$CONTENT_TITLE">This is a title</title>
 
     <!-- Font Awesome Icons -->
@@ -36,6 +37,7 @@
     <script th:src="@{/js/product.js}"></script>
     <script th:src="@{/js/inquiryRequirementComplaint.js}"></script>
     <script th:src="@{/js/project.js}"></script>
+    <script th:src="@{/js/activity.js}"></script>
 
     <!-- Select2 -->
     <link rel="stylesheet" th:href="@{/dist/select2/css/select2.min.css}">
@@ -51,6 +53,10 @@
     <link rel="stylesheet" th:href="@{/dist/datepicker/css/jquery-ui.min.css}">
     <link rel="stylesheet" th:href="@{/dist/datepicker/css/jquery-ui.structure.min.css}">
     <link rel="stylesheet" th:href="@{/dist/datepicker/css/jquery-ui.theme.min.css}">
+
+    <!-- DateTimepicker -->
+    <link rel="stylesheet" th:href="@{/dist/datetimepicker/css/jquery.datetimepicker.min.css}">
+    <script th:src="@{/dist/datetimepicker/js/jquery.datetimepicker.full.min.js}"></script>
 
     <!-- Validation -->
     <script th:src="@{/dist/validation/jquery.validate.min.js}"></script>
@@ -98,14 +104,7 @@
     <!-- /.Main content -->
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-      <!-- To the right -->
-      <div class="float-right d-none d-sm-inline">
-        Make Your Work More Effective.
-      </div>
-      <!-- Default to the left -->
-      <strong>Copyright &copy; 2022 Kazuya Kato.</strong> All rights reserved.
-    </footer>
+    <footer class=""></footer>
   </div>
 
 <!-- REQUIRED SCRIPTS -->

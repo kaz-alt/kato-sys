@@ -27,6 +27,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.workbench.kato_system.admin.activity.model.Activity;
 import com.workbench.kato_system.admin.client.model.entity.Client;
 
 import lombok.Getter;
@@ -72,6 +73,11 @@ public class Project implements Serializable {
 	/* 案件担当者 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
 	private Set<ProjectEmployee> projectEmployee;
+
+	/* 活動記録 */
+	@NotAudited
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+	private Set<Activity> activity;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

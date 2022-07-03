@@ -26,5 +26,6 @@ logging:
 
 server:
   servlet:
+    context-path: /demo
     session:
-      timeout: 1500
+      timeout: 2000

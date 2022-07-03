@@ -1,6 +1,8 @@
 $(function(){
 	"user strict";
 
+  let path = location.pathname;
+
 	let beforeUrl = document.referrer;
 	if(beforeUrl.indexOf('product') > 0){
 		$('#product-tab').click();
@@ -32,14 +34,19 @@ $(function(){
 	let nameList = [];
 	let numberList = [];
 
-	readyForChart();
-	$('#yealy-sales-title').text($('#year').val() + '年度売上推移');
-	let total = salesList.reduce((sum, element) => sum + element, 0);
-	total = total * 10000;
-	$('#yearly-sales-sum').text('¥' + total.toLocaleString());
+  if (path.indexOf('client') > -1) {
 
-	createStackedBarChart(nameList, dateList, salesList);
-	createPieChart(nameList, numberList);
+    readyForChart();
+    $('#yealy-sales-title').text($('#year').val() + '年度売上推移');
+    let total = salesList.reduce((sum, element) => sum + element, 0);
+    total = total * 10000;
+    $('#yearly-sales-sum').text('¥' + total.toLocaleString());
+
+    createStackedBarChart(nameList, dateList, salesList);
+    createPieChart(nameList, numberList);
+
+  }
+
 
 	function readyForChart(){
 
