@@ -14,11 +14,11 @@ import com.workbench.kato_system.admin.activity.model.Activity;
 public interface ActivityRepository
   extends JpaRepository<Activity, Integer>, JpaSpecificationExecutor<Activity> {
 
-    @Query(value = "SELECT a FROM Activity a INNER JOIN FETCH a.staff",
-    countQuery = "SELECT COUNT(distinct a) FROM Activity a INNER JOIN a.staff")
+    @Query(value = "SELECT a FROM Activity a INNER JOIN FETCH a.staff LEFT JOIN FETCH a.project ORDER BY a.activityDate",
+    countQuery = "SELECT COUNT(distinct a) FROM Activity a INNER JOIN a.staff LEFT JOIN a.project")
     Page<Activity> findPageList(Pageable pageable);
 
-    @Query(value = "SELECT a FROM Activity a INNER JOIN FETCH a.staff WHERE a.id = :id")
+    @Query(value = "SELECT a FROM Activity a INNER JOIN FETCH a.staff LEFT JOIN FETCH a.project WHERE a.id = :id")
     Optional<Activity> findEntityById(@Param("id") Integer id);
 
 }

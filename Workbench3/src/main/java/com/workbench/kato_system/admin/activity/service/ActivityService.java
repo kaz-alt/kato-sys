@@ -29,7 +29,6 @@ import lombok.RequiredArgsConstructor;
 public class ActivityService {
 
 	private final ActivityRepository activityRepository;
-	private final StaffRepository staffRepository;
 
 	private final int SEARCH_SIZE = 10;
 
@@ -83,6 +82,7 @@ public class ActivityService {
       if (Long.class != query.getResultType()) {
 				query.distinct(true);
 				root.fetch("staff", JoinType.INNER);
+        root.fetch("project", JoinType.LEFT);
 			}
 			return cb.conjunction();
 		};
@@ -126,15 +126,10 @@ public class ActivityService {
 			a = activityRepository.findById(form.getId()).orElse(new Activity());
 		}
 
-		Optional<Staff> staff = staffRepository.findById(form.getStaffId());
-
-		if (staff.isPresent()) {
-			Staff s = staff.get();
-			a.setStaffId(s.getId());
-		}
-
+		a.setStaffId(form.getStaffId());
 		a.setActivityDate(form.getActivityDate());
 		a.setContent(form.getContent());
+		a.setProjectId(form.getProjectId());
 		a = activityRepository.save(a);
 
 		return a;

@@ -12,17 +12,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Immutable;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.workbench.kato_system.admin.project.model.Project;
 import com.workbench.kato_system.admin.staff.model.Staff;
 
 import lombok.Getter;
@@ -42,10 +45,16 @@ import lombok.Setter;
 public class Activity implements Serializable {
 
 	/* 社員 */
+	@NotAudited
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
-  @Immutable
 	private Staff staff;
+
+	/* 関連案件 */
+	@NotAudited
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
+	private Project project;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

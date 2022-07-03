@@ -86,7 +86,7 @@
 											<td th:text="${a.content}"></td>
 											<td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
 												<a th:href="@{/project/detail/{id}(id=${a.projectId})}"
-													th:text="${a.projectId}"
+													th:text="${a.project?.name}"
 													class="w-100 h-100" style="display:block;">
 												</a>
 											</td>

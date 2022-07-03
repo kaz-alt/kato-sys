@@ -76,8 +76,7 @@ public class Project implements Serializable {
 
 	/* 活動記録 */
 	@NotAudited
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "project_id", referencedColumnName = "id", insertable = false, updatable = false)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
 	private Set<Activity> activity;
 
 	@Id

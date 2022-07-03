@@ -24,7 +24,8 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
     + "LEFT JOIN FETCH p.factor "
     + "LEFT JOIN FETCH p.projectEmployee pe "
     + "LEFT JOIN FETCH pe.staff "
-    + "LEFT JOIN FETCH p.activity "
+    + "LEFT JOIN FETCH p.activity a "
+    + "LEFT JOIN FETCH a.staff "
     + "WHERE p.id = :id")
   Optional<Project> findByProjectId(@Param("id") Integer id);
 
@@ -32,12 +33,13 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
 	@Override
 	@Query(value = "select p from Project p "
     + "inner join fetch p.progress "
-    + "inner join fetch p.client "
+    + "inner join fetch p.client c "
     + "inner join fetch p.approachRoot "
     + "left join fetch p.factor "
     + "left join fetch p.projectEmployee pe "
     + "left join fetch pe.staff "
-    + "where p.delFlg = 0", countQuery = "select p from Project p "
+    + "where p.delFlg = 0 "
+    + "order by c.name ", countQuery = "select p from Project p "
       + "left join p.factor "
       + "left join p.projectEmployee pe "
       + "left join pe.staff "

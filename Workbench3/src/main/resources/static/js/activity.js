@@ -32,34 +32,17 @@ $(function(){
     ordering: path.indexOf('/detail') > 0,
 		columnDefs: setColumnDefines(),
     info: false,
-    paging: false,
+    paging: path.indexOf('/detail') > 0,
+    pageLength: 10,
     lengthMenu: [5],
 		language: window.main.getLanguageForDataTable()
 	});
 
-	$.fn.dataTable.ext.order['count'] = function (settings, col){
-    return this.api().column(col, {order:'index'}).nodes().map(function (td, i) {
-    if (! $(td).html()) return 0;
-    let num = $(td).html().replace('個', '');
-    return Number(num);
-    });
-	}
-
-	$.fn.dataTable.ext.order['sales'] = function (settings, col){
-    return this.api().column(col, {order:'index'}).nodes().map(function (td, i) {
-    if (! $(td).html()) return 0;
-    let num = $(td).html().replace('万円', '').replace(',', '');
-    return Number(num);
-    });
-	}
-
 	function setColumnDefines() {
 		if(path.indexOf('/detail') > 0){
 			return [
-				{targets: 2, orderable: true, orderDataType: 'count', type: 'num'},
-				{targets: 3, orderable: true, orderDataType: 'sales', type: 'num'},
-				{targets: 4, orderable: false},
-				{targets: 5, orderable: false}
+				{targets: 3, orderable: false},
+				{targets: 4, orderable: false}
 			];
 		}
 		return [];
