@@ -80,37 +80,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a th:href="@{/home}" class="nav-link text-light"><i class="fas fa-home"></i>&nbsp;Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link text-light">Contact</a>
       </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <a class="nav-link text-light" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </li>
-
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link text-light" data-toggle="dropdown" href="#">
@@ -171,8 +146,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a th:href="@{/home}" class="nav-link">
+              <i class="fas fa-home"></i>
+              <p>
+                ホーム
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link">
               <i class="nav-icon fas fa-chart-line"></i>
