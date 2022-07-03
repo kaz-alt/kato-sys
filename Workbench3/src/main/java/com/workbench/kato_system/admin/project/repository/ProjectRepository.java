@@ -24,6 +24,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
     + "LEFT JOIN FETCH p.factor "
     + "LEFT JOIN FETCH p.projectEmployee pe "
     + "LEFT JOIN FETCH pe.staff "
+    + "LEFT JOIN FETCH p.activity "
     + "WHERE p.id = :id")
   Optional<Project> findByProjectId(@Param("id") Integer id);
 

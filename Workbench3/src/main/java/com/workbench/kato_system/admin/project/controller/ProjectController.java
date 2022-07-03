@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.client.service.ClientService;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
@@ -153,6 +154,8 @@ public class ProjectController {
     Project data = projectService.getOne(id);
 
 		model.addAttribute("data", data);
+    model.addAttribute("list", data.getActivity());
+    model.addAttribute("activitySearchForm", new ActivitySearchForm());
 
 		return "project/detail";
 	}
