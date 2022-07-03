@@ -73,7 +73,9 @@ public class ActivityService {
 				.and(dateLessThan(form.getEndActivityDate()))
         .and(contentContains(form.getTargetContent()))
         .and(projectIdContains(form.getProjectIdList())),
-				PageRequest.of(pageNum, SEARCH_SIZE, Sort.by(Sort.Direction.ASC, "id")));
+        PageRequest.of(pageNum, SEARCH_SIZE, Sort.by(
+          form.getSortOrder().equals("asc") ? Sort.Direction.ASC : Sort.Direction.DESC,
+          form.getSortData())));
 	}
 
   public Specification<Activity> fetchRelationEntity() {
