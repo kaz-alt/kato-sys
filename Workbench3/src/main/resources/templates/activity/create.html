@@ -21,7 +21,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="form-group col-7">
-                      <label for="industry">活動日&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <label>活動日&nbsp;<span class="text-danger">*必須</span>：</label>
                       <input type="text" class="form-control datepicker" th:field="*{activityDate}"
                         placeholder="クリックして日付を入力">
                       <span class="text-danger" th:if="${#fields.hasErrors('activityDate')}"th:errors="*{activityDate}"></span>
@@ -29,7 +29,7 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-8">
-                      <label for="industry">社員名&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <label>社員名&nbsp;<span class="text-danger">*必須</span>：</label>
                       <select class="select2 form-control" th:field="*{staffId}"
                         th:data-href="@{/staff/api/get_employee}">
                       </select>
@@ -38,9 +38,18 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-12">
-                      <label for="industry">活動内容&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <label>活動内容&nbsp;<span class="text-danger">*必須</span>：</label>
                       <textarea class="form-control" th:field="*{content}"></textarea>
                       <span class="text-danger" th:if="${#fields.hasErrors('content')}"th:errors="*{content}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-10">
+                      <label for="industry">関連案件名：</label>
+                      <select class="select2 form-control" th:field="*{projectId}"
+                        th:data-href="@{/project/api/get_project}">
+                      </select>
+                      <span class="text-danger" th:if="${#fields.hasErrors('projectId')}"th:errors="*{projectId}"></span>
                     </div>
                   </div>
                 </div>

@@ -47,6 +47,16 @@
                           <span class="text-danger" th:if="${#fields.hasErrors('content')}"th:errors="*{content}"></span>
                         </div>
                       </div>
+                      <div class="row">
+                        <div class="form-group col-10">
+                          <label for="industry">関連案件名：</label>
+                          <select class="select2 form-control" name="projectId"
+                            th:data-href="@{/project/api/get_project}">
+                            <option th:text="${data.projectId}" th:value="${data.projectId}" selected/>
+                          </select>
+                          <span class="text-danger" th:if="${#fields.hasErrors('projectId')}"th:errors="*{projectId}"></span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </th:block>

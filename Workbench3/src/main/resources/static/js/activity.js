@@ -19,6 +19,12 @@ $(function(){
   window.main.createEmployeeOptionWithId($('#activity-form select[name="staffId"]'));
   window.main.createEmployeeOptionWithId($('#activitySearchForm select[name="staffIdList"]'));
 
+  /**
+	 * 案件名取得
+	 */
+  window.main.createProjectOptionByName($('#activity-form select[name="projectId"]'));
+  window.main.createProjectOptionByName($('#activitySearchForm select[name="projectIdList"]'));
+
 	$('#activity-table').dataTable({
 		bDestroy: true,
 		lengthChange: false,
@@ -78,6 +84,7 @@ $(function(){
       $('#activity-edit-form').html(data);
       $('.datepicker').datepicker(window.main.datepicker());
       window.main.createEmployeeOptionWithId($('#activity-edit-form select[name="staffId"]'));
+      window.main.createProjectOptionByName($('#activity-edit-form select[name="projectId"]'));
     }).fail(function(){
       alert("データ取得に失敗しました");
     })

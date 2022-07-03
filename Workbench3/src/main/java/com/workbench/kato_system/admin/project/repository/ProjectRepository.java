@@ -1,6 +1,7 @@
 package com.workbench.kato_system.admin.project.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.model.Project;
 
 public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaSpecificationExecutor<Project> {
@@ -54,5 +56,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
 			+ "and p.expectedOrderDate <= :endDate")
 	Set<Project> findByClientIdAndExpectedOrderDate(@Param("clientId") Integer clientId,
 			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+
+  @Query("SELECT new com.workbench.kato_system.admin.project.dto.ProjectDto(p.id, p.name) FROM Project p WHERE p.delFlg = 0 AND p.name LIKE %:name%")
+  List<ProjectDto> fetchDtoByName(@Param("name") String name);
 
 }

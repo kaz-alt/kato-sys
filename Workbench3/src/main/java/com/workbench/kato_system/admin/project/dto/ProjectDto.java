@@ -1,18 +1,14 @@
 package com.workbench.kato_system.admin.project.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class ProjectDto {
 
+  private Integer id;
+
 	private String name;
-
-	private Integer quantity;
-
-	private Integer sales;
-
-	private String purchasedDate;
-
-	private String remarks;
 
 }

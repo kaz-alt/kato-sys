@@ -190,6 +190,37 @@ $(".table-scroll").mousedragscrollable();
   window.main= window.main|| {};
   window.main.createEmployeeOptionByClientId = createEmployeeOptionByClientId;
 
+  function createProjectOptionByName($select) {
+    $select.select2({
+      minimumInputLength: 1,
+      language: "ja",
+      placeholder: "例）◯◯案件",
+      ajax: {
+        url: $select.data('href'),
+        data: function(params) {
+          let data = {};
+          data.name = params.term;
+          term = params.term;
+          return data;
+        },
+        processResults: function(data) {
+          let resultList = [];
+          for (let i in data) {
+            let map = {};
+            map.id = data[i].id;
+            map.text = data[i].name;
+            resultList.push(map);
+          }
+          return {
+            results: resultList
+          };
+        }
+      }
+    })
+  }
+  window.main= window.main|| {};
+  window.main.createProjectOptionByName = createProjectOptionByName;
+
   $('.datepicker').datepicker(datepicker()).datepicker('setDate', new Date());
   $('.datepicker-search').datepicker(datepicker());
   $('.datetimepicker').datetimepicker({

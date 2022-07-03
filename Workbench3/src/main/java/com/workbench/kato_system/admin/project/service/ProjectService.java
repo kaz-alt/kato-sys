@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
+import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
 import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
@@ -69,7 +70,11 @@ public class ProjectService {
 			LocalDate endDate) {
 
 		return projectRepository.findByClientIdAndExpectedOrderDate(clientId, startDate, endDate);
+	}
 
+  public List<ProjectDto> getProjectDtoByName(String name) {
+
+		return projectRepository.fetchDtoByName(name);
 	}
 
 	public List<ApproachRoot> getAllApproachRoot() {
@@ -278,41 +283,4 @@ public class ProjectService {
 		return set;
 	}
 
-	//	private List<projectDto> model2Dto(List<project> list) {
-	//
-	//		List<projectDto> dtoList = new ArrayList<>();
-	//
-	//		for (project p : list) {
-	//
-	//			projectDto dto = new projectDto();
-	//
-	//			dto.setName(p.getName());
-	//			dto.setQuantity(p.getQuantity());
-	//			dto.setSales(p.getSales());
-	//			dto.setPurchasedDate(String.valueOf(p.getPurchasedDate()));
-	//			dto.setRemarks(p.getRemarks());
-	//
-	//			dtoList.add(dto);
-	//		}
-	//
-	//		return dtoList;
-	//
-	//	}
-	//
-	//	private Set<ClientDto> model2ClientDto(List<project> projectList) {
-	//		Set<ClientDto> dtoSet = new HashSet<>();
-	//
-	//		if (CollectionUtils.isEmpty(projectList)) {
-	//			return dtoSet;
-	//		}
-	//
-	//		for (project prduct : projectList) {
-	//			ClientDto dto = new ClientDto();
-	//			dto.setId(prduct.getClient().getId());
-	//			dto.setName(prduct.getClient().getName());
-	//			dtoSet.add(dto);
-	//		}
-	//
-	//		return dtoSet;
-	//	}
 }
