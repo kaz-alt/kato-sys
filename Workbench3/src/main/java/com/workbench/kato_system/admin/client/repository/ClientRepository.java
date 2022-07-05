@@ -15,28 +15,28 @@ public interface ClientRepository extends JpaRepository<Client, Integer>, JpaSpe
 
 	@Override
 	@Query("select distinct c from Client c "
-			+ "left join fetch c.staffClientList "
-			+ "left join fetch c.clientStaffList "
+			+ "left join fetch c.employeeClientList "
+			+ "left join fetch c.clientEmployeeList "
 			+ "order by c.id")
 	List<Client> findAll();
 
 	@Override
 	@Query(value = "select distinct c from Client c "
-			+ "left join fetch c.staffClientList sc "
-			+ "left join fetch sc.staff "
-			+ "left join fetch c.clientStaffList "
+			+ "left join fetch c.employeeClientList sc "
+			+ "left join fetch sc.employee "
+			+ "left join fetch c.clientEmployeeList "
 			+ "where c.delFlg = 0", countQuery = "select count(distinct c) from Client c "
-					+ "left join c.staffClientList sc "
-					+ "left join sc.staff "
-					+ "left join c.clientStaffList "
+					+ "left join c.employeeClientList sc "
+					+ "left join sc.employee "
+					+ "left join c.clientEmployeeList "
 					+ "where c.delFlg = 0"
 					+ "order by c.id")
 	Page<Client> findAll(Pageable pageable);
 
 	@Query("select distinct c from Client c "
-			+ "left join fetch c.staffClientList sc "
-			+ "left join fetch sc.staff "
-			+ "left join fetch c.clientStaffList "
+			+ "left join fetch c.employeeClientList sc "
+			+ "left join fetch sc.employee "
+			+ "left join fetch c.clientEmployeeList "
 			+ "where c.id = :id "
 			+ "and c.delFlg = 0")
 	Client findByClientId(@Param("id") Integer id);

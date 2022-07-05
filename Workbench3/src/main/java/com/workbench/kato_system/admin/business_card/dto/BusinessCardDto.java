@@ -8,7 +8,7 @@ import lombok.Data;
 public class BusinessCardDto {
 
 	/* 顧客担当者ID */
-	private Integer clientStaffId;
+	private Integer clientEmployeeId;
 
 	/* 会社名 */
 	private String companyName;
