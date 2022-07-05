@@ -1,11 +1,11 @@
-package com.workbench.kato_system.admin.staff.form;
+package com.workbench.kato_system.admin.employee.form;
 
 import javax.validation.constraints.NotEmpty;
 
 import lombok.Data;
 
 @Data
-public class StaffForm {
+public class EmployeeForm {
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 	private final String UNCORRECT_MESSAGE = "※入力が不正です";

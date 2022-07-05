@@ -26,7 +26,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
-import com.workbench.kato_system.admin.client.model.entity.ClientStaff;
+import com.workbench.kato_system.admin.client.model.entity.ClientEmployee;
 
 import lombok.Data;
 
@@ -49,8 +49,8 @@ public class BusinessCard implements Serializable {
 
 	/* 顧客担当者 */
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_staff_id", insertable = false, updatable = false)
-	private ClientStaff clientStaff;
+	@JoinColumn(name = "client_employee_id", insertable = false, updatable = false)
+	private ClientEmployee clientEmployee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,8 +62,8 @@ public class BusinessCard implements Serializable {
 	private Integer clientId;
 
 	/* 顧客担当者ID */
-	@Column(name = "client_staff_id")
-	private Integer clientStaffId;
+	@Column(name = "client_employee_id")
+	private Integer clientEmployeeId;
 
 	/* 会社名 */
 	@Column(name = "company_name")

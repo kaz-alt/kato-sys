@@ -23,7 +23,7 @@ public class InquiryRequirementComplaintSearchForm {
 
 	private Boolean targetHasSolved;
 
-	private List<Integer> targetResponsibleStaffIdList = new ArrayList<>();
+	private List<Integer> targetResponsibleEmployeeIdList = new ArrayList<>();
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startSolvedDate;

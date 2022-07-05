@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.workbench.kato_system.admin.staff.model.Staff;
+import com.workbench.kato_system.admin.employee.model.Employee;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -37,8 +37,8 @@ public class ProjectEmployee implements Serializable {
 	private Project project;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
-	private Staff staff;
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,8 +46,8 @@ public class ProjectEmployee implements Serializable {
 	private Integer id;
 
 	/* 社員ID */
-	@Column(name = "staff_id")
-	private Integer staffId;
+	@Column(name = "employee_id")
+	private Integer employeeId;
 
 	/* 案件ID */
 	@Column(name = "project_id")

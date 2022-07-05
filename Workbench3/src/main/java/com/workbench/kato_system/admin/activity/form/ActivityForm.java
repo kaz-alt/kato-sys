@@ -21,7 +21,7 @@ public class ActivityForm {
 
 	@NotNull(message = REQUIRED_MESSAGE)
 	@Min(value = 1, message = UNCORRECT_MESSAGE)
-	private Integer staffId;
+	private Integer employeeId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = REQUIRED_MESSAGE)

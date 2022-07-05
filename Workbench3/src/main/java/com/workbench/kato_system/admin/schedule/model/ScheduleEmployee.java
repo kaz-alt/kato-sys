@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.workbench.kato_system.admin.staff.model.Staff;
+import com.workbench.kato_system.admin.employee.model.Employee;
 
 import lombok.Data;
 
@@ -37,8 +37,8 @@ public class ScheduleEmployee implements Serializable {
 
 	/* 担当者 */
 	@ManyToOne
-	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
-	private Staff staff;
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,7 @@ public class ScheduleEmployee implements Serializable {
 	private Integer scheduleId;
 
 	/* 終了時間 */
-	@Column(name = "staff_id")
-	private Integer staffId;
+	@Column(name = "employee_id")
+	private Integer employeeId;
 
 }

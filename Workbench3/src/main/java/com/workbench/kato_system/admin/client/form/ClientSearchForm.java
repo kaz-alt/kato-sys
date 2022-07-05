@@ -14,7 +14,7 @@ public class ClientSearchForm {
 
 	private List<Integer> clientTypeIdList = new ArrayList<>();
 
-	private List<Integer> ourStaffIdList = new ArrayList<>();
+	private List<Integer> ourEmployeeIdList = new ArrayList<>();
 
 	private String clientTel;
 

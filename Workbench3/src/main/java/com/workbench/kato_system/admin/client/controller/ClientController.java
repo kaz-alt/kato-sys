@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.client.dto.ClientDto;
-import com.workbench.kato_system.admin.client.dto.ClientStaffDto;
+import com.workbench.kato_system.admin.client.dto.ClientEmployeeDto;
 import com.workbench.kato_system.admin.client.form.ClientForm;
 import com.workbench.kato_system.admin.client.form.ClientSearchForm;
 import com.workbench.kato_system.admin.client.model.entity.Client;
@@ -33,6 +33,7 @@ import com.workbench.kato_system.admin.client.model.enums.Industry;
 import com.workbench.kato_system.admin.client.model.enums.Motivation;
 import com.workbench.kato_system.admin.client.model.enums.Standpoint;
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.entity.InquiryRequirementComplaint;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.enums.ContentType;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.service.InquiryRequirementComplaintService;
@@ -43,7 +44,6 @@ import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
 import com.workbench.kato_system.admin.project.model.Project;
 import com.workbench.kato_system.admin.project.service.ProjectService;
 import com.workbench.kato_system.admin.security.LoginUserDetails;
-import com.workbench.kato_system.admin.staff.service.StaffService;
 import com.workbench.kato_system.admin.utils.DateUtils;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
@@ -60,7 +60,7 @@ public class ClientController {
 	private final InquiryRequirementComplaintService inquiryRequirementComplaintService;
 	private final ProductService productService;
 	private final ProjectService projectService;
-	private final StaffService staffService;
+	private final EmployeeService employeeService;
 
 	@ModelAttribute
 	ClientForm setUpClientForm() {
@@ -209,11 +209,11 @@ public class ClientController {
 
 		Client data = clientService.getOne(id);
 
-		List<Integer> staffClientIdList = data.getStaffClientList()
-				.stream().map(s -> s.getStaffId()).collect(Collectors.toList());
+		List<Integer> employeeClientIdList = data.getEmployeeClientList()
+				.stream().map(s -> s.getEmployeeId()).collect(Collectors.toList());
 
 		model.addAttribute("data", data);
-		model.addAttribute("staffClientIdList", staffClientIdList);
+		model.addAttribute("employeeClientIdList", employeeClientIdList);
 
 		return "client/edit :: client-edit";
 	}
@@ -244,13 +244,13 @@ public class ClientController {
 	/**
 	 * 顧客IDから顧客担当者を取得するAPI
 	 */
-	@RequestMapping("api/get_client_staff")
+	@RequestMapping("api/get_client_employee")
 	@ResponseBody
-	public List<ClientStaffDto> getClientStaff(@RequestParam(name = "clientId") Integer clientId) {
+	public List<ClientEmployeeDto> getClientEmployee(@RequestParam(name = "clientId") Integer clientId) {
 		if (clientId == null) {
-			return new ArrayList<ClientStaffDto>();
+			return new ArrayList<ClientEmployeeDto>();
 		}
-		List<ClientStaffDto> dto = clientService.getClientStaffDtoByClientId(clientId);
+		List<ClientEmployeeDto> dto = clientService.getClientEmployeeDtoByClientId(clientId);
 		return dto;
 	}
 
@@ -282,7 +282,7 @@ public class ClientController {
 		model.addAttribute("page", page);
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("selectedEmployee",
-				staffService.getSelectedEmployee(form.getOurStaffIdList()));
+				employeeService.getSelectedEmployee(form.getOurEmployeeIdList()));
 		model.addAttribute("projectCount", clientService.getProjectCount());
 	}
 

@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.form.InquiryRequirementComplaintForm;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.form.InquiryRequirementComplaintSearchForm;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.entity.InquiryRequirementComplaint;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.enums.ContentType;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.service.InquiryRequirementComplaintService;
-import com.workbench.kato_system.admin.staff.service.StaffService;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class InquiryRequirementComplaintController {
 
 	private final ClientService clientService;
 	private final InquiryRequirementComplaintService service;
-	private final StaffService staffService;
+	private final EmployeeService employeeService;
 
 	@ModelAttribute
 	InquiryRequirementComplaintForm setUpInquiryRequirementComplaintForm() {
@@ -84,7 +84,7 @@ public class InquiryRequirementComplaintController {
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("selectedClient", clientService.getSelectedClient(form.getClientIdList()));
 		model.addAttribute("selectedEmployee",
-				staffService.getSelectedEmployee(form.getTargetResponsibleStaffIdList()));
+				employeeService.getSelectedEmployee(form.getTargetResponsibleEmployeeIdList()));
 
 		return "inquiry_requirement_complaint/index";
 	}

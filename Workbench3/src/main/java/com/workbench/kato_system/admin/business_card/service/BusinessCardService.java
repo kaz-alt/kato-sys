@@ -20,7 +20,7 @@ import com.workbench.kato_system.admin.business_card.form.BusinessCardSearchForm
 import com.workbench.kato_system.admin.business_card.model.BusinessCard;
 import com.workbench.kato_system.admin.business_card.repository.BusinessCardRepository;
 import com.workbench.kato_system.admin.client.model.entity.Client;
-import com.workbench.kato_system.admin.client.model.entity.ClientStaff;
+import com.workbench.kato_system.admin.client.model.entity.ClientEmployee;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -127,11 +127,11 @@ public class BusinessCardService {
 			bc.setClientId(c.getId());
 			bc.setClient(c);
 
-			Set<ClientStaff> clientStaff = c.getClientStaffList();
-			for (ClientStaff cs : clientStaff) {
-				if (cs.getName().equals(form.getName())) {
-					bc.setClientStaffId(cs.getId());
-					bc.setClientStaff(cs);
+			Set<ClientEmployee> clientEmployee = c.getClientEmployeeList();
+			for (ClientEmployee ce : clientEmployee) {
+				if (ce.getName().equals(form.getName())) {
+					bc.setClientEmployeeId(ce.getId());
+					bc.setClientEmployee(ce);
 					break;
 				}
 			}

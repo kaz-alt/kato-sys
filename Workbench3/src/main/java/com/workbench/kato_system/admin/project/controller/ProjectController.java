@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
@@ -29,7 +30,6 @@ import com.workbench.kato_system.admin.project.model.Progress;
 import com.workbench.kato_system.admin.project.model.Project;
 import com.workbench.kato_system.admin.project.service.ProjectService;
 import com.workbench.kato_system.admin.security.LoginUserDetails;
-import com.workbench.kato_system.admin.staff.service.StaffService;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class ProjectController {
 
 	private final ClientService clientService;
 	private final ProjectService projectService;
-	private final StaffService staffService;
+	private final EmployeeService employeeService;
 
 	@ModelAttribute
 	ProjectForm setUpProjectForm() {
@@ -107,7 +107,7 @@ public class ProjectController {
 		model.addAttribute("projectList", page.getContent());
 		model.addAttribute("selectedClient", clientService.getSelectedClient(form.getClientIdList()));
 		model.addAttribute("selectedEmployee",
-				staffService.getSelectedEmployee(form.getOurEmployeeIdList()));
+				employeeService.getSelectedEmployee(form.getOurEmployeeIdList()));
 
 		return "project/index";
 	}

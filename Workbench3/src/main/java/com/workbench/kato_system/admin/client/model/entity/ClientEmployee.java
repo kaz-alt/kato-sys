@@ -26,10 +26,10 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "client_staff")
+@Table(name = "client_employee")
 @Audited
 @Data
-public class ClientStaff implements Serializable {
+public class ClientEmployee implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)

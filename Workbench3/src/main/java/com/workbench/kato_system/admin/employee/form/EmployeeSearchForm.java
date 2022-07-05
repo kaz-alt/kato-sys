@@ -1,15 +1,9 @@
-package com.workbench.kato_system.admin.staff.form;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.format.annotation.DateTimeFormat;
+package com.workbench.kato_system.admin.employee.form;
 
 import lombok.Data;
 
 @Data
-public class StaffSearchForm {
+public class EmployeeSearchForm {
 
 	private String targetName;
 

@@ -9,18 +9,18 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.workbench.kato_system.admin.client.model.entity.ClientStaff;
+import com.workbench.kato_system.admin.client.model.entity.ClientEmployee;
 
-public interface ClientStaffRepository extends JpaRepository<ClientStaff, Integer> {
+public interface ClientEmployeeRepository extends JpaRepository<ClientEmployee, Integer> {
 
 	@Override
 	@Query("SELECT distinct cs FROM ClientStaff cs LEFT JOIN FETCH cs.client")
-	List<ClientStaff> findAll();
+	List<ClientEmployee> findAll();
 
 	@Query("SELECT distinct cs FROM ClientStaff cs LEFT JOIN FETCH cs.client WHERE cs.clientId = :clientId")
-	List<ClientStaff> findByClientId(@Param("clientId") Integer clientId);
+	List<ClientEmployee> findByClientId(@Param("clientId") Integer clientId);
 
-	List<ClientStaff> findOneByClientIdAndName(Integer clientId, String name);
+	List<ClientEmployee> findOneByClientIdAndName(Integer clientId, String name);
 
 	@Transactional
 	@Modifying

@@ -16,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Immutable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
 import org.springframework.data.annotation.CreatedBy;
@@ -25,8 +24,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.project.model.Project;
-import com.workbench.kato_system.admin.staff.model.Staff;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,8 +46,8 @@ public class Activity implements Serializable {
 	/* 社員 */
 	@NotAudited
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
-	private Staff staff;
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	/* 関連案件 */
 	@NotAudited
@@ -62,8 +61,8 @@ public class Activity implements Serializable {
 	private Integer id;
 
 	/* 社員ID */
-	@Column(name = "staff_id")
-	private Integer staffId;
+	@Column(name = "employee_id")
+	private Integer employeeId;
 
 	/* 活動日 */
 	@Column(name = "activity_date")
