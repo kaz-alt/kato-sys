@@ -29,3 +29,5 @@ server:
     context-path: /demo
     session:
       timeout: 2000
+  error:
+    path: /error

@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/error")
+@RequestMapping("${server.error.path:${error.path:/error}}")
 public class GlobalErrorController implements ErrorController {
 
   private final ErrorLogRepository errorLogRepository;
