@@ -70,10 +70,10 @@
 	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'contentType' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'contentType' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 	                  </th>
 	                  <th class="text-center">内容</th>
-	                  <th class="text-center sort-pointer" data-sort-data="responsibleStaffId" th:data-sort-order="${sortOrder}"
-	                    th:classappend="${sortData == 'responsibleStaffId' ? 'active' : ''}">
+	                  <th class="text-center sort-pointer" data-sort-data="responsibleEmployeeId" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'responsibleEmployeeId' ? 'active' : ''}">
 	                    担当責任者
-	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'responsibleStaffId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'responsibleStaffId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'responsibleEmployeeId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'responsibleEmployeeId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 	                  </th>
 	                  <th class="text-center">解決済か</th>
 	                  <th class="text-center sort-pointer" data-sort-data="solvedDate" th:data-sort-order="${sortOrder}"
@@ -108,7 +108,7 @@
 	                      th:text="|${#strings.substring(l.content,0,9)}...|"></span>
 						<span th:unless="${10 <= #strings.length(l.content)}" th:text="${l.content}"></span>
 	                  </td>
-	                  <td th:text="${l.staff?.name}"></td>
+	                  <td th:text="${l.employee?.name}"></td>
 	                  <td th:text="${l.hasSolved ? '解決済み' : '未解決'}"
 	                    th:classappend="${l.hasSolved ? 'text-danger' : 'text-success'}"></td>
 	                  <td th:text="${l.solvedDate}"></td>

@@ -81,7 +81,7 @@ public class InquiryRequirementComplaintService {
 				.and(occurredDateGreaterThan(form.getStartOccurredDate()))
 				.and(occurredDateLessThan(form.getEndOccurredDate()))
 				.and(hasSolved(form.getTargetHasSolved()))
-				.and(responsibleStaffIdContains(form.getTargetResponsibleStaffIdList()))
+				.and(responsibleEmployeeIdContains(form.getTargetResponsibleEmployeeIdList()))
 				.and(solvedDateGreaterThan(form.getStartSolvedDate()))
 				.and(solvedDateLessThan(form.getEndSolvedDate()))
 				.and(contentFreeWordContains(form.getFreeWord())),
@@ -95,7 +95,7 @@ public class InquiryRequirementComplaintService {
 			if (Long.class != query.getResultType()) {
 				query.distinct(true);
 				root.fetch("client", JoinType.INNER);
-				root.fetch("staff", JoinType.INNER);
+				root.fetch("employee", JoinType.INNER);
 			}
 			return cb.isFalse(root.get("delFlg"));
 		};
@@ -135,9 +135,9 @@ public class InquiryRequirementComplaintService {
 		};
 	}
 
-	public Specification<InquiryRequirementComplaint> responsibleStaffIdContains(List<Integer> responsibleStaffIdList) {
-		return CollectionUtils.isEmpty(responsibleStaffIdList) ? null : (root, query, cb) -> {
-			return root.get("responsibleStaffId").in(responsibleStaffIdList);
+	public Specification<InquiryRequirementComplaint> responsibleEmployeeIdContains(List<Integer> responsibleEmployeeIdList) {
+		return CollectionUtils.isEmpty(responsibleEmployeeIdList) ? null : (root, query, cb) -> {
+			return root.get("responsibleEmployeeId").in(responsibleEmployeeIdList);
 		};
 	}
 
@@ -175,7 +175,7 @@ public class InquiryRequirementComplaintService {
 		inquiry.setContentType(form.getContentType());
 		inquiry.setContent(form.getContent());
 		inquiry.setOccurredDate(form.getOccurredDate());
-		inquiry.setResponsibleStaffId(form.getResponsibleStaffId());
+		inquiry.setResponsibleEmployeeId(form.getResponsibleEmployeeId());
 		inquiry.setHasSolved(form.getHasSolved());
 		if (form.getHasSolved()) {
 			inquiry.setSolvedDate(form.getSolvedDate());

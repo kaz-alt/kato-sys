@@ -106,7 +106,7 @@
                                 <td>
                                   <span
                                     th:each="pe, stat : ${data.projectEmployee}"
-                                    th:text="${stat.last ? pe.staff?.name : pe.staff?.name + '、'}"></span>
+                                    th:text="${stat.last ? pe.employee?.name : pe.employee?.name + '、'}"></span>
                                 </td>
                               </tr>
                             </tbody>

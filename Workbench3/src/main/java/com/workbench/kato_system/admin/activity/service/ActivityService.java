@@ -19,8 +19,8 @@ import com.workbench.kato_system.admin.activity.form.ActivityForm;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.activity.model.Activity;
 import com.workbench.kato_system.admin.activity.repository.ActivityRepository;
-import com.workbench.kato_system.admin.staff.model.Staff;
-import com.workbench.kato_system.admin.staff.repository.StaffRepository;
+import com.workbench.kato_system.admin.employee.model.Employee;
+import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -67,7 +67,7 @@ public class ActivityService {
 	public Page<Activity> getSearchResult(Integer pageNum, ActivitySearchForm form) {
 		return activityRepository.findAll(Specification
         .where(fetchRelationEntity())
-				.and(staffIdContains(form.getStaffIdList()))
+				.and(employeeIdContains(form.getEmployeeIdList()))
 				.and(dateGreaterThan(form.getStartActivityDate()))
 				.and(dateLessThan(form.getEndActivityDate()))
         .and(contentContains(form.getTargetContent()))
@@ -81,16 +81,16 @@ public class ActivityService {
 		return (root, query, cb) -> {
       if (Long.class != query.getResultType()) {
 				query.distinct(true);
-				root.fetch("staff", JoinType.INNER);
+				root.fetch("employee", JoinType.INNER);
         root.fetch("project", JoinType.LEFT);
 			}
 			return cb.conjunction();
 		};
 	}
 
-	public Specification<Activity> staffIdContains(List<Integer> staffIdList) {
-		return CollectionUtils.isEmpty(staffIdList) ? null : (root, query, cb) -> {
-			return root.get("staffId").in(staffIdList);
+	public Specification<Activity> employeeIdContains(List<Integer> employeeIdList) {
+		return CollectionUtils.isEmpty(employeeIdList) ? null : (root, query, cb) -> {
+			return root.get("employeeId").in(employeeIdList);
 		};
 	}
 
@@ -126,7 +126,7 @@ public class ActivityService {
 			a = activityRepository.findById(form.getId()).orElse(new Activity());
 		}
 
-		a.setStaffId(form.getStaffId());
+		a.setEmployeeId(form.getEmployeeId());
 		a.setActivityDate(form.getActivityDate());
 		a.setContent(form.getContent());
 		a.setProjectId(form.getProjectId());

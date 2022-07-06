@@ -25,10 +25,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.workbench.kato_system.admin.client.model.enums.ClientType;
 import com.workbench.kato_system.admin.client.model.enums.Industry;
+import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.entity.InquiryRequirementComplaint;
 import com.workbench.kato_system.admin.product.model.Product;
 import com.workbench.kato_system.admin.project.model.Project;
-import com.workbench.kato_system.admin.staff.model.StaffClient;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -52,11 +52,11 @@ public class Client implements Serializable {
 
 	/* 顧客担当者 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
-	private Set<ClientStaff> clientStaffList;
+	private Set<ClientEmployee> clientEmployeeList;
 
 	/* 当社担当者 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.ALL)
-	private Set<StaffClient> staffClientList;
+	private Set<EmployeeClient> employeeClientList;
 
 	/* 製品・サービス */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = CascadeType.REMOVE)

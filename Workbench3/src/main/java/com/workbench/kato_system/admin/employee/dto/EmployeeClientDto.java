@@ -1,4 +1,4 @@
-package com.workbench.kato_system.admin.staff.dto;
+package com.workbench.kato_system.admin.employee.dto;
 
 import lombok.Data;
 

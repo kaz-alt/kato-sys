@@ -43,11 +43,11 @@
 			        <div class="row">
 			          <div class="form-group col-md-8 col-sm-8">
 			            <label for="industry">当社担当者&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="select2 form-control" multiple="multiple" name="clientStaffIdList"
-			              th:data-href="@{/staff/api/get_employee}" th:data-url="@{/staff/api/get_employee_by_client_id}">
-			              <option th:each="cs : ${data.projectEmployee}" th:value="${cs.staff?.id}" th:text="${cs.staff?.name}" selected>
+			            <select class="select2 form-control" multiple="multiple" name="clientEmployeeIdList"
+			              th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
+			              <option th:each="cs : ${data.projectEmployee}" th:value="${cs.employee?.id}" th:text="${cs.employee?.name}" selected>
 			            </select>
-			            <span class="text-danger" th:errors="${projectForm.clientStaffIdList}"></span>
+			            <span class="text-danger" th:errors="${projectForm.clientEmployeeIdList}"></span>
 			          </div>
 			        </div>
 			        <div class="row">

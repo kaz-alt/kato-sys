@@ -55,11 +55,11 @@
 			        <div class="row">
 			          <div class="form-group col-12">
 			            <label for="industry">担当責任者&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="form-control select2" th:field="*{responsibleStaffId}"
-			              th:data-href="@{/staff/api/get_employee}">
+			            <select class="form-control select2" th:field="*{responsibleEmployeeId}"
+			              th:data-href="@{/employee/api/get_employee}">
 			              <option value=0>---担当者名を入力して下さい---</option>
 			            </select>
-			            <span class="text-danger" th:if="${#fields.hasErrors('responsibleStaffId')}"th:errors="*{responsibleStaffId}"></span>
+			            <span class="text-danger" th:if="${#fields.hasErrors('responsibleEmployeeId')}"th:errors="*{responsibleEmployeeId}"></span>
 			          </div>
 			        </div>
 			        <div class="card mt-2">

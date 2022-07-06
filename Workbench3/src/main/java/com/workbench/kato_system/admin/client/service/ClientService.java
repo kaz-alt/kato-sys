@@ -20,19 +20,19 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.client.dto.ClientDto;
-import com.workbench.kato_system.admin.client.dto.ClientStaffDto;
+import com.workbench.kato_system.admin.client.dto.ClientEmployeeDto;
 import com.workbench.kato_system.admin.client.form.ClientForm;
 import com.workbench.kato_system.admin.client.form.ClientSearchForm;
-import com.workbench.kato_system.admin.client.form.ClientStaffForm;
+import com.workbench.kato_system.admin.client.form.ClientEmployeeForm;
 import com.workbench.kato_system.admin.client.model.entity.Client;
-import com.workbench.kato_system.admin.client.model.entity.ClientStaff;
+import com.workbench.kato_system.admin.client.model.entity.ClientEmployee;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
-import com.workbench.kato_system.admin.client.repository.ClientStaffRepository;
+import com.workbench.kato_system.admin.client.repository.ClientEmployeeRepository;
+import com.workbench.kato_system.admin.employee.model.Employee;
+import com.workbench.kato_system.admin.employee.model.EmployeeClient;
+import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
+import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 import com.workbench.kato_system.admin.security.LoginUserDetails;
-import com.workbench.kato_system.admin.staff.model.Staff;
-import com.workbench.kato_system.admin.staff.model.StaffClient;
-import com.workbench.kato_system.admin.staff.repository.StaffClientRepository;
-import com.workbench.kato_system.admin.staff.repository.StaffRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,9 +41,9 @@ import lombok.RequiredArgsConstructor;
 public class ClientService {
 
 	private final ClientRepository clientRepository;
-	private final ClientStaffRepository clientStaffRepository;
-	private final StaffRepository staffRepository;
-	private final StaffClientRepository staffClientRepository;
+	private final ClientEmployeeRepository clientEmployeeRepository;
+	private final EmployeeRepository employeeRepository;
+	private final EmployeeClientRepository employeeClientRepository;
 
 	private final int SEARCH_SIZE = 10;
 
@@ -104,9 +104,9 @@ public class ClientService {
 		return model2Dto(clientList);
 	}
 
-	public List<ClientStaffDto> getClientStaffDtoByClientId(Integer clientId) {
-		List<ClientStaff> clientStaffList = clientStaffRepository.findByClientId(clientId);
-		return model2ClientStaffDto(clientStaffList);
+	public List<ClientEmployeeDto> getClientEmployeeDtoByClientId(Integer clientId) {
+		List<ClientEmployee> clientEmployeeList = clientEmployeeRepository.findByClientId(clientId);
+		return model2ClientEmployeeDto(clientEmployeeList);
 	}
 
 	public Page<Client> getSearchResult(Integer pageNum, ClientSearchForm form) {
@@ -116,7 +116,7 @@ public class ClientService {
 				.and(nameContains(form.getTargetClientNameList()))
 				.and(industryIdContains(form.getIndustryIdList()))
 				.and(typeIdContains(form.getClientTypeIdList()))
-				.and(staffIdContains(form.getOurStaffIdList()))
+				.and(employeeIdContains(form.getOurEmployeeIdList()))
 				.and(telContains(form.getClientTel()))
 				.and(emailContains(form.getClientEmail())),
 				PageRequest.of(pageNum, SEARCH_SIZE,
@@ -130,8 +130,8 @@ public class ClientService {
 		return (root, query, cb) -> {
 			if (Long.class != query.getResultType()) {
 				query.distinct(true);
-				root.fetch("staffClientList", JoinType.INNER).fetch("staff", JoinType.INNER);
-				root.fetch("clientStaffList", JoinType.INNER);
+				root.fetch("employeeClientList", JoinType.INNER).fetch("employee", JoinType.INNER);
+				root.fetch("clientEmployeeList", JoinType.INNER);
 			}
 			return cb.conjunction();
 		};
@@ -161,21 +161,21 @@ public class ClientService {
 		};
 	}
 
-	public Specification<Client> staffIdContains(List<Integer> staffIdList) {
-		return CollectionUtils.isEmpty(staffIdList) ? null : (root, query, cb) -> {
-			return root.join("staffClientList", JoinType.INNER).get("staffId").in(staffIdList);
+	public Specification<Client> employeeIdContains(List<Integer> employeeIdList) {
+		return CollectionUtils.isEmpty(employeeIdList) ? null : (root, query, cb) -> {
+			return root.join("employeeClientList", JoinType.INNER).get("employeeId").in(employeeIdList);
 		};
 	}
 
 	public Specification<Client> telContains(String tel) {
 		return !StringUtils.hasText(tel) ? null : (root, query, cb) -> {
-			return cb.like(root.join("clientStaffList", JoinType.LEFT).get("tel"), "%" + tel + "%");
+			return cb.like(root.join("clientEmployeeList", JoinType.LEFT).get("tel"), "%" + tel + "%");
 		};
 	}
 
 	public Specification<Client> emailContains(String email) {
 		return !StringUtils.hasText(email) ? null : (root, query, cb) -> {
-			return cb.like(root.join("clientStaffList", JoinType.LEFT).get("email"), "%" + email + "%");
+			return cb.like(root.join("clientEmployeeList", JoinType.LEFT).get("email"), "%" + email + "%");
 		};
 	}
 
@@ -200,69 +200,69 @@ public class ClientService {
 
 		LocalDateTime now = LocalDateTime.now();
 		// 顧客担当者を登録
-		Set<ClientStaff> clientStaffList = form2clientStaff(form, client, user, now);
+		Set<ClientEmployee> clientEmployeeList = form2clientEmployee(form, client, user, now);
 		// 当社担当者を登録
-		Set<StaffClient> staffClinetList = form2StaffClient(form, client, user, now);
+		Set<EmployeeClient> employeeClinetList = form2EmployeeClient(form, client, user, now);
 
 		if (!isNew) {
-			staffClientRepository.deleteByClientId(client.getId());
-			clientStaffRepository.deleteByClientId(client.getId());
+			employeeClientRepository.deleteByClientId(client.getId());
+			clientEmployeeRepository.deleteByClientId(client.getId());
 		}
 
-		client.setClientStaffList(clientStaffList);
-		client.setStaffClientList(staffClinetList);
+		client.setClientEmployeeList(clientEmployeeList);
+		client.setEmployeeClientList(employeeClinetList);
 		clientRepository.save(client);
 
 		return client;
 
 	}
 
-	private Set<ClientStaff> form2clientStaff(ClientForm form, Client client, LoginUserDetails user,
+	private Set<ClientEmployee> form2clientEmployee(ClientForm form, Client client, LoginUserDetails user,
 			LocalDateTime now) {
 
-		Set<ClientStaff> ClientStaffList = new HashSet<>();
+		Set<ClientEmployee> ClientEmployeeList = new HashSet<>();
 
-		List<ClientStaffForm> clientStaffFormList = form.getClientStaff();
+		List<ClientEmployeeForm> clientEmployeeFormList = form.getClientEmployee();
 
-		for (ClientStaffForm cs : clientStaffFormList) {
-			ClientStaff clientStaff = new ClientStaff();
-			clientStaff.setName(cs.getName());
-			clientStaff.setDepartment(cs.getDepartment());
-			clientStaff.setPosition(cs.getPosition());
-			clientStaff.setTel(cs.getTel());
-			clientStaff.setEmail(cs.getEmail());
-			clientStaff.setStandpoint(cs.getStandpoint());
-			clientStaff.setMotivation(cs.getMotivation());
-			clientStaff.setRemarks(cs.getRemarks());
-			clientStaff.setClient(client);
-			clientStaff.setClientId(client.getId());
-			clientStaff.setCreatedBy(user.getUsername());
-			clientStaff.setCreatedDate(now);
-			ClientStaffList.add(clientStaff);
+		for (ClientEmployeeForm cs : clientEmployeeFormList) {
+			ClientEmployee clientEmployee = new ClientEmployee();
+			clientEmployee.setName(cs.getName());
+			clientEmployee.setDepartment(cs.getDepartment());
+			clientEmployee.setPosition(cs.getPosition());
+			clientEmployee.setTel(cs.getTel());
+			clientEmployee.setEmail(cs.getEmail());
+			clientEmployee.setStandpoint(cs.getStandpoint());
+			clientEmployee.setMotivation(cs.getMotivation());
+			clientEmployee.setRemarks(cs.getRemarks());
+			clientEmployee.setClient(client);
+			clientEmployee.setClientId(client.getId());
+			clientEmployee.setCreatedBy(user.getUsername());
+			clientEmployee.setCreatedDate(now);
+			ClientEmployeeList.add(clientEmployee);
 		}
 
-		return ClientStaffList;
+		return ClientEmployeeList;
 	}
 
-	private Set<StaffClient> form2StaffClient(ClientForm form, Client client, LoginUserDetails user,
+	private Set<EmployeeClient> form2EmployeeClient(ClientForm form, Client client, LoginUserDetails user,
 			LocalDateTime now) {
 
-		Set<StaffClient> staffClientList = new HashSet<>();
+		Set<EmployeeClient> employeeClientList = new HashSet<>();
 
-		List<Staff> staffList = staffRepository.findByIdIn(form.getStaffIdList());
+		List<Employee> employeeList = employeeRepository.findByIdIn(form.getEmployeeIdList());
 
-		for (Staff staff : staffList) {
-			StaffClient staffClient = new StaffClient();
-			staffClient.setStaffId(staff.getId());
-			staffClient.setStaff(staff);
-			staffClient.setClient(client);
-			staffClient.setClientId(client.getId());
-			staffClient.setCreatedBy(user.getUsername());
-			staffClient.setCreatedDate(now);
-			staffClientList.add(staffClient);
+		for (Employee employee : employeeList) {
+			EmployeeClient employeeClient = new EmployeeClient();
+			employeeClient.setEmployeeId(employee.getId());
+			employeeClient.setEmployee(employee);
+			employeeClient.setClient(client);
+			employeeClient.setClientId(client.getId());
+			employeeClient.setCreatedBy(user.getUsername());
+			employeeClient.setCreatedDate(now);
+			employeeClientList.add(employeeClient);
 		}
 
-		return staffClientList;
+		return employeeClientList;
 	}
 
 	public List<ClientDto> getSelectedClient(List<Integer> clientIdList) {
@@ -290,15 +290,15 @@ public class ClientService {
 		return dtoList;
 	}
 
-	private List<ClientStaffDto> model2ClientStaffDto(List<ClientStaff> clientStaffList) {
-		List<ClientStaffDto> dtoList = new ArrayList<>();
+	private List<ClientEmployeeDto> model2ClientEmployeeDto(List<ClientEmployee> clientEmployeeList) {
+		List<ClientEmployeeDto> dtoList = new ArrayList<>();
 
-		if (CollectionUtils.isEmpty(clientStaffList)) {
+		if (CollectionUtils.isEmpty(clientEmployeeList)) {
 			return dtoList;
 		}
 
-		for (ClientStaff cs : clientStaffList) {
-			ClientStaffDto dto = new ClientStaffDto();
+		for (ClientEmployee cs : clientEmployeeList) {
+			ClientEmployeeDto dto = new ClientEmployeeDto();
 			dto.setId(cs.getId());
 			dto.setName(cs.getName());
 			dtoList.add(dto);

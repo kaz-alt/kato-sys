@@ -35,17 +35,17 @@
         <!-- /.card-header -->
         <div class="card-body">
           <div class="mb-3">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staff-create-modal">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#employee-create-modal">
               <i class="fas fa-plus"></i>&nbsp;社員登録
             </button>
-            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#staff-search-modal">
+            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#employee-search-modal">
               <i class="fas fa-search"></i>&nbsp;社員検索
             </button>
           </div>
-          <div id="staff-table-div" class="dataTables_wrapper">
+          <div id="employee-table-div" class="dataTables_wrapper">
             <div class="row">
               <div class="col-sm-12 table-responsive">
-                <table id="staff-table" class="table table-bordered table-striped dataTable text-nowrap">
+                <table id="employee-table" class="table table-bordered table-striped dataTable text-nowrap">
                   <thead>
                     <tr role="row">
                       <th class="text-center">氏名</th>
@@ -69,14 +69,14 @@
                       <td th:text="${s.email}"></td>
                       <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
                       <td>
-                        <button type="button" class="btn btn-info staff-edit-button" data-toggle="modal"
-                          data-target="#staff-edit-modal" th:attr="data-href=@{/staff/show}, data-id=${s.id}">
+                        <button type="button" class="btn btn-info employee-edit-button" data-toggle="modal"
+                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${s.id}">
                           <i class="far fa-edit"></i>
                         </button>
                       </td>
                       <td>
-                        <button type="button" class="btn btn-danger staff-del-button"
-                          th:attr="data-href=@{/staff/delete}, data-id=${s.id}">
+                        <button type="button" class="btn btn-danger employee-del-button"
+                          th:attr="data-href=@{/employee/delete}, data-id=${s.id}">
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </td>
@@ -91,11 +91,11 @@
         <!-- /.card-body -->
       </div>
       <!-- Search modal -->
-      <th:block th:replace="staff/search::staff-search-modal"></th:block>
+      <th:block th:replace="employee/search::employee-search-modal"></th:block>
       <!-- Create modal -->
-      <th:block th:replace="staff/create::staff-create-modal"></th:block>
+      <th:block th:replace="employee/create::employee-create-modal"></th:block>
       <!-- Edit modal -->
-      <th:block th:replace="staff/edit::staff-edit-modal"></th:block>
+      <th:block th:replace="employee/edit::employee-edit-modal"></th:block>
     </section>
   </div>
 </body>

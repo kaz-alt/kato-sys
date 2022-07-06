@@ -20,7 +20,7 @@ public interface InquiryRequirementComplaintRepository
 	@Query("select distinct i "
 			+ "from InquiryRequirementComplaint i "
 			+ "inner join fetch i.client c "
-			+ "inner join fetch i.staff s "
+			+ "inner join fetch i.employee s "
 			+ "order by i.clientId")
 	List<InquiryRequirementComplaint> findAll();
 
@@ -28,33 +28,33 @@ public interface InquiryRequirementComplaintRepository
 	@Query(value = "select distinct i "
 			+ "from InquiryRequirementComplaint i "
 			+ "inner join fetch i.client c "
-			+ "inner join fetch i.staff s "
+			+ "inner join fetch i.employee s "
 			+ "where i.delFlg = 0 "
 			+ "order by i.clientId, i.occurredDate", countQuery = "select count(distinct i) "
 					+ "from InquiryRequirementComplaint i "
 					+ "inner join i.client c "
-					+ "inner join i.staff s "
+					+ "inner join i.employee s "
 					+ "where i.delFlg = 0 "
 					+ "order by i.clientId, i.occurredDate")
 	Page<InquiryRequirementComplaint> findAll(Pageable pageable);
 
 	@Query("select distinct i from InquiryRequirementComplaint i "
 			+ "inner join fetch i.client c "
-			+ "inner join fetch i.staff s "
+			+ "inner join fetch i.employee s "
 			+ "where i.id = :id "
 			+ "and i.delFlg = 0")
 	InquiryRequirementComplaint findByInquiryRequirementComplaintId(@Param("id") Integer id);
 
 	@Query("select distinct i from InquiryRequirementComplaint i "
 			+ "inner join fetch i.client c "
-			+ "inner join fetch i.staff s "
+			+ "inner join fetch i.employee s "
 			+ "where c.id = :clientId "
 			+ "order by i.occurredDate")
 	List<InquiryRequirementComplaint> findByClientId(@Param("clientId") Integer clientId);
 
 	@Query("select distinct i from InquiryRequirementComplaint i "
 			+ "inner join fetch i.client c "
-			+ "inner join fetch i.staff s "
+			+ "inner join fetch i.employee s "
 			+ "where i.delFlg = 0 "
 			+ "and c.id = :clientId "
 			+ "and i.occurredDate >= :startOccurredDate "

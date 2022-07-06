@@ -8,14 +8,14 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.workbench.kato_system.admin.employee.model.Employee;
+import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
 import com.workbench.kato_system.admin.schedule.model.Schedule;
 import com.workbench.kato_system.admin.schedule.model.ScheduleEmployee;
 import com.workbench.kato_system.admin.schedule.repository.ScheduleEmployeeRepository;
 import com.workbench.kato_system.admin.schedule.repository.ScheduleRepository;
-import com.workbench.kato_system.admin.staff.model.Staff;
-import com.workbench.kato_system.admin.staff.repository.StaffRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +25,7 @@ public class ScheduleService {
 
 	private final ScheduleRepository scheduleRepository;
 	private final ScheduleEmployeeRepository scheduleEmployeeRepository;
-	private final StaffRepository staffRepository;
+	private final EmployeeRepository employeeRepository;
 
 	public List<ScheduleDto> getSchedules(LocalDateTime start, LocalDateTime end) {
 		return scheduleRepository.fetchDto(start, end);
@@ -55,20 +55,20 @@ public class ScheduleService {
 
     if (!CollectionUtils.isEmpty(form.getEmployeeIdList())) {
 
-      List<ScheduleEmployee> employeeList = new ArrayList<>();
+      List<ScheduleEmployee> scheduleEmployeeList = new ArrayList<>();
 
-      List<Staff> staffList = staffRepository.findByIdIn(form.getEmployeeIdList());
+      List<Employee> employeeList = employeeRepository.findByIdIn(form.getEmployeeIdList());
 
-      for (Staff staff : staffList) {
+      for (Employee employee : employeeList) {
 
         ScheduleEmployee se = new ScheduleEmployee();
-        se.setStaffId(staff.getId());
+        se.setEmployeeId(employee.getId());
         se.setScheduleId(schedule.getId());
-        se.setStaff(staff);
-        employeeList.add(se);
+        se.setEmployee(employee);
+        scheduleEmployeeList.add(se);
       }
 
-      schedule.setScheduleEmployee(employeeList);
+      schedule.setScheduleEmployee(scheduleEmployeeList);
 
       scheduleRepository.save(schedule);
     }

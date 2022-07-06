@@ -45,7 +45,7 @@
                     <label class="col-sm-2 col-form-label">当社担当者：</label>
                     <div class="col-sm-7">
                       <select class="form-control select2" multiple="multiple" name="ourEmployeeIdList"
-                        th:data-href="@{/staff/api/get_employee}">
+                        th:data-href="@{/employee/api/get_employee}">
                         <option th:each="employee : ${selectedEmployee}" th:text="${employee.name}"
                           th:value="${employee.id}" selected/>
                       </select>

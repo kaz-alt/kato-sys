@@ -103,7 +103,7 @@
                             </div>
                             <div class="card-body">
                               <div class="contact-content">
-	                            <div th:each="cs, stat : ${c.clientStaffList}"
+	                            <div th:each="cs, stat : ${c.clientEmployeeList}"
 	                              th:class="${stat.last ? '' : 'mb-3'}">
                                   <div>
                                     <span data-toggle="tooltip" th:title="${cs.getStandpointValue()}">
@@ -131,9 +131,9 @@
                           </div>
 	                    </td>
 	                    <td>
-	                      <th:block th:each="s : ${c.staffClientList}">
-	                        <div><span th:text="${s.staff?.name}" th:class="${s.staff?.delFlg ? 'text-danger' : ''}"></span></div>
-	                        <div th:if="${s.staff?.delFlg}"><span class="text-danger font-italic">※この社員は既に削除されています</span></div>
+	                      <th:block th:each="s : ${c.employeeClientList}">
+	                        <div><span th:text="${s.employee?.name}" th:class="${s.employee?.delFlg ? 'text-danger' : ''}"></span></div>
+	                        <div th:if="${s.employee?.delFlg}"><span class="text-danger font-italic">※この社員は既に削除されています</span></div>
 	                      </th:block>
 	                    </td>
 	                    <td th:text="${c.firstInterviewDate}"></td>

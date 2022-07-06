@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class ActivitySearchForm {
 
-	private List<Integer> staffIdList = new ArrayList<>();
+	private List<Integer> employeeIdList = new ArrayList<>();
 
 	private String targetContent;
 

@@ -29,7 +29,7 @@
                               <th><i class="fa fa-user"></i>&nbsp;担当者：</th>
                               <td>
                                 <span th:each="se, stat: ${data.scheduleEmployee}"
-                                  th:text="${stat.last ? se.staff?.name : se.staff?.name + '、'}"></span>
+                                  th:text="${stat.last ? se.employee?.name : se.employee?.name + '、'}"></span>
                               </td>
                             </tr>
                             <tr class="text-success" th:if="*{isAllDay}">

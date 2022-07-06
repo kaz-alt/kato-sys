@@ -23,8 +23,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
+import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.enums.ContentType;
-import com.workbench.kato_system.admin.staff.model.Staff;
 
 import lombok.Data;
 
@@ -47,8 +47,8 @@ public class InquiryRequirementComplaint {
 
 	/* 社員 */
 	@OneToOne
-	@JoinColumn(name = "responsible_staff_id", insertable = false, updatable = false)
-	private Staff staff;
+	@JoinColumn(name = "responsible_employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,8 +72,8 @@ public class InquiryRequirementComplaint {
 	private LocalDate occurredDate;
 
 	/* 担当責任者ID */
-	@Column(name = "responsible_staff_id")
-	private Integer responsibleStaffId;
+	@Column(name = "responsible_employee_id")
+	private Integer responsibleEmployeeId;
 
 	/* 解決済かどうか */
 	@Column(name = "has_solved")

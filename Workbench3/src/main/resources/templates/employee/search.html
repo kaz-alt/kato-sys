@@ -3,10 +3,10 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org">
 <body>
-  <div class="contents" th:fragment="staff-search-modal">
+  <div class="contents" th:fragment="employee-search-modal">
     <section class="content">
       <!-- Detail Modal -->
-      <div class="modal fade" id="staff-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="employee-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -22,8 +22,8 @@
                 </div>
                 <div class="card-body" style="display: block;">
                   <!-- form start -->
-                  <form th:action="@{/staff/search}" method="GET" id="staffSearchForm" class="form-horizontal"
-                    th:object="${staffSearchForm}">
+                  <form th:action="@{/employee/search}" method="GET" id="employeeSearchForm" class="form-horizontal"
+                    th:object="${employeeSearchForm}">
                     <div class="card-body">
                       <div class="form-group row">
                         <label for="targetName" class="col-sm-2 col-form-label">氏名：</label>
@@ -65,17 +65,17 @@
                       <div class="form-group row">
                         <label class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input staff-radio" type="radio" id="before" value="1"
+                          <input class="form-check-input employee-radio" type="radio" id="before" value="1"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="before">より前</label>
                         </div>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input staff-radio" type="radio" id="equal" value="2"
+                          <input class="form-check-input employee-radio" type="radio" id="equal" value="2"
                             style="transform:scale(1.5);" name="condition" checked>
                           <label class="form-check-label" for="equal">と同じ</label>
                         </div>
                         <div class="col-sm-3 form-check row">
-                          <input class="form-check-input staff-radio" type="radio" id="after" value="3"
+                          <input class="form-check-input employee-radio" type="radio" id="after" value="3"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="after">より後</label>
                         </div>

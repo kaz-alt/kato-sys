@@ -1,4 +1,4 @@
-package com.workbench.kato_system.admin.staff.model;
+package com.workbench.kato_system.admin.employee.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,14 +25,14 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "staff_client")
+@Table(name = "employee_client")
 @Audited
 @Data
-public class StaffClient implements Serializable {
+public class EmployeeClient implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "staff_id", insertable = false, updatable = false)
-	private Staff staff;
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "client_id", insertable = false, updatable = false)
@@ -44,8 +44,8 @@ public class StaffClient implements Serializable {
 	private Integer id;
 
 	/* 社員ID */
-	@Column(name = "staff_id")
-	private Integer staffId;
+	@Column(name = "employee_id")
+	private Integer employeeId;
 
 	/* 顧客ID */
 	@Column(name = "client_id")

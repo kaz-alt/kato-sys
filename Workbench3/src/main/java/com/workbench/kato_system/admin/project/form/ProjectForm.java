@@ -28,7 +28,7 @@ public class ProjectForm {
 	@Min(value = 1, message = REQUIRED_MESSAGE)
 	private Integer clientId;
 
-	private List<Integer> clientStaffIdList = new ArrayList<>();
+	private List<Integer> clientEmployeeIdList = new ArrayList<>();
 
 	@NotNull(message = REQUIRED_MESSAGE)
 	private Integer progress;

@@ -112,52 +112,52 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table" style="table-layout:fixed; width:100%;">
-                        <tbody th:each="clientStaff, stat: ${client.clientStaffList}">
+                        <tbody th:each="clientEmployee, stat: ${client.clientEmployeeList}">
                           <tr th:if="${stat.count gt 1}">
                             <td><h3 th:text="|${stat.count}人目|"></h3></td>
                           </tr>
                           <tr>
                             <th style="width:50%">担当者名：</th>
-                            <td th:text="${clientStaff.name}"></td>
+                            <td th:text="${clientEmployee.name}"></td>
                           </tr>
                           <tr>
                             <th>所属部署：</th>
-                            <td th:text="${clientStaff.department}"></td>
+                            <td th:text="${clientEmployee.department}"></td>
                           </tr>
                           <tr>
                             <th>役職：</th>
-                            <td th:text="${clientStaff.position}"></td>
+                            <td th:text="${clientEmployee.position}"></td>
                           </tr>
                           <tr>
                             <th>電話番号：</th>
                             <td>
-                              <a th:href="@{'tel:' + ${clientStaff.tel}}" th:text="${clientStaff.tel}"></a>
+                              <a th:href="@{'tel:' + ${clientEmployee.tel}}" th:text="${clientEmployee.tel}"></a>
                             </td>
                           </tr>
                           <tr>
                             <th>メール：</th>
                             <td style="word-wrap:break-word;">
-                              <a th:href="@{'mailto:' + ${clientStaff.email}}" th:text="${clientStaff.email}"
+                              <a th:href="@{'mailto:' + ${clientEmployee.email}}" th:text="${clientEmployee.email}"
                                 target=_blank></a>
                             </td>
                           </tr>
                           <tr>
                             <th>立場：</th>
-                            <td th:text="${clientStaff.getStandpointValue()}"></td>
+                            <td th:text="${clientEmployee.getStandpointValue()}"></td>
                           </tr>
                           <tr>
                             <th>意欲：</th>
                             <td>
-                              <i class="fas fa-long-arrow-alt-up text-danger" th:if="${clientStaff.motivation == 1}"></i>
-                              <i class="fas fa-long-arrow-alt-right text-success" th:if="${clientStaff.motivation == 2}"></i>
-                              <i class="fas fa-long-arrow-alt-down text-primary" th:if="${clientStaff.motivation == 3}"></i>
-                              <i class="fas fa-question text-secondary" th:if="${clientStaff.motivation == 4}"></i>
-                              <span th:text="${clientStaff.getMotivationValue()}"></span>
+                              <i class="fas fa-long-arrow-alt-up text-danger" th:if="${clientEmployee.motivation == 1}"></i>
+                              <i class="fas fa-long-arrow-alt-right text-success" th:if="${clientEmployee.motivation == 2}"></i>
+                              <i class="fas fa-long-arrow-alt-down text-primary" th:if="${clientEmployee.motivation == 3}"></i>
+                              <i class="fas fa-question text-secondary" th:if="${clientEmployee.motivation == 4}"></i>
+                              <span th:text="${clientEmployee.getMotivationValue()}"></span>
                             </td>
                           </tr>
                           <tr>
                             <th>備考：</th>
-                            <td th:text="${clientStaff.remarks}"></td>
+                            <td th:text="${clientEmployee.remarks}"></td>
                           </tr>
                         </tbody>
                       </table>
@@ -278,7 +278,7 @@
                   				  <dt class="col-sm-5">内容：</dt>
                   				  <dd class="col-sm-7"th:text="${i.content}"></dd>
                   				  <dt class="col-sm-5">担当責任者：</dt>
-                  				  <dd class="col-sm-7" th:text="${i.staff?.name}"></dd>
+                  				  <dd class="col-sm-7" th:text="${i.employee?.name}"></dd>
                   				  <dt class="col-sm-5">解決済か：</dt>
                   				  <dd class="col-sm-7" th:text="${i.hasSolved ? '解決済み' : '未解決'}"
 	                                th:classappend="${i.hasSolved ? 'text-danger' : 'text-success'}"></dd>
@@ -318,7 +318,7 @@
                   				  <dt class="col-sm-5">内容：</dt>
                   				  <dd class="col-sm-7"th:text="${r.content}"></dd>
                   				  <dt class="col-sm-5">担当責任者：</dt>
-                  				  <dd class="col-sm-7" th:text="${r.staff?.name}"></dd>
+                  				  <dd class="col-sm-7" th:text="${r.employee?.name}"></dd>
                   				  <dt class="col-sm-5">解決済か：</dt>
                   				  <dd class="col-sm-7" th:text="${r.hasSolved ? '解決済み' : '未解決'}"
 	                                th:classappend="${r.hasSolved ? 'text-danger' : 'text-success'}"></dd>
@@ -358,7 +358,7 @@
                   				  <dt class="col-sm-5">内容：</dt>
                   				  <dd class="col-sm-7"th:text="${c.content}"></dd>
                   				  <dt class="col-sm-5">担当責任者：</dt>
-                  				  <dd class="col-sm-7" th:text="${c.staff?.name}"></dd>
+                  				  <dd class="col-sm-7" th:text="${c.employee?.name}"></dd>
                   				  <dt class="col-sm-5">解決済か：</dt>
                   				  <dd class="col-sm-7" th:text="${c.hasSolved ? '解決済み' : '未解決'}"
 	                                th:classappend="${c.hasSolved ? 'text-danger' : 'text-success'}"></dd>
@@ -430,35 +430,35 @@
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table" style="table-layout:fixed; width:100%;">
-                        <tbody th:each="staffClient, stat : ${client.staffClientList}"
-                          th:unless="${staffClient.staff?.delFlg}">
+                        <tbody th:each="employeeClient, stat : ${client.employeeClientList}"
+                          th:unless="${employeeClient.employee?.delFlg}">
                           <tr th:if="${stat.count gt 1}">
                             <td><h3 th:text="|${stat.count}人目|"></h3></td>
                           </tr>
                           <tr>
                             <th>氏名：</th>
-                            <td th:text="${staffClient.staff?.name}"></td>
+                            <td th:text="${employeeClient.employee?.name}"></td>
                           </tr>
                           <tr>
                             <th>部署：</th>
-                            <td th:text="${staffClient.staff?.department}"></td>
+                            <td th:text="${employeeClient.employee?.department}"></td>
                           </tr>
                           <tr>
                             <th>役職：</th>
-                            <td th:text="${staffClient.staff?.position}"></td>
+                            <td th:text="${employeeClient.employee?.position}"></td>
                           </tr>
                           <tr>
                             <th>電話：</th>
                             <td>
-                              <a th:href="@{'tel:' + ${staffClient.staff?.tel}}"
-                                th:text="${staffClient.staff?.tel}"></a>
+                              <a th:href="@{'tel:' + ${employeeClient.employee?.tel}}"
+                                th:text="${employeeClient.employee?.tel}"></a>
                             </td>
                           </tr>
                           <tr>
                             <th>メール：</th>
                             <td style="word-wrap:break-word">
-                              <a th:href="@{'mailto:' + ${staffClient.staff?.email}}"
-                                th:text="${staffClient.staff?.email}" target=_blank></a>
+                              <a th:href="@{'mailto:' + ${employeeClient.employee?.email}}"
+                                th:text="${employeeClient.employee?.email}" target=_blank></a>
                             </td>
                           </tr>
                         </tbody>

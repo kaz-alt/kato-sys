@@ -3,7 +3,7 @@ package com.workbench.kato_system.admin.client.dto;
 import lombok.Data;
 
 @Data
-public class ClientStaffDto {
+public class ClientEmployeeDto {
 
 	private Integer id;
 

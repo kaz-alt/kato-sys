@@ -5,9 +5,9 @@ $(function(){
     /**
 	 * 検索用ページネーション
 	 */
-	window.main.setPagenationForSearch($('#staffSearchForm'), path);
+	window.main.setPagenationForSearch($('#employeeSearchForm'), path);
 
-	$('.staff-edit-button').on('click', function(event){
+	$('.employee-edit-button').on('click', function(event){
 		event.preventDefault();
 
     let paramUrl = $(this).data("href") + '?id=' + $(this).data("id");
@@ -18,26 +18,26 @@ $(function(){
       url : paramUrl,
       dataType : "html"
     }).done(function(data){
-      $('#staff-edit-form').html(data);
+      $('#employee-edit-form').html(data);
 		}).fail(function(){
 			alert("データ取得に失敗しました");
 		})
 	});
 
-  window.main.resetForm('#staffSearchForm');
+  window.main.resetForm('#employeeSearchForm');
 
 	$('.search-btn').on('click', function(){
-		$('#staffForm').find('#pageNumber').val(1);
-		$('#staffSearchForm').submit();
+		$('#employeeForm').find('#pageNumber').val(1);
+		$('#employeeSearchForm').submit();
 	});
 
-	$('#edit-staff-button').click(function(){
+	$('#edit-employee-button').click(function(){
 
-		$('#staff-edit-form').submit();
+		$('#employee-edit-form').submit();
 
 	})
 
-	$('.staff-del-button').click(function(){
+	$('.employee-del-button').click(function(){
 
 		let id = $(this).data('id');
 		let url = $(this).data('href');
@@ -49,7 +49,7 @@ $(function(){
 		if(confirm){
 
 			$('<form/>', {action: url, method: 'POST'})
-        .append($('<input/>', {type: 'hidden', name: 'staffId', value: id}))
+        .append($('<input/>', {type: 'hidden', name: 'employeeId', value: id}))
         .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
         .appendTo(document.body)
         .submit();
@@ -99,9 +99,9 @@ $(function(){
     }
   };
 
-	validate($("#staff-form"));
+	validate($("#employee-form"));
 
-	validate($("#staff-edit-form"));
+	validate($("#employee-edit-form"));
 
 	function validate($form){
 

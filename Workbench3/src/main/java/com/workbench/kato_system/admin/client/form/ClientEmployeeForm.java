@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class ClientStaffForm {
+public class ClientEmployeeForm {
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 

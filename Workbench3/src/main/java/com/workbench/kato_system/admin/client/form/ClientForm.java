@@ -32,10 +32,10 @@ public class ClientForm {
 	private String url;
 
 	@Valid
-	private List<ClientStaffForm> clientStaff;
+	private List<ClientEmployeeForm> clientEmployee;
 
 	@NotNull(message=REQUIRED_MESSAGE)
-	private List<Integer> staffIdList;
+	private List<Integer> employeeIdList;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message=REQUIRED_MESSAGE)

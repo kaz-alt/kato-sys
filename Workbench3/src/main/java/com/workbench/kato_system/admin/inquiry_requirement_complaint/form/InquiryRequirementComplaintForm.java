@@ -29,7 +29,7 @@ public class InquiryRequirementComplaintForm {
 
 	@NotNull(message = REQUIRED_MESSAGE)
 	@Min(value = 1, message = REQUIRED_MESSAGE)
-	private Integer responsibleStaffId;
+	private Integer responsibleEmployeeId;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@NotNull(message = REQUIRED_MESSAGE)

@@ -20,6 +20,8 @@ import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
+import com.workbench.kato_system.admin.employee.model.Employee;
+import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
@@ -35,8 +37,6 @@ import com.workbench.kato_system.admin.project.repository.ProgressRepository;
 import com.workbench.kato_system.admin.project.repository.ProjectEmployeeRepository;
 import com.workbench.kato_system.admin.project.repository.ProjectRepository;
 import com.workbench.kato_system.admin.security.LoginUserDetails;
-import com.workbench.kato_system.admin.staff.model.Staff;
-import com.workbench.kato_system.admin.staff.repository.StaffRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,7 +49,7 @@ public class ProjectService {
 	private final FactorRepository factorRepository;
 	private final ProgressRepository progressRepository;
 	private final ProjectRepository projectRepository;
-	private final StaffRepository staffRepository;
+	private final EmployeeRepository employeeRepository;
 	private final ProjectEmployeeRepository projectEmployeeRepository;
 
 	private final int SEARCH_SIZE = 10;
@@ -151,7 +151,7 @@ public class ProjectService {
 				root.fetch("progress", JoinType.INNER);
 				root.fetch("approachRoot", JoinType.INNER);
 				root.fetch("factor", JoinType.LEFT);
-				root.fetch("projectEmployee", JoinType.LEFT).fetch("staff", JoinType.LEFT);
+				root.fetch("projectEmployee", JoinType.LEFT).fetch("employee", JoinType.LEFT);
 			}
 			return cb.isFalse(root.get("delFlg"));
 		};
@@ -171,7 +171,7 @@ public class ProjectService {
 
 	public Specification<Project> employeeIdContain(List<Integer> employeeIdList) {
 		return CollectionUtils.isEmpty(employeeIdList) ? null : (root, query, cb) -> {
-			return root.join("projectEmployee", JoinType.INNER).get("staffId").in(employeeIdList);
+			return root.join("projectEmployee", JoinType.INNER).get("employeeId").in(employeeIdList);
 		};
 	}
 
@@ -272,12 +272,12 @@ public class ProjectService {
 
 		Set<ProjectEmployee> set = new HashSet<>();
 
-		List<Staff> staffList = staffRepository.findByIdIn(form.getClientStaffIdList());
+		List<Employee> employeeList = employeeRepository.findByIdIn(form.getClientEmployeeIdList());
 
-		for (Staff staff : staffList) {
+		for (Employee employee : employeeList) {
 			ProjectEmployee pe = new ProjectEmployee();
-			pe.setStaffId(staff.getId());
-			pe.setStaff(staff);
+			pe.setEmployeeId(employee.getId());
+			pe.setEmployee(employee);
 			pe.setProjectId(project.getId());
 			pe.setProject(project);
 			pe.setCreatedDate(LocalDateTime.now());

@@ -23,9 +23,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
     + "INNER JOIN FETCH p.approachRoot "
     + "LEFT JOIN FETCH p.factor "
     + "LEFT JOIN FETCH p.projectEmployee pe "
-    + "LEFT JOIN FETCH pe.staff "
+    + "LEFT JOIN FETCH pe.employee "
     + "LEFT JOIN FETCH p.activity a "
-    + "LEFT JOIN FETCH a.staff "
+    + "LEFT JOIN FETCH a.employee "
     + "WHERE p.id = :id")
   Optional<Project> findByProjectId(@Param("id") Integer id);
 
@@ -37,12 +37,12 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
     + "inner join fetch p.approachRoot "
     + "left join fetch p.factor "
     + "left join fetch p.projectEmployee pe "
-    + "left join fetch pe.staff "
+    + "left join fetch pe.employee "
     + "where p.delFlg = 0 "
     + "order by c.name ", countQuery = "select p from Project p "
       + "left join p.factor "
       + "left join p.projectEmployee pe "
-      + "left join pe.staff "
+      + "left join pe.employee "
       + "where p.delFlg = 0")
 	Page<Project> findAll(Pageable pagable);
 
@@ -52,7 +52,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
 			+ "left join fetch p.factor "
 			+ "left join fetch p.client "
 			+ "left join fetch p.projectEmployee pe "
-			+ "left join fetch pe.staff "
+			+ "left join fetch pe.employee "
 			+ "where p.delFlg = 0 "
 			+ "and p.clientId = :clientId "
 			+ "and p.expectedOrderDate >= :startDate "

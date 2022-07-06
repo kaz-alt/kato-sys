@@ -74,10 +74,10 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label for="staffIdList" class="col-sm-2 col-form-label">当社担当者：</label>
+                          <label for="employeeIdList" class="col-sm-2 col-form-label">当社担当者：</label>
                           <div class="col-sm-4">
-                            <select class="form-control select2" multiple="multiple" name="ourStaffIdList"
-                              th:data-href="@{/staff/api/get_employee}">
+                            <select class="form-control select2" multiple="multiple" name="ourEmployeeIdList"
+                              th:data-href="@{/employee/api/get_employee}">
                               <option th:each="employee : ${selectedEmployee}" th:text="${employee.name}"
                                 th:value="${employee.id}" selected/>
 				            </select>

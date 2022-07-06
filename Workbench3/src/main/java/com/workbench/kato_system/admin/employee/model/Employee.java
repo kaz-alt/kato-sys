@@ -1,4 +1,4 @@
-package com.workbench.kato_system.admin.staff.model;
+package com.workbench.kato_system.admin.employee.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,11 +26,11 @@ import lombok.Data;
  *
  */
 @Entity
-@Table(name = "staff")
+@Table(name = "employee")
 @Audited
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Staff implements Serializable {
+public class Employee implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
