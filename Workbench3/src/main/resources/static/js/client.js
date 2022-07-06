@@ -31,8 +31,8 @@ $(function(){
 	/**
 	 * 担当者名取得
 	 */
-    window.main.createEmployeeOptionWithId($('#client-form select[name="staffIdList"]'));
-	window.main.createEmployeeOptionWithId($('#clientSearchForm select[name="ourStaffIdList"]'));
+    window.main.createEmployeeOptionWithId($('#client-form select[name="employeeIdList"]'));
+	window.main.createEmployeeOptionWithId($('#clientSearchForm select[name="ourEmployeeIdList"]'));
 
 	let path = location.pathname;
     /**
@@ -46,17 +46,17 @@ $(function(){
 		$('#clientSearchForm').submit();
 	})
 
-	$('#del-clientStaff-button').hide();
+	$('#del-clientEmployee-button').hide();
 
-	let clientStaffCount = 1;
+	let clientEmployeeCount = 1;
 
-	$('#add-clientStaff-button').on('click', function(){
+	$('#add-clientEmployee-button').on('click', function(){
 
-		let clientStaffContent = $('#clientStaffContent-1').clone();
-		clientStaffContent.find('input,select,textarea').each(function(i,e){
+		let clientEmployeeContent = $('#clientEmployeeContent-1').clone();
+		clientEmployeeContent.find('input,select,textarea').each(function(i,e){
 			let $element= $(this);
-			let replacedId = $element.attr('id').replace('0', clientStaffCount);
-			let replacedName = $element.attr('name').replace('0', clientStaffCount);
+			let replacedId = $element.attr('id').replace('0', clientEmployeeCount);
+			let replacedName = $element.attr('name').replace('0', clientEmployeeCount);
 			if($element[0].localName=='input' || $element[0].localName=='textarea'){
 				$element.val("");
 			} else if($element[0].localName=='select'){
@@ -67,30 +67,30 @@ $(function(){
 			$element.next('label').remove();
 		})
 
-		clientStaffContent
-		  .attr('id', 'clientStaffContent-' + parseInt(clientStaffCount + 1))
-		  .find('#clientStaffCount').text('（' + parseInt(clientStaffCount + 1) + '人目）');
+		clientEmployeeContent
+		  .attr('id', 'clientEmployeeContent-' + parseInt(clientEmployeeCount + 1))
+		  .find('#clientEmployeeCount').text('（' + parseInt(clientEmployeeCount + 1) + '人目）');
 
-		$('#clientStaffContent-' + clientStaffCount).after(clientStaffContent);
+		$('#clientEmployeeContent-' + clientEmployeeCount).after(clientEmployeeContent);
 
-		$('#del-clientStaff-button').show();
-		clientStaffCount++;
+		$('#del-clientEmployee-button').show();
+		clientEmployeeCount++;
 
-		if(clientStaffCount > 2){
-			$('#add-clientStaff-button').hide();
+		if(clientEmployeeCount > 2){
+			$('#add-clientEmployee-button').hide();
 		}
-		validateClientStaff();
+		validateClientEmployee();
 	})
 
-	$('#del-clientStaff-button').on('click', function(){
+	$('#del-clientEmployee-button').on('click', function(){
 
 		$('#parent-div').prev('div').remove();
-		clientStaffCount--;
+		clientEmployeeCount--;
 
-		if(clientStaffCount < 3){
-			$('#add-clientStaff-button').show();
-			if(clientStaffCount == 1){
-				$('#del-clientStaff-button').hide();
+		if(clientEmployeeCount < 3){
+			$('#add-clientEmployee-button').show();
+			if(clientEmployeeCount == 1){
+				$('#del-clientEmployee-button').hide();
 			}
 		}
 	})
@@ -108,31 +108,31 @@ $(function(){
 　　　　		dataType : "html"
 　　		}).done(function(data){
  			$('#client-edit-form').html(data);
-		    window.main.createEmployeeOptionWithId($('#client-edit-form select[name="staffIdList"]'));
-			clientStaffContents();
-			validateClientStaff();
+		    window.main.createEmployeeOptionWithId($('#client-edit-form select[name="employeeIdList"]'));
+			clientEmployeeContents();
+			validateClientEmployee();
 			$('.datepicker').datepicker(window.main.datepicker());
 		}).fail(function(){
 			alert("データ取得に失敗しました");
 		})
 	})
 
-	function clientStaffContents(){
+	function clientEmployeeContents(){
 
-		let clientStaffSize = parseInt($("#clientStaffSize").val());
+		let clientEmployeeSize = parseInt($("#clientEmployeeSize").val());
 
-		let clientStaffEditCount = clientStaffSize;
+		let clientEmployeeEditCount = clientEmployeeSize;
 
-		if(clientStaffSize < 2){
-			$('#del-clientStaffEdit-button').hide();
+		if(clientEmployeeSize < 2){
+			$('#del-clientEmployeeEdit-button').hide();
 		}
 
-		$('#add-clientStaffEdit-button').on('click', function(){
+		$('#add-clientEmployeeEdit-button').on('click', function(){
 
-			let clientStaffEditContent = $('#clientStaffEditContent-1').clone();
-			clientStaffEditContent.find('input,select,textarea').each(function(){
+			let clientEmployeeEditContent = $('#clientEmployeeEditContent-1').clone();
+			clientEmployeeEditContent.find('input,select,textarea').each(function(){
 				let $element= $(this);
-				let replacedName = $element.attr('name').replace('0', clientStaffEditCount);
+				let replacedName = $element.attr('name').replace('0', clientEmployeeEditCount);
 				if($element[0].localName=='input' || $element[0].localName=='textarea'){
 					$element.val("");
 				} else if($element[0].localName=='select'){
@@ -143,31 +143,31 @@ $(function(){
 				$element.next('label').remove();
 			})
 
-			clientStaffEditCount++;
+			clientEmployeeEditCount++;
 
-			clientStaffEditContent
-		  		.attr('id', 'clientStaffEditContent-' + parseInt(clientStaffEditCount))
-		  		.find('#clientStaffEditCount').text('（' + parseInt(clientStaffEditCount) + '人目）');
+			clientEmployeeEditContent
+		  		.attr('id', 'clientEmployeeEditContent-' + parseInt(clientEmployeeEditCount))
+		  		.find('#clientEmployeeEditCount').text('（' + parseInt(clientEmployeeEditCount) + '人目）');
 
-			$('#clientStaffEditContent-' + parseInt(clientStaffEditCount - 1)).after(clientStaffEditContent);
+			$('#clientEmployeeEditContent-' + parseInt(clientEmployeeEditCount - 1)).after(clientEmployeeEditContent);
 
-			$('#del-clientStaffEdit-button').show();
+			$('#del-clientEmployeeEdit-button').show();
 
-			if(clientStaffEditCount > 4){
-				$('#add-clientStaffEdit-button').hide();
+			if(clientEmployeeEditCount > 4){
+				$('#add-clientEmployeeEdit-button').hide();
 			}
-			validateClientStaff();
+			validateClientEmployee();
 		})
 
-	  	$('#del-clientStaffEdit-button').on('click', function(){
+	  	$('#del-clientEmployeeEdit-button').on('click', function(){
 
 			$('#parentEdit-div').prev('div').remove();
-			clientStaffEditCount--;
+			clientEmployeeEditCount--;
 
-			if(clientStaffEditCount < 5){
-				$('#add-clientStaffEdit-button').show();
-				if(clientStaffEditCount == 1){
-					$('#del-clientStaffEdit-button').hide();
+			if(clientEmployeeEditCount < 5){
+				$('#add-clientEmployeeEdit-button').show();
+				if(clientEmployeeEditCount == 1){
+					$('#del-clientEmployeeEdit-button').hide();
 				}
 			}
 		})
@@ -239,7 +239,7 @@ $(function(){
     	clientName: {required: true},
 		address: {required: true},
 		url: {url: true},
-    	staffIdList: {required: true},
+    	employeeIdList: {required: true},
 		interviewDate: {required: true, date: true, dateFormat: true}
   	};
 
@@ -254,7 +254,7 @@ $(function(){
 		url: {
 			url: "*正しいURLを入力してください"
 		},
-    	staffIdList: {
+    	employeeIdList: {
       		required: "*当社担当者を選択してください"
     	},
 		interviewDate: {
@@ -268,7 +268,7 @@ $(function(){
 	validate($("#client-edit-form"));
 
 
-	validateClientStaff();
+	validateClientEmployee();
 
 	function validate($form){
 
@@ -288,8 +288,8 @@ $(function(){
     	});
 	}
 
-	function validateClientStaff(){
-		$("#clientStaffBody, #clientStaffEditBody").find('input').each(function(){
+	function validateClientEmployee(){
+		$("#clientEmployeeBody, #clientEmployeeEditBody").find('input').each(function(){
 			if($(this).attr('name').indexOf('tel') > 0){
 				$(this).rules("add", {
             		required: true,

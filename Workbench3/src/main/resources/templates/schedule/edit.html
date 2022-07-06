@@ -33,8 +33,8 @@
                     <div class="form-group col-md-8 col-sm-8">
                       <label for="industry">担当者&nbsp;<span class="text-danger">*必須</span>：</label>
                       <select class="select2 form-control" multiple="multiple" name="employeeIdList"
-                        th:data-href="@{/staff/api/get_employee}" th:data-url="@{/staff/api/get_employee_by_client_id}">
-                        <option th:each="se : ${data.scheduleEmployee}" th:value="${se.staff?.id}" th:text="${se.staff?.name}" selected>
+                        th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
+                        <option th:each="se : ${data.scheduleEmployee}" th:value="${se.employee?.id}" th:text="${se.employee?.name}" selected>
                       </select>
                     </div>
                   </div>

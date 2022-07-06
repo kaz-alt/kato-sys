@@ -21,8 +21,8 @@ $(function(){
 	/**
 	 * 担当者名取得
 	 */
-    window.main.createEmployeeOptionWithId($('#inquiry-form select[name="responsibleStaffId"]'));
-	window.main.createEmployeeOptionWithId($('#inquirySearchForm select[name="targetResponsibleStaffIdList"]'));
+    window.main.createEmployeeOptionWithId($('#inquiry-form select[name="responsibleEmployeeId"]'));
+	window.main.createEmployeeOptionWithId($('#inquirySearchForm select[name="targetResponsibleEmployeeIdList"]'));
 
 	$('#inquiry-table').dataTable({
 		bDestroy: true,
@@ -60,7 +60,7 @@ $(function(){
 　　　　		dataType : "html"
 　　		}).done(function(data){
  			$('#inquiry-edit-form').html(data);
-		    window.main.createEmployeeOptionWithId($('#inquiry-edit-form select[name="responsibleStaffId"]'));
+		    window.main.createEmployeeOptionWithId($('#inquiry-edit-form select[name="responsibleEmployeeId"]'));
 		    window.main.createClientOptionWithId($('#inquiry-edit-form select[name="clientId"]'));
 			$('.datepicker').datepicker(window.main.datepicker());
 			$('#inquiry-edit-form').find('.solved-body').hide();
@@ -171,7 +171,7 @@ $(function(){
 		clientId: {required: true, min: 1},
 		content: {required: true},
     	occurredDate: {required: true, date: true, dateFormat: true},
-		responsibleStaffId: {required: true, min: 1},
+		responsibleEmployeeId: {required: true, min: 1},
 		solvedDate: {date: true, dateFormat: true},
 		startOccurredDate: {date: true, dateFormat: true},
 		endOccurredDate: {date: true, dateFormat: true},
@@ -188,7 +188,7 @@ $(function(){
       		required: "*顧客を選択してください",
 			min: "*顧客を選択してください"
     	},
-		responsibleStaffId: {
+		responsibleEmployeeId: {
 			required: "*担当責任者を選択してください",
 			min: "*担当責任者を選択してください"
 		}

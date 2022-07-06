@@ -3,20 +3,22 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org">
 <body>
-  <div class="contents" th:fragment="staff-create-modal">
+  <div class="contents" th:fragment="employee-edit-modal">
     <section class="content">
       <!-- Detail Modal -->
-      <div class="modal fade" id="staff-create-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+      <div class="modal fade" id="employee-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">社員登録</h5>
+            <h5 class="modal-title">社員編集</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body">
-            <form th:action="@{/staff/create}" method="POST" class="container" id="staff-form" th:object="${staffForm}">
+          <div class="modal-body" th:fragment="employee-edit">
+            <form th:action="@{/employee/edit}" method="POST" class="container" id="employee-edit-form" th:object="${employeeForm}">
+              <th:block th:object="${data}" th:if="${data != null}">
+              <input type="hidden" name="id" th:value="${data.id}"/>
               <div class="card">
               <div class="card-body">
                 <div class="row">
@@ -97,11 +99,12 @@
                 </div>
               </div>
             </div>
+            </th:block>
           </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
-            <button type="button" class="btn btn-primary" id="create-button">登録</button>
+            <button type="button" class="btn btn-info" id="edit-employee-button">編集</button>
           </div>
         </div>
       </div>

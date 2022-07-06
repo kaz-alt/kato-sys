@@ -59,7 +59,7 @@ $(function(){
 	 * 担当者名取得
 	 */
 	$('#project-form select[name="clientId"]').on('change', function() {
-		window.main.createEmployeeOptionByClientId($('#project-form select[name="clientId"]'), $('#project-form select[name="clientStaffIdList"]'));
+		window.main.createEmployeeOptionByClientId($('#project-form select[name="clientId"]'), $('#project-form select[name="clientEmployeeIdList"]'));
 	})
 	window.main.createEmployeeOptionWithId($('#projectSearchForm select[name="ourEmployeeIdList"]'));
 
@@ -127,8 +127,8 @@ $(function(){
       });
       window.main.createClientOptionWithId($('#project-edit-form select[name="clientId"]'));
 			$('#project-edit-form select[name="clientId"]').on('change', function() {
-				$('#project-edit-form select[name="clientStaffIdList"]').find('option').remove();
-				window.main.createEmployeeOptionByClientId($('#project-edit-form select[name="clientId"]'), $('#project-edit-form select[name="clientStaffIdList"]'));
+				$('#project-edit-form select[name="clientEmployeeIdList"]').find('option').remove();
+				window.main.createEmployeeOptionByClientId($('#project-edit-form select[name="clientId"]'), $('#project-edit-form select[name="clientEmployeeIdList"]'));
 			})
 		}).fail(function(){
 			alert("データ取得に失敗しました");
@@ -214,7 +214,7 @@ $(function(){
   let rules = {
     projectName: {required: true},
   clientId: {required: true, min: 1},
-  clientStaffIdList: {required: true},
+  clientEmployeeIdList: {required: true},
     estimatedOrderAmount: {min: 0, number: true},
   expectedOrderDate: {date: true, dateFormat: true},
   orderProbability: {min: 0, max: 100, number: true},
@@ -235,7 +235,7 @@ $(function(){
         required: "*顧客を選択してください",
     min: "*顧客を選択してください"
     },
-  clientStaffIdList: {
+  clientEmployeeIdList: {
     required: "*当社担当者を入力してください",
   },
   expectedOrderDate: {

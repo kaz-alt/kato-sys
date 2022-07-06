@@ -59,10 +59,10 @@
 												活動日
 												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'activityDate' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'activityDate' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 											</th>
-											<th class="text-center sort-pointer" data-sort-data="staffId" th:data-sort-order="${sortOrder}"
-												th:classappend="${sortData == 'staffId' ? 'active' : ''}">
+											<th class="text-center sort-pointer" data-sort-data="employeeId" th:data-sort-order="${sortOrder}"
+												th:classappend="${sortData == 'employeeId' ? 'active' : ''}">
 												社員名
-												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'staffId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'staffId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'employeeId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'employeeId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
 											</th>
 											<th class="text-center sort-pointer" data-sort-data="content" th:data-sort-order="${sortOrder}"
 												th:classappend="${sortData == 'content' ? 'active' : ''}">
@@ -82,7 +82,7 @@
                   <tbody>
 										<tr th:each="a, stat: ${list}">
 											<td th:text="${a.activityDate}"></td>
-											<td th:text="${a.staff?.name}"></td>
+											<td th:text="${a.employee?.name}"></td>
 											<td th:text="${a.content}"></td>
 											<td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
 												<a th:href="@{/project/detail/{id}(id=${a.projectId})}"

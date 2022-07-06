@@ -16,8 +16,8 @@ $(function(){
   /**
 	 * 担当者名取得
 	 */
-  window.main.createEmployeeOptionWithId($('#activity-form select[name="staffId"]'));
-  window.main.createEmployeeOptionWithId($('#activitySearchForm select[name="staffIdList"]'));
+  window.main.createEmployeeOptionWithId($('#activity-form select[name="employeeId"]'));
+  window.main.createEmployeeOptionWithId($('#activitySearchForm select[name="employeeIdList"]'));
 
   /**
 	 * 案件名取得
@@ -66,7 +66,7 @@ $(function(){
     }).done(function(data){
       $('#activity-edit-form').html(data);
       $('.datepicker').datepicker(window.main.datepicker());
-      window.main.createEmployeeOptionWithId($('#activity-edit-form select[name="staffId"]'));
+      window.main.createEmployeeOptionWithId($('#activity-edit-form select[name="employeeId"]'));
       window.main.createProjectOptionByName($('#activity-edit-form select[name="projectId"]'));
     }).fail(function(){
       alert("データ取得に失敗しました");
@@ -146,7 +146,7 @@ $(function(){
 
   //入力項目の検証ルール定義
   let rules = {
-    staffId: {required: true, min: 1},
+    employeeId: {required: true, min: 1},
     activityDate: {required: true, date: true, dateFormat: true},
     content: {required: true, maxlength: 2000},
     startActivityDate: {date: true, dateFormat: true},
@@ -155,7 +155,7 @@ $(function(){
 
   //入力項目ごとのエラーメッセージ定義
   let messages = {
-    clientsstaffIdtaffIdId: {required: "*社員を選択してください",min: "*社員を選択してください"},
+    clientsemployeeIdtaffIdId: {required: "*社員を選択してください",min: "*社員を選択してください"},
     activityDate: {required: "*活動日を選択してください", dateFormat: "*正しい日付形式で入力してください"},
   };
 

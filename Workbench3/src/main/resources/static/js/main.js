@@ -289,7 +289,7 @@ $(".table-scroll").mousedragscrollable();
     $(form).find('.reset-search-form-btn').on('click', function() {
       $(form)
         .find("textarea, :text, select").val("").end()
-        .find(":not(.staff-radio):checked").prop("checked", false).end()
+        .find(":not(.employee-radio):checked").prop("checked", false).end()
         .find("select").val(null).trigger("change").end()
         .find('input[type="number"]').val(null).trigger("change").end()
         .find('input[type="email"]').val("").trigger("change");

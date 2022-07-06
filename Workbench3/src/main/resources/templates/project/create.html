@@ -40,10 +40,10 @@
 			        <div class="row">
 			          <div class="form-group col-md-8 col-sm-8">
 			            <label for="industry">当社担当者&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="select2 form-control" multiple="multiple" th:field="*{clientStaffIdList}"
-			              th:data-href="@{/staff/api/get_employee}" th:data-url="@{/staff/api/get_employee_by_client_id}">
+			            <select class="select2 form-control" multiple="multiple" th:field="*{clientEmployeeIdList}"
+			              th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
 			            </select>
-			            <span class="text-danger" th:if="${#fields.hasErrors('clientStaffIdList')}"th:errors="*{clientStaffIdList}"></span>
+			            <span class="text-danger" th:if="${#fields.hasErrors('clientEmployeeIdList')}"th:errors="*{clientEmployeeIdList}"></span>
 			          </div>
 			        </div>
 			        <div class="row">

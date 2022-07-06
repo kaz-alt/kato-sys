@@ -33,11 +33,11 @@
                       <div class="row">
                         <div class="form-group col-8">
                           <label for="industry">社員名&nbsp;<span class="text-danger">*必須</span>：</label>
-                          <select class="select2 form-control" name="staffId"
-                            th:data-href="@{/staff/api/get_employee}">
-                            <option th:text="${activities.staff?.name}" th:value="${activities.staff?.id}" selected/>
+                          <select class="select2 form-control" name="employeeId"
+                            th:data-href="@{/employee/api/get_employee}">
+                            <option th:text="${activities.employee?.name}" th:value="${activities.employee?.id}" selected/>
                           </select>
-                          <span class="text-danger" th:if="${#fields.hasErrors('staffId')}"th:errors="*{staffId}"></span>
+                          <span class="text-danger" th:if="${#fields.hasErrors('employeeId')}"th:errors="*{employeeId}"></span>
                         </div>
                       </div>
                       <div class="row">
