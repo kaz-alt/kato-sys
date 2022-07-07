@@ -54,7 +54,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/client")
 public class ClientController {
 
-	private final int size = 10;
+	private final int SIZE = 10;
+	private final String REDIRECT = "redirect:/client";
 
 	private final ClientService clientService;
 	private final InquiryRequirementComplaintService inquiryRequirementComplaintService;
@@ -106,7 +107,7 @@ public class ClientController {
 		Page<Client> page = clientService
 				.getPageList(
 						PageNumberUtils.getPageable(
-								PageNumberUtils.revisePageNumber(pageNumber), size, "id"));
+								PageNumberUtils.revisePageNumber(pageNumber), SIZE, "id"));
 		model.addAttribute("page", page);
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("projectCount", clientService.getProjectCount());
@@ -154,7 +155,7 @@ public class ClientController {
 
 		clientService.delete(clientId);
 
-		return "redirect:/client";
+		return REDIRECT;
 	}
 
 	/**
@@ -264,12 +265,12 @@ public class ClientController {
 
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("clientForm", form);
-			return "redirect:/client";
+			return REDIRECT;
 		}
 
 		clientService.save(form, user);
 
-		return "redirect:/client";
+		return REDIRECT;
 	}
 
 	/**

@@ -28,7 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/inquiry_requirement_complaint")
 public class InquiryRequirementComplaintController {
 
-	private final int size = 10;
+	private final int SIZE = 10;
+	private final String REDIRECT = "redirect:/inquiry_requirement_complaint";
 
 	private final ClientService clientService;
 	private final InquiryRequirementComplaintService service;
@@ -57,7 +58,7 @@ public class InquiryRequirementComplaintController {
 
 		Page<InquiryRequirementComplaint> page = service
 				.getPageList(PageNumberUtils.getPageable(
-						PageNumberUtils.revisePageNumber(pageNumber), size, "clientId"));
+						PageNumberUtils.revisePageNumber(pageNumber), SIZE, "clientId"));
 		model.addAttribute("page", page);
 		model.addAttribute("list", page.getContent());
 
@@ -75,7 +76,7 @@ public class InquiryRequirementComplaintController {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("inquiryRequirementComplaintSearchForm", form);
 			attributes.addFlashAttribute("hasErrors", result.hasErrors());
-			return "redirect:/inquiry_requirement_complaint";
+			return REDIRECT;
 		}
 
 		Page<InquiryRequirementComplaint> page = service.getSearchResult(
@@ -118,7 +119,7 @@ public class InquiryRequirementComplaintController {
 
 		service.delete(inquiryId);
 
-		return "redirect:/inquiry_requirement_complaint";
+		return REDIRECT;
 	}
 
 	/**
@@ -144,11 +145,11 @@ public class InquiryRequirementComplaintController {
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("inquiryRequirementComplaintForm", form);
-			return "redirect:/inquiry_requirement_complaint";
+			return REDIRECT;
 		}
 		service.save(form);
 
-		return "redirect:/inquiry_requirement_complaint";
+		return REDIRECT;
 	}
 
 }

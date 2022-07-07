@@ -19,8 +19,6 @@ import com.workbench.kato_system.admin.activity.form.ActivityForm;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.activity.model.Activity;
 import com.workbench.kato_system.admin.activity.repository.ActivityRepository;
-import com.workbench.kato_system.admin.employee.model.Employee;
-import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 
 import lombok.RequiredArgsConstructor;
 

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,7 +27,6 @@ import com.workbench.kato_system.admin.business_card.form.BusinessCardForm;
 import com.workbench.kato_system.admin.business_card.form.BusinessCardSearchForm;
 import com.workbench.kato_system.admin.business_card.model.BusinessCard;
 import com.workbench.kato_system.admin.business_card.service.BusinessCardService;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -39,6 +37,7 @@ import lombok.RequiredArgsConstructor;
 public class BusinessCardController {
 
 	private final int size = 10;
+	private final String REDIRECT = "redirect:/business_card";
 
 	private final BusinessCardService businessCardService;
 
@@ -77,7 +76,7 @@ public class BusinessCardController {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("businessCardSearchForm", form);
 			attributes.addFlashAttribute("hasErrors", result.hasErrors());
-			return "redirect:/business_card";
+			return REDIRECT;
 		}
 
 		Page<BusinessCard> page = businessCardService.getSearchResult(
@@ -91,9 +90,9 @@ public class BusinessCardController {
 	 */
 	@PostMapping(value = "/create")
 	public String create(@Validated BusinessCardForm form, BindingResult result,
-			RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) throws IOException {
+			RedirectAttributes attributes) throws IOException {
 
-		return save(form, result, attributes, user);
+		return save(form, result, attributes);
 
 	}
 
@@ -103,9 +102,9 @@ public class BusinessCardController {
 	 */
 	@PostMapping(value = "/edit")
 	public String edit(@Validated BusinessCardForm form, BindingResult result,
-			RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) throws IOException {
+			RedirectAttributes attributes) throws IOException {
 
-		return save(form, result, attributes, user);
+		return save(form, result, attributes);
 	}
 
 	/**
@@ -116,7 +115,7 @@ public class BusinessCardController {
 
 		businessCardService.delete(id);
 
-		return "redirect:/business_card";
+		return REDIRECT;
 
 	}
 
@@ -179,17 +178,17 @@ public class BusinessCardController {
 	 * @throws IOException
 	 */
 	private String save(BusinessCardForm form, BindingResult result,
-			RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) throws IOException {
+			RedirectAttributes attributes) throws IOException {
 
 		if (result.hasErrors()) {
 
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("businessCardForm", form);
-			return "redirect:/business_card";
+			return REDIRECT;
 		}
 
 		businessCardService.save(form);
 
-		return "redirect:/business_card";
+		return REDIRECT;
 	}
 }
