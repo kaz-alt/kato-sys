@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.client.service.ClientService;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.product.form.ProductForm;
 import com.workbench.kato_system.admin.product.form.ProductSearchForm;
 import com.workbench.kato_system.admin.product.model.Product;
 import com.workbench.kato_system.admin.product.service.ProductService;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;

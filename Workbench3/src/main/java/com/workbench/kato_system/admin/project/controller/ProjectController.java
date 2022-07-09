@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
 import com.workbench.kato_system.admin.client.service.ClientService;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
@@ -29,7 +30,6 @@ import com.workbench.kato_system.admin.project.model.Factor;
 import com.workbench.kato_system.admin.project.model.Progress;
 import com.workbench.kato_system.admin.project.model.Project;
 import com.workbench.kato_system.admin.project.service.ProjectService;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;

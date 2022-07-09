@@ -1,4 +1,4 @@
-package com.workbench.kato_system.admin.model;
+package com.workbench.kato_system.admin.user.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,6 +28,9 @@ public class User {
 
 	@Column(name = "name")
 	private String name;
+
+	@Column(name = "email")
+	private String email;
 
 	@Column(name = "role_name")
 	@Enumerated(EnumType.STRING)

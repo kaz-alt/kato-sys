@@ -33,9 +33,9 @@
         </div>
         <p class="login-box-msg">必要事項を入力してください</p>
 
-        <form th:action="@{/loginForm/register}" method="post">
+        <form th:action="@{/loginForm/register}" method="post" th:object="${userForm}">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" name="name" placeholder="お名前">
+            <input type="text" class="form-control" th:field="*{name}" placeholder="お名前">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -43,7 +43,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="email" class="form-control" name="email" placeholder="メールアドレス">
+            <input type="email" class="form-control" th:field="*{email}" placeholder="メールアドレス">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -51,7 +51,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="パスワード">
+            <input type="password" class="form-control" th:field="*{password}" placeholder="パスワード">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -75,6 +75,13 @@
           </div>
         </form>
         <!-- /.social-auth-links -->
+        <div class="row mt-3">
+          <div class="col-12">
+            <a th:href="@{/loginForm}">
+              <button type="button" class="btn btn-danger btn-block">ログイン画面へ戻る</button>
+            </a>
+          </div>
+        </div>
       </div>
       <!-- /.card-body -->
     </div>
