@@ -20,7 +20,13 @@ public class LoginController {
       model.addAttribute("hasError",true);
 		}
 
-		return "loginForm";
+		return "/login/loginForm";
+	}
+
+	@GetMapping("/register")
+	public String register(Model model){
+
+		return "/login/register";
 	}
 
 }
