@@ -28,7 +28,8 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/product")
 public class ProductController {
 
-	private final int size = 10;
+	private final int SIZE = 10;
+	private final String REDIRECT = "redirect:/product";
 
 	private final ClientService clientService;
 	private final ProductService productService;
@@ -51,7 +52,7 @@ public class ProductController {
 
 		Page<Product> page = productService.getPageList(
 				PageNumberUtils.getPageable(
-						PageNumberUtils.revisePageNumber(pageNumber), size, "clientId"));
+						PageNumberUtils.revisePageNumber(pageNumber), SIZE, "clientId"));
 		model.addAttribute("page", page);
 		model.addAttribute("list", page.getContent());
 
@@ -70,7 +71,7 @@ public class ProductController {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("productSearchForm", form);
 			attributes.addFlashAttribute("hasErrors", result.hasErrors());
-			return "redirect:/product";
+			return REDIRECT;
 		}
 
 		Page<Product> page = productService.getSearchResult(
@@ -111,7 +112,7 @@ public class ProductController {
 
 		productService.delete(productId);
 
-		return "redirect:/product";
+		return REDIRECT;
 
 	}
 
@@ -139,11 +140,11 @@ public class ProductController {
 
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
 			attributes.addFlashAttribute("productForm", form);
-			return "redirect:/product";
+			return REDIRECT;
 		}
 
 		productService.save(form);
 
-		return "redirect:/product";
+		return REDIRECT;
 	}
 }

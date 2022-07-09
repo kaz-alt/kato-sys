@@ -5,18 +5,18 @@
 <body>
   <div class="contents" th:fragment="business-card-search-modal">
     <section class="content">
-	  <!-- Detail Modal -->
-	  <div class="modal fade" id="business-card-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-	    <div class="modal-dialog modal-xl" role="document">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <h5 class="modal-title"><i class="fas fa-search"></i>&nbsp;名刺検索</h5>
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">×</span>
-		      </button>
-		    </div>
-		    <div class="modal-body">
-		      <div class="card card-olive">
+      <!-- Detail Modal -->
+      <div class="modal fade" id="business-card-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-search"></i>&nbsp;名刺検索</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card card-olive">
             <div class="card-header">
               <h3 class="card-title">名刺情報検索</h3>
             </div>
@@ -26,28 +26,28 @@
                 th:object="${businessCardSearchForm}">
                 <div class="card-body">
                   <div class="form-group row">
-                    <label for="searchIndustryId" class="col-sm-2 col-form-label">会社名：</label>
-                    <div class="col-sm-9 row">
+                    <label for="searchIndustryId" class="col-lg-2 col-md-8 col-sm-12 col-form-label">会社名：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
                       <select class="form-control select2" multiple="multiple" name="companyNameList" style="width:100%;"
                         th:data-href="@{/client/api/get_client_name}">
                         <option th:each="company : *{companyNameList}" th:text="${company}" th:value="${company}" selected/>
-				      </select>
+                      </select>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label for="searchClientName" class="col-sm-2 col-form-label">氏名：</label>
-                    <div class="col-sm-8 row">
+                    <label for="searchClientName" class="col-lg-2 col-md-8 col-sm-12 col-form-label">氏名：</label>
+                    <div class="col-lg-8 col-md-12 col-sm-12 row">
                       <input type="text" class="form-control" th:field="*{targetName}">
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">交換日：</label>
-                    <div class="col-sm-9 row">
-                      <input type="text" class="form-control col-sm-5 datepicker-search" th:field="*{startExchangeDate}"
+                    <label class="col-lg-2 col-md-8 col-sm-12 col-form-label">交換日：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" th:field="*{startExchangeDate}"
                         placeholder="クリックして日付を入力">
                       <span class="text-danger" th:if="${#fields.hasErrors('startExchangeDate')}">正しい日付を入力してください。</span>
-                      <p class="text-center m-1 col-sm-1">〜</p>
-                      <input type="text" class="form-control col-sm-5 datepicker-search" th:field="*{endExchangeDate}"
+                      <p class="text-center m-1 col-lg-1 col-md-1 col-sm-1">〜</p>
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" th:field="*{endExchangeDate}"
                         placeholder="クリックして日付を入力">
                       <span class="text-danger" th:if="${#fields.hasErrors('endExchangeDate')}">正しい日付を入力してください。</span>
                     </div>

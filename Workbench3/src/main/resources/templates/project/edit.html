@@ -5,132 +5,132 @@
 <body>
   <div class="contents" th:fragment="project-edit-modal">
     <section class="content">
-	  <!-- Detail Modal -->
-	  <div class="modal fade" id="project-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-	    <div class="modal-dialog modal-lg" role="document">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;案件編集</h5>
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">×</span>
-		      </button>
-		    </div>
-		    <div class="modal-body" th:fragment="project-edit">
-		      <form th:action="@{/project/edit}" method="POST" class="container" id="project-edit-form"
-		        th:object="${projectForm}">
-			    <th:block th:object="${data}" th:if="${data != null}">
-			    <input type="hidden" name="id" th:value=${data.id}>
-			    <div class="card">
-			      <div class="card-body">
-			        <div class="row">
-			          <div class="form-group col-12">
-			            <label for="industry">案件名&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="text" class="form-control" name="projectName"
-			              th:value="${data.name}">
-			            <span class="text-danger" th:errors="${projectForm.projectName}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-md-8 col-sm-8">
-			            <label for="industry">顧客名&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="form-control" name="clientId"
-			              th:data-href="@{/client/api/get_client}">
-			              <option th:value="${data.clientId}" th:text="${data.client?.name}"/>
-				        </select>
-				        <span class="text-danger" th:errors="${projectForm.clientId}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-md-8 col-sm-8">
-			            <label for="industry">当社担当者&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="select2 form-control" multiple="multiple" name="clientEmployeeIdList"
-			              th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
-			              <option th:each="cs : ${data.projectEmployee}" th:value="${cs.employee?.id}" th:text="${cs.employee?.name}" selected>
-			            </select>
-			            <span class="text-danger" th:errors="${projectForm.clientEmployeeIdList}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="industry">進捗&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="form-control" name="progress">
-			                <option th:each="p : ${progresses}"
-			                  th:value="${p.id}" th:text="${p.name}"
-			                  th:selected="${data.progress?.id eq p.id}"/>
-			              </select>
-					    <span class="text-danger" th:errors="${projectForm.progress}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-5">
-			            <label for="industry">受注確度：</label>
-			            <div class="input-group">
-					      <input type="number" class="form-control group" name="orderProbability" min=0 max=100
-					        th:value="${data.orderProbability}">
-					      <div class="input-group-append">
-					        <span class="input-group-text">％</span>
-					      </div>
-					    </div>
-					    <span class="text-danger" th:errors="${projectForm.orderProbability}"></span>
-			          </div>
-			          <div class="form-group col-6">
-			            <label for="estimatedOrderAmount">受注（予定）金額：</label>
-			            <div class="input-group">
-					      <input type="number" class="form-control group" name="estimatedOrderAmount" min=0
-					        th:value="${data.estimatedOrderAmount}">
-					      <div class="input-group-append">
-					        <span class="input-group-text">万円</span>
-					      </div>
-					    </div>
-					    <span class="text-danger" th:errors="${projectForm.estimatedOrderAmount}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="industry">受注（予定）日：</label>
-			            <input type="text" class="form-control datepicker" name="expectedOrderDate"
-			              th:value="${data.expectedOrderDate}"
-			              placeholder="クリックして日付を入力">
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="industry">アプローチルート&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="form-control" name="approachRoot">
-			                <option th:each="a : ${approachRoots}" th:value="${a.id}" th:text="${a.name}"
-			                  th:selected="${data.approachRootId eq a.id}"/>
-			              </select>
-					    <span class="text-danger" th:errors="${projectForm.approachRoot}"></span>
-			          </div>
-			          <div class="form-group col-10">
-			            <label for="industry">競合先：</label>
-			            <input type="text" class="form-control" name="competitor"
-			              th:value="${data.competitor}"
-			              placeholder="〇〇株式会社">
-			            <span class="text-danger" th:errors="${projectForm.competitor}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="industry">勝敗要因：</label>
-			            <select class="form-control" name="factor">
-			                <option value=''>---選択してください---</option>
-			                <option th:each="f : ${factors}" th:value="${f.id}" th:text="${f.name}"
-			                  th:selected="${data.factorId eq f.id}"/>
-			              </select>
-			          </div>
-			        </div>
-			      </div>
-			    </div>
-			    </th:block>
-			  </form>
-		    </div>
-		    <div class="modal-footer">
-		      <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
-		      <button type="button" class="btn btn-info" id="edit-project-button">編集</button>
-		    </div>
-		  </div>
-		</div>
+			<!-- Detail Modal -->
+			<div class="modal fade" id="project-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;案件編集</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body" th:fragment="project-edit">
+						<form th:action="@{/project/edit}" method="POST" class="container" id="project-edit-form"
+							th:object="${projectForm}">
+						<th:block th:object="${data}" th:if="${data != null}">
+						<input type="hidden" name="id" th:value=${data.id}>
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="form-group col-12">
+										<label for="industry">案件名&nbsp;<span class="text-danger">*必須</span>：</label>
+										<input type="text" class="form-control" name="projectName"
+											th:value="${data.name}">
+										<span class="text-danger" th:errors="${projectForm.projectName}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-8 col-md-10 col-sm-12">
+										<label for="industry">顧客名&nbsp;<span class="text-danger">*必須</span>：</label>
+										<select class="form-control" name="clientId"
+											th:data-href="@{/client/api/get_client}">
+											<option th:value="${data.clientId}" th:text="${data.client?.name}"/>
+									</select>
+									<span class="text-danger" th:errors="${projectForm.clientId}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-8 col-md-10 col-sm-12">
+										<label for="industry">当社担当者&nbsp;<span class="text-danger">*必須</span>：</label>
+										<select class="select2 form-control" multiple="multiple" name="clientEmployeeIdList"
+											th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
+											<option th:each="cs : ${data.projectEmployee}" th:value="${cs.employee?.id}" th:text="${cs.employee?.name}" selected>
+										</select>
+										<span class="text-danger" th:errors="${projectForm.clientEmployeeIdList}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-8 col-sm-12">
+										<label for="industry">進捗&nbsp;<span class="text-danger">*必須</span>：</label>
+										<select class="form-control" name="progress">
+												<option th:each="p : ${progresses}"
+													th:value="${p.id}" th:text="${p.name}"
+													th:selected="${data.progress?.id eq p.id}"/>
+											</select>
+								<span class="text-danger" th:errors="${projectForm.progress}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-5 col-md-5 col-sm-5">
+										<label for="industry">受注確度：</label>
+										<div class="input-group">
+									<input type="number" class="form-control group text-right percentage" name="orderProbability" min=0 max=100
+										th:value="${data.orderProbability}">
+									<div class="input-group-append">
+										<span class="input-group-text">％</span>
+									</div>
+								</div>
+								<span class="text-danger" th:errors="${projectForm.orderProbability}"></span>
+									</div>
+									<div class="form-group col-lg-6 col-md-7 col-sm-7">
+										<label for="estimatedOrderAmount">受注（予定）金額：</label>
+										<div class="input-group">
+									<input type="number" class="form-control group text-right" name="estimatedOrderAmount" min=0
+										th:value="${data.estimatedOrderAmount}">
+									<div class="input-group-append">
+										<span class="input-group-text">万円</span>
+									</div>
+								</div>
+								<span class="text-danger" th:errors="${projectForm.estimatedOrderAmount}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-7">
+										<label for="industry">受注（予定）日：</label>
+										<input type="text" class="form-control datepicker" name="expectedOrderDate"
+											th:value="${data.expectedOrderDate}"
+											placeholder="クリックして日付を入力">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-8 col-sm-9">
+										<label for="industry">アプローチルート&nbsp;<span class="text-danger">*必須</span>：</label>
+										<select class="form-control" name="approachRoot">
+												<option th:each="a : ${approachRoots}" th:value="${a.id}" th:text="${a.name}"
+													th:selected="${data.approachRootId eq a.id}"/>
+											</select>
+								<span class="text-danger" th:errors="${projectForm.approachRoot}"></span>
+									</div>
+									<div class="form-group col-lg-10 col-md-10 col-sm-10">
+										<label for="industry">競合先：</label>
+										<input type="text" class="form-control" name="competitor"
+											th:value="${data.competitor}"
+											placeholder="〇〇株式会社">
+										<span class="text-danger" th:errors="${projectForm.competitor}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-8 col-sm-9">
+										<label for="industry">勝敗要因：</label>
+										<select class="form-control" name="factor">
+												<option value=''>---選択してください---</option>
+												<option th:each="f : ${factors}" th:value="${f.id}" th:text="${f.name}"
+													th:selected="${data.factorId eq f.id}"/>
+											</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						</th:block>
+					</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+						<button type="button" class="btn btn-info" id="edit-project-button">編集</button>
+					</div>
+				</div>
+			</div>
 	  </div>
     </section>
   </div>

@@ -34,11 +34,11 @@
         <!-- /.card-header -->
 
         <div class="card-body">
-          <div class="mt-4 mb-3">
-            <button type="button" class="btn btn-primary btn-lg ml-2 float-right" data-toggle="modal" data-target="#project-create-modal">
-              <i class="fas fa-plus"></i>&nbsp;新案件登録
+          <div class="mt-4 mb-2">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#project-create-modal">
+              <i class="fas fa-plus"></i>&nbsp;案件登録
             </button>
-            <button type="button" class="btn btn-light btn-lg mr-2 float-right" data-toggle="modal" data-target="#project-search-modal">
+            <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#project-search-modal">
               <i class="fas fa-search"></i>&nbsp;案件検索
             </button>
           </div>
@@ -158,7 +158,7 @@
               </div>
             </div>
           </div>
-          <div th:if="${not #lists.isEmpty(list)}">
+          <div th:if="${not #lists.isEmpty(projectList)}">
             <th:block th:include="/layout/pagination::pagination"></th:block>
           </div>
         </div>

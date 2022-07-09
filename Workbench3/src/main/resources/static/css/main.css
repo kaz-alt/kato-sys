@@ -10,8 +10,31 @@ a.disabled{
 	pointer-events: none;
 }
 
-.search-btn{
-	width:300px;
+@media only screen and (min-width: 1200px) {
+  .search-btn{
+    width:30%;
+  }
+  .reset-search-form-btn {
+    width:30%;
+  }
+}
+
+@media only screen and (min-width:479px) and (max-width:768px) {
+  .search-btn{
+    width:50%;
+  }
+  .reset-search-form-btn {
+    width:50%;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .search-btn{
+    width:80%;
+  }
+  .reset-search-form-btn {
+    width:80%;
+  }
 }
 
 select2-selection__rendered {
