@@ -1,11 +1,16 @@
 package com.workbench.kato_system.admin.employee.form;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+
+import com.workbench.kato_system.admin.user.form.UserForm;
 
 import lombok.Data;
 
 @Data
 public class EmployeeForm {
+
+	public static interface UserFormGroup {}
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 	private final String UNCORRECT_MESSAGE = "※入力が不正です";
@@ -38,5 +43,8 @@ public class EmployeeForm {
 	private Integer joinYear;
 
 	private Integer joinMonth;
+
+	@Valid
+	private UserForm userForm;
 
 }

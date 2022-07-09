@@ -34,37 +34,53 @@
         <p class="login-box-msg">必要事項を入力してください</p>
 
         <form th:action="@{/loginForm/register}" method="post" th:object="${userForm}">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" th:field="*{name}" placeholder="お名前">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="text" class="form-control" th:field="*{name}" placeholder="お名前">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
               </div>
             </div>
+            <span class="text-bold text-danger"
+              th:if="${#fields.hasErrors('name')}"th:errors="*{name}"></span>
           </div>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" th:field="*{email}" placeholder="メールアドレス">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="email" class="form-control" th:field="*{email}" placeholder="メールアドレス">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
               </div>
             </div>
+            <span class="text-bold text-danger"
+              th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
           </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" th:field="*{password}" placeholder="パスワード">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="password" class="form-control" th:field="*{password}" placeholder="パスワード">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
               </div>
             </div>
+            <span class="text-bold text-danger"
+                th:if="${#fields.hasErrors('password')}"th:errors="*{password}"></span>
           </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" name="confirmPassword" placeholder="確認パスワード">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+          <div class="mb-3">
+            <div class="input-group">
+              <input type="password" class="form-control" name="confirmPassword" placeholder="確認パスワード">
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
               </div>
             </div>
+            <span class="text-bold text-danger"
+                th:if="${#fields.hasErrors('password')}"th:errors="*{password}"></span>
           </div>
           <div class="row">
             <!-- /.col -->

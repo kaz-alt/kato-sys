@@ -2,10 +2,13 @@ package com.workbench.kato_system.admin.user.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.workbench.kato_system.admin.user.form.UserForm;
+import com.workbench.kato_system.admin.employee.form.EmployeeForm;
+import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.user.model.User;
 import com.workbench.kato_system.admin.user.model.User.RoleName;
 import com.workbench.kato_system.admin.user.repository.UserRepository;
@@ -17,9 +20,11 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final EmployeeService employeeService;
 	private final PasswordEncoder passwordEncoder;
 
-	public User save(UserForm form) {
+	@Transactional
+	public User save(EmployeeForm form) {
 
 		User user = form2User(form);
 
@@ -35,7 +40,7 @@ public class UserService {
 		}
 	}
 
-	private User form2User(UserForm form) {
+	private User form2User(EmployeeForm form) {
 
 		User u = new User();
 
@@ -43,13 +48,15 @@ public class UserService {
 			u = userRepository.findById(form.getId()).orElse(new User());
 		}
 
-		u.setName(form.getName());
+		u.setName(form.getLastName() + form.getFirstName());
 		u.setEmail(form.getEmail());
 		// パスワードをエンコードする
-		u.setPassword(passwordEncoder.encode(form.getPassword()));
+		u.setPassword(passwordEncoder.encode(form.getUserForm().getPassword()));
 		// デフォルトでユーザー権限に設定
 		u.setRoleName(RoleName.USER);
 		u = userRepository.save(u);
+
+		employeeService.save(form);
 
 		return u;
 	}

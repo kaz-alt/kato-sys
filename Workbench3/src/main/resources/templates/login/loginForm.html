@@ -31,6 +31,9 @@
       <div class="alert alert-danger" role="alert" th:if="${hasError}">
         <strong>ログインに失敗しました。</strong>
       </div>
+      <div class="alert alert-info" role="alert" th:if="${isSuccess}">
+        <strong>ユーザー登録に成功しました。登録したメールアドレスとパスワードでログインしてください。</strong>
+      </div>
       <p class="login-box-msg">ログインしてください</p>
 
       <form class="mb-3" th:action="@{/login}" method="post">
@@ -51,15 +54,6 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
           <div class="col-12">
             <button type="submit" class="btn btn-info btn-block">ログイン</button>
           </div>

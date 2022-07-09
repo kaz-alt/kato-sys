@@ -86,7 +86,7 @@ public class Employee implements Serializable {
 	private Integer joinMonth;
 
 	/* 作成者 */
-	@Column(name = "created_by")
+	@Column(name = "created_by", nullable = false, updatable = false)
 	@CreatedBy
 	private String createdBy;
 
