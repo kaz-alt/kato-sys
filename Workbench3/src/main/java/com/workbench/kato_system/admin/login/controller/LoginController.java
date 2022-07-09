@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.user.form.UserForm;
+import com.workbench.kato_system.admin.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +21,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginController {
 
-	private final String REDIRECT = "redirect:/login/register";
+	private final String REDIRECT = "redirect:/loginForm/register";
+
+	private final UserService userService;
 
 	@ModelAttribute("userForm")
 	public UserForm setUpUserForm() {
@@ -53,7 +56,9 @@ public class LoginController {
 			return REDIRECT;
 		}
 
-		return REDIRECT;
+		userService.save(form);
+
+		return "/login/loginForm";
 	}
 
 }
