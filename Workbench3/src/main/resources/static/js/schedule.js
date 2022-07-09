@@ -6,6 +6,9 @@ $(function(){
 	 */
   window.main.createEmployeeOptionWithId($('#schedule-form select[name="employeeIdList"]'));
 
+  var editId;
+  var editStart;
+
 	const calendarEl = document.querySelector('#calendar');
   const calendar = new FullCalendar.Calendar(calendarEl, {
     headerToolbar: {
@@ -17,9 +20,30 @@ $(function(){
     businessHours: true,
     editable: true,
     locale: 'ja',
+    views: {
+      timeGridWeek: {
+        titleFormat: function (date) {
+          const startMonth = date.start.month + 1;
+          const endMonth = date.end.month + 1;
+          // 1週間のうちに月をまたぐかどうかの分岐処理
+          if (startMonth === endMonth) {
+            return startMonth + '月';
+          } else {
+            return startMonth + '月～' + endMonth + '月';
+          }
+        },
+        dayHeaderFormat: function (date) {
+          const day = date.date.day;
+          const weekNum = date.date.marker.getDay();
+          const week = ['(日)', '(月)', '(火)', '(水)', '(木)', '(金)', '(土)'][weekNum];
+          return day + ' ' + week;
+        }
+      }
+    },
     // contentHeight: 'auto',
     nowIndicator: true,
     dayMaxEvents: true,
+    selectLongPressDelay:0,
     // 日付をクリック、または範囲を選択したイベント
     selectable: true,
     select: function (info) {
@@ -89,21 +113,18 @@ $(function(){
       }
     },
     eventClick: function (info) {
-      let id = info.event.id;
-      let start = info.event.start;
+      editId = info.event.id;
+      editStart = info.event.start;
       let url = $('#ref').data('detail-ref');
 
       $.ajax({
         type : "GET",
         url : url,
-        data: {id: id},
+        data: {id: editId},
         dataType : "html"
       }).done(function(data){
         $('#schedule-detail-body').html(data);
         $('#schedule-detail-modal').modal('show');
-        $('#detail-edit-button').on('click', function() {
-          fetchEditDetail(id, start)
-        })
       }).fail(function(){
         alert("fail...");
       })
@@ -113,6 +134,10 @@ $(function(){
   calendar.render();
 
   setAllDay();
+
+  $(document).on('click','#detail-edit-button', function() {
+    fetchEditDetail(editId, editStart)
+  })
 
   $('#schedule-delete-button').click(function(){
 
