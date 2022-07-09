@@ -63,6 +63,13 @@ $(".table-scroll").mousedragscrollable();
     language: "ja"
   });
 
+  $(document).on('change', 'input.percentage', function() {
+    let value = $(this).val();
+    if (value.length > 2) {
+      $(this).val(value.slice(0, 2));
+    }
+  });
+
   function createClientOption($select) {
 	let term = '';
 	$select.select2({

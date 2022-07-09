@@ -20,7 +20,7 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="row">
-									<div class="form-group col-7">
+									<div class="form-group col-lg-7 col-md-12 col-sm-12">
 										<label for="industry">顧客名&nbsp;<span class="text-danger">*必須</span>：</label>
 										<select class="form-control" th:field="*{clientId}"
 											th:data-href="@{/client/api/get_client}">
@@ -30,15 +30,15 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="form-group col-7">
+									<div class="form-group col-lg-7 col-md-12 col-sm-12">
 										<label for="industry">製品・サービス名&nbsp;<span class="text-danger">*必須</span>：</label>
 										<input type="text" class="form-control" th:field="*{productName}">
 										<span class="text-danger" th:if="${#fields.hasErrors('productName')}"th:errors="*{productName}"></span>
 									</div>
-									<div class="form-group col-4">
+									<div class="form-group col-lg-4 col-md-4 col-sm-12">
 										<label for="industry">数量&nbsp;<span class="text-danger">*必須</span>：</label>
 										<div class="input-group">
-									<input type="number" class="form-control group" th:field="*{productQuantity}" min=0>
+									<input type="number" class="form-control group text-right" th:field="*{productQuantity}" min=0>
 									<div class="input-group-append">
 										<span class="input-group-text">個</span>
 									</div>
@@ -47,17 +47,17 @@
 									</div>
 								</div>
 								<div class="row">
-									<div class="form-group col-7">
+									<div class="form-group col-lg-4 col-md-6 col-sm-12">
 										<label for="industry">売上金額&nbsp;<span class="text-danger">*必須</span>：</label>
 										<div class="input-group">
-									<input type="number" class="form-control group" th:field="*{productSales}" min=0>
+									<input type="number" class="form-control group text-right" th:field="*{productSales}" min=0>
 									<div class="input-group-append">
 										<span class="input-group-text">万円</span>
 									</div>
 								</div>
 								<span class="text-danger" th:if="${#fields.hasErrors('productSales')}"th:errors="*{productSales}"></span>
 									</div>
-									<div class="form-group col-7">
+									<div class="form-group col-lg-7 col-md-12 col-sm-12">
 										<label for="industry">受注日&nbsp;<span class="text-danger">*必須</span>：</label>
 										<input type="text" class="form-control datepicker" th:field="*{purchasedDate}"
 											placeholder="クリックして日付を入力">

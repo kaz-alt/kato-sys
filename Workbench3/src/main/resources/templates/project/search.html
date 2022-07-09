@@ -63,17 +63,18 @@
                   <div class="form-group row">
                     <label class="col-lg-2 col-md-5 col-sm-5 col-form-label">受注確度：</label>
                     <div class="col-lg-7 col-sm-12 col-md-12 row pl-3">
-                      <div class="input-group col-lg-5 col-sm-6 col-md-5 row">
-                        <input type="number" class="form-control search text-right"
-                          th:field="*{startOrderProbability}" min=0>
+                      <div class="input-group col-lg-5 col-sm-12 col-md-5 row">
+                        <input type="number" class="form-control search text-right percentage"
+                          th:field="*{startOrderProbability}" min=0 max=100>
                         <div class="input-group-append">
                           <span class="input-group-text">%</span>
                         </div>
                       </div>
                       <span class="text-danger" th:if="${#fields.hasErrors('startOrderProbability')}">正しい確度を入力してください。</span>
-                      <p class="text-center m-1 col-sm-1">〜</p>
-                      <div class="input-group col-lg-5 col-sm-6 col-md-5 row">
-                        <input type="number" class="form-control search text-right" th:field="*{endOrderProbability}" min=0>
+                      <p class="text-center m-1 col-lg-1 col-md-1 col-sm-1">〜</p>
+                      <div class="input-group col-lg-5 col-sm-12 col-md-5 row">
+                        <input type="number" class="form-control search text-right percentage"
+                          th:field="*{endOrderProbability}" min=0 max=100>
                         <div class="input-group-append">
                           <span class="input-group-text">%</span>
                         </div>
@@ -84,7 +85,7 @@
                   <div class="form-group row">
                     <label class="col-lg-2 col-md-5 col-sm-5 col-form-label">受注（予定）金額：</label>
                     <div class="col-lg-10 col-sm-12 col-md-12 row pl-3">
-                      <div class="input-group col-lg-5 col-sm-6 col-md-5 row">
+                      <div class="input-group col-lg-5 col-sm-12 col-md-12 row">
                         <input type="number" class="form-control search text-right"
                           th:field="*{startEstimatedOrderAmount}" min=0>
                         <div class="input-group-append">
@@ -93,7 +94,7 @@
                       </div>
                       <span class="text-danger" th:if="${#fields.hasErrors('startEstimatedOrderAmount')}">正しい金額を入力してください。</span>
                       <p class="text-center m-1 col-sm-1">〜</p>
-                      <div class="input-group col-lg-5 col-sm-6 col-md-5 row">
+                      <div class="input-group col-lg-5 col-sm-12 col-md-12 row">
                         <input type="number" class="form-control search text-right" th:field="*{endEstimatedOrderAmount}" min=0>
                         <div class="input-group-append">
                           <span class="input-group-text">万円</span>
@@ -105,12 +106,12 @@
                   <div class="form-group row">
                     <label class="col-lg-2 col-md-5 col-sm-5 col-form-label">受注（予定）日：</label>
                     <div class="col-lg-9 col-md-12 col-sm-12 row pl-3">
-                      <input type="text" class="form-control col-lg-5 col-md-5 col-sm-6 datepicker-search"
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search"
                         th:field="*{startExpectedOrderDate}"
                         placeholder="クリックして日付を入力">
                       <span class="text-danger" th:if="${#fields.hasErrors('startExpectedOrderDate')}">正しい日付を入力してください。</span>
                       <p class="text-center m-1 col-sm-1">〜</p>
-                      <input type="text" class="form-control col-lg-5 col-md-5 col-sm-6 datepicker-search"
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search"
                         th:field="*{endExpectedOrderDate}"
                         placeholder="クリックして日付を入力">
                       <span class="text-danger" th:if="${#fields.hasErrors('endExpectedOrderDate')}">正しい日付を入力してください。</span>
