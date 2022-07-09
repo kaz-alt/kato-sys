@@ -5,88 +5,88 @@
 <body>
   <div class="contents" th:fragment="business-card-edit-modal">
     <section class="content">
-	  <!-- Detail Modal -->
-	  <div class="modal fade" id="business-card-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
-	    <div class="modal-dialog modal-lg" role="document">
-		  <div class="modal-content">
-		    <div class="modal-header">
-		      <h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;名刺編集</h5>
-		      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		        <span aria-hidden="true">×</span>
-		      </button>
-		    </div>
-		    <div class="modal-body" th:fragment="business-card-edit">
-		      <form th:action="@{/business_card/edit}" method="POST" class="container"
-		        id="business-card-edit-form" th:object="${businessCardForm}" enctype="multipart/form-data">
-		        <th:block th:object="${data}" th:if="${data != null}">
-			    <input type="hidden" name="id" th:value=${data.id}>
-			    <div class="card">
-			      <div class="card-body">
-			        <div class="row">
-			          <div class="form-group col-8">
-			            <label for="companyName">会社名&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <select class="form-control select2" th:field="*{companyName}"
-			              th:data-href="@{/client/api/get_client_name}">
-			              <option th:text="*{companyName}" th:value="*{companyName}" selected/>
-			            </select>
-			            <span class="text-danger" th:if="${#fields.hasErrors('companyName')}"th:errors="*{companyName}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="name">氏名&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="text" class="form-control" th:field="*{name}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('name')}"th:errors="*{name}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-5">
-			            <label for="department">部署&nbsp;<span class="text-danger">*必須</span>：</label>
-			            <input type="text" class="form-control" th:field="*{department}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('department')}"th:errors="*{department}"></span>
-			          </div>
-			          <div class="form-group col-5">
-			            <label for="position">役職：</label>
-			            <input type="text" class="form-control" th:field="*{position}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('position')}"th:errors="*{position}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-6">
-			            <label for="tel">電話番号：</label>
-			            <input type="tel" class="form-control" th:field="*{tel}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
-			          </div>
-			          <div class="form-group col-6">
-			            <label for="email">メール：</label>
-			            <input type="email" class="form-control" th:field="*{email}">
-			            <span class="text-danger" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-7">
-			            <label for="image">交換日：</label>
-			            <input type="text" class="form-control datepicker" id="exchangeDateForEdit"
-			              name="exchangeDate" th:value="*{exchangeDate}"
-			              placeholder="クリックして日付を入力">
-			          </div>
-			        </div>
-			        <div class="row">
-			          <div class="form-group col-sm-8">
-			            <label for="image">名刺画像：</label>
-			            <th:block th:if="*{image != null}">
-			              <span th:text="*{fileName}"></span>
-			              <button id="img-download-btn" type="button"
-			                class="btn btn-warning form-control"
-			                th:data-href="@{/business_card/download_image}" th:data-id="*{id}">
-			                <i class="fas fa-file-download"></i>&nbsp;画像をダウンロード
-			              </button>
-			              <div th:if="*{image != null}" class="form-check mt-4">
-						    <input class="form-check-input" type="checkbox" value="" id="changeImgFile">
-						    <label class="form-check-label" for="changeImgFile">
-						      画像ファイルを変更する
-						    </label>
-						  </div>
+			<!-- Detail Modal -->
+			<div class="modal fade" id="business-card-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;名刺編集</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+					<div class="modal-body" th:fragment="business-card-edit">
+						<form th:action="@{/business_card/edit}" method="POST" class="container"
+							id="business-card-edit-form" th:object="${businessCardForm}" enctype="multipart/form-data">
+							<th:block th:object="${data}" th:if="${data != null}">
+						<input type="hidden" name="id" th:value=${data.id}>
+						<div class="card">
+							<div class="card-body">
+								<div class="row">
+									<div class="form-group col-lg-8 col-md-12 col-sm-12">
+										<label for="companyName">会社名&nbsp;<span class="text-danger">*必須</span>：</label>
+										<select class="form-control select2" th:field="*{companyName}"
+											th:data-href="@{/client/api/get_client_name}">
+											<option th:text="*{companyName}" th:value="*{companyName}" selected/>
+										</select>
+										<span class="text-danger" th:if="${#fields.hasErrors('companyName')}"th:errors="*{companyName}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-8 col-sm-12">
+										<label for="name">氏名&nbsp;<span class="text-danger">*必須</span>：</label>
+										<input type="text" class="form-control" th:field="*{name}">
+										<span class="text-danger" th:if="${#fields.hasErrors('name')}"th:errors="*{name}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-5 col-md-7 col-sm-12">
+										<label for="department">部署&nbsp;<span class="text-danger">*必須</span>：</label>
+										<input type="text" class="form-control" th:field="*{department}">
+										<span class="text-danger" th:if="${#fields.hasErrors('department')}"th:errors="*{department}"></span>
+									</div>
+									<div class="form-group col-lg-5 col-md-7 col-sm-12">
+										<label for="position">役職：</label>
+										<input type="text" class="form-control" th:field="*{position}">
+										<span class="text-danger" th:if="${#fields.hasErrors('position')}"th:errors="*{position}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-6 col-md-10 col-sm-12">
+										<label for="tel">電話番号：</label>
+										<input type="tel" class="form-control" th:field="*{tel}">
+										<span class="text-danger" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
+									</div>
+									<div class="form-group col-lg-6 col-md-10 col-sm-12">
+										<label for="email">メール：</label>
+										<input type="email" class="form-control" th:field="*{email}">
+										<span class="text-danger" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-10 col-sm-12">
+										<label for="image">交換日：</label>
+										<input type="text" class="form-control datepicker" id="exchangeDateForEdit"
+											name="exchangeDate" th:value="*{exchangeDate}"
+											placeholder="クリックして日付を入力">
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-lg-7 col-md-10 col-sm-12">
+										<label for="image">名刺画像：</label>
+										<th:block th:if="*{image != null}">
+											<span th:text="*{fileName}"></span>
+											<button id="img-download-btn" type="button"
+												class="btn btn-warning form-control"
+												th:data-href="@{/business_card/download_image}" th:data-id="*{id}">
+												<i class="fas fa-file-download"></i>&nbsp;画像をダウンロード
+											</button>
+											<div th:if="*{image != null}" class="form-check mt-4">
+									<input class="form-check-input" type="checkbox" value="" id="changeImgFile">
+									<label class="form-check-label" for="changeImgFile">
+										画像ファイルを変更する
+									</label>
+								</div>
 						</th:block>
 			            <input class="mt-2" type="file" th:field="*{image}" accept="image/*">
 			          </div>
