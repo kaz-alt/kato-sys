@@ -9,5 +9,4 @@ public class Workbench3Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Workbench3Application.class, args);
 	}
-
 }
