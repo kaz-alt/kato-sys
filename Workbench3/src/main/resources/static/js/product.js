@@ -22,12 +22,13 @@ $(function(){
 	$('#product-table').dataTable({
 		bDestroy: true,
 		lengthChange: false,
-    	searching: false,
-    	ordering: path.indexOf('/detail') > 0,
+		searching: false,
+		ordering: path.indexOf('/detail') > 0,
 		columnDefs: setColumnDefines(),
-    	info: false,
-    	paging: false,
-        lengthMenu: [5],
+		info: false,
+		paging: path.indexOf('/detail') > 0,
+    pageLength: 5,
+		lengthMenu: [5],
 		language: window.main.getLanguageForDataTable()
 	});
 

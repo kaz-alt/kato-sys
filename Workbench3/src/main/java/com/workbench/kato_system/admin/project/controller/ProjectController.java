@@ -81,7 +81,7 @@ public class ProjectController {
 				PageNumberUtils.getPageable(
 						PageNumberUtils.revisePageNumber(pageNumber), SIZE, "id"));
 		model.addAttribute("page", page);
-		model.addAttribute("list", page.getContent());
+		model.addAttribute("projectList", page.getContent());
 
 		return "project/index";
 	}

@@ -73,8 +73,9 @@ $(function(){
     ordering: path.indexOf('/detail') > 0,
 		columnDefs: setColumnDefines(),
     info: false,
-    paging: false,
-        lengthMenu: [5],
+    paging: path.indexOf('/detail') > 0,
+    pageLength: 5,
+    lengthMenu: [5],
 		language: window.main.getLanguageForDataTable()
 	});
 

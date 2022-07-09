@@ -108,7 +108,7 @@
                     </tr>
                   </thead>
                     <tbody>
-                    <tr th:each="p, stat: ${list}">
+                    <tr th:each="p, stat: ${projectList}">
                       <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}"
                         data-toggle="tooltip" data-placement="top" title="詳細ページへ">
                           <a th:href="@{/project/detail/{id}(id=${p.id})}" class="w-100 h-100" style="display:block;">
@@ -158,7 +158,7 @@
               </div>
             </div>
           </div>
-          <div th:if="${not #lists.isEmpty(list)}">
+          <div th:if="${not #lists.isEmpty(projectList)}">
             <th:block th:include="/layout/pagination::pagination"></th:block>
           </div>
         </div>
