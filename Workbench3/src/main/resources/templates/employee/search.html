@@ -26,25 +26,25 @@
                     th:object="${employeeSearchForm}">
                     <div class="card-body">
                       <div class="form-group row">
-                        <label for="targetName" class="col-sm-2 col-form-label">氏名：</label>
-                        <div class="col-sm-5 row">
+                        <label for="targetName" class="col-lg-2 col-md-10 col-sm-12 col-form-label">氏名：</label>
+                        <div class="col-lg-5 col-md-10 col-sm-12 row">
                           <input type="text" class="form-control" th:field="*{targetName}">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="targetDepartment" class="col-sm-2 col-form-label">担当部署：</label>
-                        <div class="col-sm-6 row">
+                        <label for="targetDepartment" class="col-lg-2 col-md-10 col-sm-12 col-form-label">担当部署：</label>
+                        <div class="col-lg-6 col-md-10 col-sm-12 row">
                           <input type="text" class="form-control" th:field="*{targetDepartment}">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="targetPosition" class="col-sm-2 col-form-label">役職：</label>
-                        <div class="col-sm-6 row">
+                        <label for="targetPosition" class="col-lg-2 col-md-10 col-sm-12 col-form-label">役職：</label>
+                        <div class="col-lg-6 col-md-10 col-sm-12 row">
                           <input type="text" class="form-control" th:field="*{targetPosition}">
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="targetJoinYear" class="col-sm-2 col-form-label">入社年月：</label>
+                        <label for="targetJoinYear" class="col-lg-2 col-md-10 col-sm-12 col-form-label">入社年月：</label>
                         <div class="col-lg-3 col-sm-4 col-md-5 row mr-1">
                           <select class="form-control" th:field="*{targetJoinYear}">
                             <option value="">-- 未選択 --</option>
@@ -63,18 +63,18 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-3 form-check row">
+                        <label class="col-lg-2 col-md-10 col-sm-12 col-form-label"></label>
+                        <div class="col-lg-3 col-md-4 col-sm-12 form-check row">
                           <input class="form-check-input employee-radio" type="radio" id="before" value="1"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="before">より前</label>
                         </div>
-                        <div class="col-sm-3 form-check row">
+                        <div class="col-lg-3 col-md-4 col-sm-12 form-check row">
                           <input class="form-check-input employee-radio" type="radio" id="equal" value="2"
                             style="transform:scale(1.5);" name="condition" checked>
                           <label class="form-check-label" for="equal">と同じ</label>
                         </div>
-                        <div class="col-sm-3 form-check row">
+                        <div class="col-lg-3 col-md-4 col-sm-12 form-check row">
                           <input class="form-check-input employee-radio" type="radio" id="after" value="3"
                             style="transform:scale(1.5);" name="condition">
                           <label class="form-check-label" for="after">より後</label>
