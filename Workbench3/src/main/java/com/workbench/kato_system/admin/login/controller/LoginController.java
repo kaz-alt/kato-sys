@@ -17,6 +17,7 @@ import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm.UserFormGroup;
 import com.workbench.kato_system.admin.user.form.UserForm;
 import com.workbench.kato_system.admin.user.service.UserService;
+import com.workbench.kato_system.admin.utils.DateUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -54,6 +55,8 @@ public class LoginController {
 	public String register(Model model){
 
 		model.addAttribute("isUserForm", true);
+		model.addAttribute("yearList", DateUtils.createYearList());
+		model.addAttribute("monthList", DateUtils.createMonthList());
 
 		return "/login/register2";
 	}

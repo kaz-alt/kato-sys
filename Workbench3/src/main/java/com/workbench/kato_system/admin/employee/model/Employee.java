@@ -12,9 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -87,7 +85,6 @@ public class Employee implements Serializable {
 
 	/* 作成者 */
 	@Column(name = "created_by", nullable = false, updatable = false)
-	@CreatedBy
 	private String createdBy;
 
 	/* 作成日時 */
@@ -97,7 +94,6 @@ public class Employee implements Serializable {
 
 	/* 更新者 */
 	@Column(name = "modified_by")
-	@LastModifiedBy
 	private String modifiedBy;
 
 	/* 更新日時 */

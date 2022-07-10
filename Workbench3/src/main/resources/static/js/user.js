@@ -9,7 +9,10 @@ $(function(){
     required: '*入力必須です',
 		email: '*正しいメールアドレスの形式で入力して下さい',
 		tel: "*正しい電話番号の形式で入力してください",
-    katakana: "*全角カタカナで入力してください"
+    katakana: "*全角カタカナで入力してください",
+    minlength: "*5文字以上で入力してください",
+    maxlength: "*10文字以内で入力してください",
+    alphabet: "*半角英数字で入力してください"
   });
 
 	//追加ルールの定義
@@ -19,6 +22,9 @@ $(function(){
     },
     katakana: function(value, element){
       return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
+    },
+    alphabet: function(value, element){
+      return this.optional(element) || /^([a-zA-Z0-9]+)$/.test(value);
     }
   };
 
@@ -29,13 +35,14 @@ $(function(){
 
   //入力項目の検証ルール定義
   let rules = {
-    lastName: {required: true},
-    firstName: {required: true},
-    lastNameKana: {required: true, katakana: true},
-    firstNameKana: {required: true, katakana: true},
-    department: {required: true},
-    tel: {required: true, tel: true},
-    email: {required: true, email: true}
+    "lastName": {required: true},
+    "firstName": {required: true},
+    "lastNameKana": {required: true, katakana: true},
+    "firstNameKana": {required: true, katakana: true},
+    "department": {required: true},
+    "tel": {required: true, tel: true},
+    "email": {required: true, email: true},
+    "userForm.password": {required: true, alphabet: true, minlength: 5, maxlength: 10}
   };
 
   //入力項目ごとのエラーメッセージ定義

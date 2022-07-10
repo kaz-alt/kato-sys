@@ -89,7 +89,7 @@ public class EmployeeService {
 
   public Specification<Employee> nameContains(String name) {
 		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
-			return cb.or(cb.like(root.get("name"), "%" + name + "%"), 
+			return cb.or(cb.like(root.get("name"), "%" + name + "%"),
         cb.like(root.get("nameKana"), "%" + SearchUtils.HiraganaToKatakana(name) + "%"));
 		};
 	}
@@ -158,6 +158,8 @@ public class EmployeeService {
 		employee.setEmail(form.getEmail());
 		employee.setJoinYear(form.getJoinYear());
 		employee.setJoinMonth(form.getJoinMonth());
+		employee.setCreatedBy(form.getEmail());
+		employee.setModifiedBy(form.getEmail());
 		employee.setDelFlg(false);
 
 		employee = employeeRepository.save(employee);
