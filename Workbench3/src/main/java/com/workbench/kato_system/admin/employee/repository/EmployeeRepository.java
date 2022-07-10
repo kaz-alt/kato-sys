@@ -20,6 +20,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>, Jp
 
 	Employee findByEmail(String email);
 
+	Employee findByTel(String tel);
+
 	List<Employee> findByNameStartingWithOrNameKanaStartingWithAndDelFlgFalse(String name, String nameKana);
 
 }

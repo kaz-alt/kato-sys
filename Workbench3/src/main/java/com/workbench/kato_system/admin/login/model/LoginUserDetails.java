@@ -11,7 +11,7 @@ import com.workbench.kato_system.admin.user.model.User;
 
 public class LoginUserDetails implements UserDetails{
 
-	private User user = new User();
+	private User user;
 
 	public LoginUserDetails(User user) {
 		this.user = user;

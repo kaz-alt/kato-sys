@@ -1,10 +1,12 @@
 package com.workbench.kato_system.admin.employee.form;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.workbench.kato_system.admin.user.form.UserForm;
 import com.workbench.kato_system.admin.validation.ExistEmailValidation;
+import com.workbench.kato_system.admin.validation.ExistTelValidation;
 
 import lombok.Data;
 
@@ -36,9 +38,11 @@ public class EmployeeForm {
 	private String position;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
+	@ExistTelValidation
 	private String tel;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
+	@Email(message = "正しいメールアドレス形式で入力してください")
 	@ExistEmailValidation
 	private String email;
 
