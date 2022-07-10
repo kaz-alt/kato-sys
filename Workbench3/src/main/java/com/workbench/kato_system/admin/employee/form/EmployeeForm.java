@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import com.workbench.kato_system.admin.user.form.UserForm;
+import com.workbench.kato_system.admin.validation.ExistEmailValidation;
 
 import lombok.Data;
 
@@ -38,6 +39,7 @@ public class EmployeeForm {
 	private String tel;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
+	@ExistEmailValidation
 	private String email;
 
 	private Integer joinYear;

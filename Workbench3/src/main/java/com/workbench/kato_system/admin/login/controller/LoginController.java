@@ -68,7 +68,7 @@ public class LoginController {
 
 		if (result.hasErrors()) {
 			attributes.addFlashAttribute(BindingResult.MODEL_KEY_PREFIX + result.getObjectName(), result);
-			attributes.addFlashAttribute("userForm", form);
+			attributes.addFlashAttribute("employeeForm", form);
 			attributes.addFlashAttribute("hasError", true);
 			return REDIRECT;
 		}

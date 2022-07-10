@@ -18,6 +18,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer>, Jp
 
 	List<Employee> findByIdIn(List<Integer> idList);
 
+	Employee findByEmail(String email);
+
 	List<Employee> findByNameStartingWithOrNameKanaStartingWithAndDelFlgFalse(String name, String nameKana);
 
 }

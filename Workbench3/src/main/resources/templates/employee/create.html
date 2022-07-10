@@ -60,12 +60,12 @@
                     <div class="form-group col-lg-5 col-md-10 col-sm-12">
                       <label for="name">電話番号（ハイフン含む）&nbsp;<span class="text-danger">*必須</span>：</label>
                       <input type="tel" class="form-control" th:field="*{tel}">
-                      <span class="text-danger" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
+                      <span class="text-danger text-bold" th:if="${#fields.hasErrors('tel')}"th:errors="*{tel}"></span>
                     </div>
                     <div class="form-group col-lg-7 col-md-10 col-sm-12">
                       <label for="name">メールアドレス&nbsp;<span class="text-danger">*必須</span>：</label>
                       <input type="email" class="form-control" th:field="*{email}">
-                      <span class="text-danger" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
+                      <span class="text-danger text-bold" th:if="${#fields.hasErrors('email')}"th:errors="*{email}"></span>
                     </div>
                   </div>
                   <div class="row">
