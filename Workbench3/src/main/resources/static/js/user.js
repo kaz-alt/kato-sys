@@ -12,7 +12,8 @@ $(function(){
     katakana: "*全角カタカナで入力してください",
     minlength: "*5文字以上で入力してください",
     maxlength: "*10文字以内で入力してください",
-    alphabet: "*半角英数字で入力してください"
+    alphabet: "*半角英数字で入力してください",
+    equalTo: "*パスワードが異なります"
   });
 
 	//追加ルールの定義
@@ -42,7 +43,8 @@ $(function(){
     "department": {required: true},
     "tel": {required: true, tel: true},
     "email": {required: true, email: true},
-    "userForm.password": {required: true, alphabet: true, minlength: 5, maxlength: 10}
+    "userForm.password": {required: true, alphabet: true, minlength: 5, maxlength: 10},
+    "userForm.confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="userForm.password"]'}
   };
 
   //入力項目ごとのエラーメッセージ定義

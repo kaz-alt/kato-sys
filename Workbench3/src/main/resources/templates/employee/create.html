@@ -103,6 +103,13 @@
                       <span class="text-danger" th:if="${#fields.hasErrors('userForm.password')}"th:errors="*{userForm.password}"></span>
                     </div>
                   </div>
+                  <div class="row" th:if="${isUserForm}">
+                    <div class="form-group col-lg-7 col-md-8 col-sm-12">
+                      <label for="name">確認用パスワード&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <input type="password" class="form-control" name="userForm.confirmPassword">
+                      <span class="text-danger" th:if="${#fields.hasErrors('userForm.password')}"th:errors="*{userForm.password}"></span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </form>
