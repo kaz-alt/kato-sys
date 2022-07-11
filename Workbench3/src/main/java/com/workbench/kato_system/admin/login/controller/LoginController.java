@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
-import com.workbench.kato_system.admin.employee.form.EmployeeForm.CreateGroup;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm.UserFormGroup;
 import com.workbench.kato_system.admin.user.form.UserForm;
 import com.workbench.kato_system.admin.user.service.UserService;
@@ -59,12 +58,12 @@ public class LoginController {
 		model.addAttribute("yearList", DateUtils.createYearList());
 		model.addAttribute("monthList", DateUtils.createMonthList());
 
-		return "/login/register";
+		return "/login/register2";
 	}
 
 	@PostMapping("/register")
 	public String registerUser(Model model,
-			@Validated({UserFormGroup.class, CreateGroup.class, Default.class}) EmployeeForm form, BindingResult result,
+			@Validated({UserFormGroup.class, Default.class}) EmployeeForm form, BindingResult result,
 			RedirectAttributes attributes) {
 
 		if (result.hasErrors()) {

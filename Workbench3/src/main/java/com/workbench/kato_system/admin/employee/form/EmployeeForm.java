@@ -5,16 +5,15 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.workbench.kato_system.admin.user.form.UserForm;
-import com.workbench.kato_system.admin.validation.ExistEmailValidation;
-import com.workbench.kato_system.admin.validation.ExistTelValidation;
+import com.workbench.kato_system.admin.validation.ExistEmailAndTelValidation;
 
 import lombok.Data;
 
 @Data
+@ExistEmailAndTelValidation(fields = {"id", "email", "tel"})
 public class EmployeeForm {
 
 	public static interface UserFormGroup {}
-	public static interface CreateGroup {}
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 	private final String UNCORRECT_MESSAGE = "※入力が不正です";
@@ -39,12 +38,10 @@ public class EmployeeForm {
 	private String position;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
-	@ExistTelValidation(groups = CreateGroup.class)
 	private String tel;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
 	@Email(message = "正しいメールアドレス形式で入力してください")
-	@ExistEmailValidation(groups = CreateGroup.class)
 	private String email;
 
 	private Integer joinYear;

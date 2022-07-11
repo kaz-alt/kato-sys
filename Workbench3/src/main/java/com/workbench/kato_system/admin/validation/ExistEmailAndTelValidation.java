@@ -10,10 +10,12 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Documented
-@Constraint(validatedBy = ExistEmailValidator.class)
-public @interface ExistEmailValidation {
+@Constraint(validatedBy = ExistEmailAndTelValidator.class)
+public @interface ExistEmailAndTelValidation {
+
+  String[] fields();
 
   Class<?>[] groups() default {};
 
