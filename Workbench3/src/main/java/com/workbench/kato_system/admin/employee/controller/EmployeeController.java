@@ -3,6 +3,7 @@ package com.workbench.kato_system.admin.employee.controller;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +21,7 @@ import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeSearchForm;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.DateUtils;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
@@ -75,18 +77,20 @@ public class EmployeeController {
 	 * 新規登録
 	 */
 	@PostMapping(value = "/create")
-	public String create(Model model, @Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	public String create(Model model, @Validated EmployeeForm form, BindingResult result,
+			RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) {
 
-		return save(form, result, attributes);
+		return save(form, result, attributes, user);
 	}
 
 	/**
 	 * 編集
 	 */
 	@PostMapping(value = "/edit")
-	public String edit(Model model, @Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	public String edit(Model model, @Validated EmployeeForm form, BindingResult result,
+		RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) {
 
-		return save(form, result, attributes);
+		return save(form, result, attributes, user);
 	}
 
 	/**
@@ -148,7 +152,8 @@ public class EmployeeController {
 	/**
 	 * 永続化処理
 	 */
-	private String save(@Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	private String save(@Validated EmployeeForm form, BindingResult result,
+		RedirectAttributes attributes, LoginUserDetails user) {
 
 		if (result.hasErrors()) {
 
@@ -157,7 +162,7 @@ public class EmployeeController {
 			return REDIRECT;
 		}
 
-		employeeService.save(form);
+		employeeService.save(form, user);
 
 		return REDIRECT;
 	}

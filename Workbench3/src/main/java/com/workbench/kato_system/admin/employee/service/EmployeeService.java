@@ -21,6 +21,7 @@ import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
 import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 import com.workbench.kato_system.admin.utils.SearchUtils;
 
@@ -142,6 +143,26 @@ public class EmployeeService {
 
 	public Employee save(EmployeeForm form) {
 
+		Employee employee = setModel(form);
+		employee.setCreatedBy(form.getEmail());
+		employee.setModifiedBy(form.getEmail());
+
+		employee = employeeRepository.save(employee);
+
+		return employee;
+	}
+
+	public Employee save(EmployeeForm form, LoginUserDetails user) {
+
+		Employee employee = setModel(form);
+		employee.setModifiedBy(user.getEmail());
+
+		employee = employeeRepository.save(employee);
+
+		return employee;
+	}
+
+	private Employee setModel(EmployeeForm form) {
 		Employee employee = new Employee();
 
 		employee.setId(form.getId() == null ? null : form.getId());
@@ -158,11 +179,7 @@ public class EmployeeService {
 		employee.setEmail(form.getEmail());
 		employee.setJoinYear(form.getJoinYear());
 		employee.setJoinMonth(form.getJoinMonth());
-		employee.setCreatedBy(form.getEmail());
-		employee.setModifiedBy(form.getEmail());
 		employee.setDelFlg(false);
-
-		employee = employeeRepository.save(employee);
 
 		return employee;
 	}

@@ -58,7 +58,7 @@ public class LoginController {
 		model.addAttribute("yearList", DateUtils.createYearList());
 		model.addAttribute("monthList", DateUtils.createMonthList());
 
-		return "/login/register2";
+		return "/login/register";
 	}
 
 	@PostMapping("/register")
