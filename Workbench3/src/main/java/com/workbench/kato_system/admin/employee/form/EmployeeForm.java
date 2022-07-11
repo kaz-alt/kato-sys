@@ -14,6 +14,7 @@ import lombok.Data;
 public class EmployeeForm {
 
 	public static interface UserFormGroup {}
+	public static interface CreateGroup {}
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 	private final String UNCORRECT_MESSAGE = "※入力が不正です";
@@ -38,12 +39,12 @@ public class EmployeeForm {
 	private String position;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
-	@ExistTelValidation
+	@ExistTelValidation(groups = CreateGroup.class)
 	private String tel;
 
 	@NotEmpty(message=REQUIRED_MESSAGE)
 	@Email(message = "正しいメールアドレス形式で入力してください")
-	@ExistEmailValidation
+	@ExistEmailValidation(groups = CreateGroup.class)
 	private String email;
 
 	private Integer joinYear;

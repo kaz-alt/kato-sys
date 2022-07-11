@@ -31,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController {
 
 	private final int SIZE = 30;
-  private final String REDIRECT = "redirect:/employedd";
+  private final String REDIRECT = "redirect:/employee";
 
 	private final EmployeeService employeeService;
 
@@ -142,6 +142,7 @@ public class EmployeeController {
 		model.addAttribute("list", page.getContent());
 		model.addAttribute("yearList", DateUtils.createYearList());
 		model.addAttribute("monthList", DateUtils.createMonthList());
+		model.addAttribute("isUserForm", false);
   }
 
 	/**
