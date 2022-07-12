@@ -55,16 +55,22 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <button type="submit" class="btn btn-info btn-block">ログイン</button>
+            <button type="submit" class="btn btn-info btn-block">
+              <i class="fas fa-sign-in-alt"></i>
+              &nbsp;ログイン
+            </button>
           </div>
           <!-- /.col -->
         </div>
+        <div class="social-auth-links text-center">
+          <p>- OR -</p>
+          <a th:href="@{/loginForm/register}" class="btn btn-block btn-primary">
+            <i class="fa fa-user-plus"></i>
+            &nbsp;新規ユーザー登録
+          </a>
+          </div>
       </form>
       <!-- /.social-auth-links -->
-
-      <p class="mb-0">
-        <a th:href="@{/loginForm/register}" class="text-center">新規ユーザー登録</a>
-      </p>
     </div>
     <!-- /.card-body -->
   </div>

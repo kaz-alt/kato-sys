@@ -43,20 +43,20 @@ public class ExistEmailAndTelValidator implements ConstraintValidator<ExistEmail
       Employee e2 = employeeRepository.findByTel(String.valueOf(tel));
 
       message = "※このメールアドレスは既に登録されております";
-      validList.add(this.validator(e1, id, context, message, fields[1]));
+      validList.add(this.validator(e1, id, context, message, fields[1], e1.getEmail(), email));
 
       message = "※この電話番号は既に登録されております";
-      validList.add(this.validator(e2, id, context, message, fields[2]));
+      validList.add(this.validator(e2, id, context, message, fields[2], e2.getTel(), tel));
 
       return !validList.contains(false);
     }
 
     private boolean validator(Employee e, Object id, ConstraintValidatorContext context,
-        String message, String field) {
+        String message, String field, String value, Object target) {
 
       if (Objects.nonNull(e)) {
 
-        if (e.getId() != null && e.getId().equals(id)) {
+        if (e.getId() != null && e.getId().equals(id) && value.equals(target)) {
           return true;
         }
 
