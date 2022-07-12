@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.workbench.kato_system.admin.login.service.LoginUserDetailsService;
+
 
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -38,6 +40,7 @@ public class WebSecurityConfig {
     ).authorizeHttpRequests(authz -> authz
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         .mvcMatchers("/js/**", "/css/**", "/dist/**", "/favicon.ico").permitAll()
+        .mvcMatchers("/loginForm/register").permitAll()
         .mvcMatchers("/admin").hasRole("ADMIN")
         .anyRequest().authenticated()
     );

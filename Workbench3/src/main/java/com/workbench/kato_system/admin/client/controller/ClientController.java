@@ -37,13 +37,13 @@ import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.entity.InquiryRequirementComplaint;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.model.enums.ContentType;
 import com.workbench.kato_system.admin.inquiry_requirement_complaint.service.InquiryRequirementComplaintService;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.product.form.ProductSearchForm;
 import com.workbench.kato_system.admin.product.model.Product;
 import com.workbench.kato_system.admin.product.service.ProductService;
 import com.workbench.kato_system.admin.project.form.ProjectSearchForm;
 import com.workbench.kato_system.admin.project.model.Project;
 import com.workbench.kato_system.admin.project.service.ProjectService;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.DateUtils;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 

@@ -1,16 +1,17 @@
-package com.workbench.kato_system.admin.security;
+package com.workbench.kato_system.admin.login.model;
 
 import java.util.Collection;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.workbench.kato_system.admin.model.User;
+import com.workbench.kato_system.admin.user.model.User;
 
 public class LoginUserDetails implements UserDetails{
 
-	private final User user;
+	private User user;
 
 	public LoginUserDetails(User user) {
 		this.user = user;
@@ -22,6 +23,10 @@ public class LoginUserDetails implements UserDetails{
 
 	public Integer getUserId() {
 		return this.user.getUserId();
+	}
+
+	public String getEmail() {
+		return this.user.getEmail();
 	}
 
 	@Override
@@ -36,6 +41,9 @@ public class LoginUserDetails implements UserDetails{
 
 	@Override
 	public String getUsername() {
+		if (Objects.isNull(user)) {
+			return null;
+		}
 		return this.user.getName();
 	}
 

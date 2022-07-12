@@ -1,10 +1,9 @@
 package com.workbench.kato_system.admin.employee.controller;
 
-import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +21,8 @@ import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeSearchForm;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
+import com.workbench.kato_system.admin.utils.DateUtils;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class EmployeeController {
 
 	private final int SIZE = 30;
-  private final String REDIRECT = "redirect:/employedd";
+  private final String REDIRECT = "redirect:/employee";
 
 	private final EmployeeService employeeService;
 
@@ -76,18 +77,20 @@ public class EmployeeController {
 	 * 新規登録
 	 */
 	@PostMapping(value = "/create")
-	public String create(Model model, @Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	public String create(Model model, @Validated EmployeeForm form, BindingResult result,
+			RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) {
 
-		return save(form, result, attributes);
+		return save(form, result, attributes, user);
 	}
 
 	/**
 	 * 編集
 	 */
 	@PostMapping(value = "/edit")
-	public String edit(Model model, @Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	public String edit(Model model, @Validated EmployeeForm form, BindingResult result,
+		RedirectAttributes attributes, @AuthenticationPrincipal LoginUserDetails user) {
 
-		return save(form, result, attributes);
+		return save(form, result, attributes, user);
 	}
 
 	/**
@@ -111,8 +114,8 @@ public class EmployeeController {
 		Employee data = employeeService.getOne(id);
 
 		model.addAttribute("data", data);
-		model.addAttribute("yearList", createYearList());
-		model.addAttribute("monthList", createMonthList());
+		model.addAttribute("yearList", DateUtils.createYearList());
+		model.addAttribute("monthList", DateUtils.createMonthList());
 
 		return "employee/edit :: employee-edit";
 	}
@@ -141,14 +144,16 @@ public class EmployeeController {
   private void setUpModel(Model model, Page<Employee> page) {
     model.addAttribute("page", page);
 		model.addAttribute("list", page.getContent());
-		model.addAttribute("yearList", createYearList());
-		model.addAttribute("monthList", createMonthList());
+		model.addAttribute("yearList", DateUtils.createYearList());
+		model.addAttribute("monthList", DateUtils.createMonthList());
+		model.addAttribute("isUserForm", false);
   }
 
 	/**
 	 * 永続化処理
 	 */
-	private String save(@Validated EmployeeForm form, BindingResult result, RedirectAttributes attributes) {
+	private String save(@Validated EmployeeForm form, BindingResult result,
+		RedirectAttributes attributes, LoginUserDetails user) {
 
 		if (result.hasErrors()) {
 
@@ -157,47 +162,9 @@ public class EmployeeController {
 			return REDIRECT;
 		}
 
-		employeeService.save(form);
+		employeeService.save(form, user);
 
 		return REDIRECT;
-	}
-
-	/**
-	 * 入社年作成
-	 */
-	private List<Integer> createYearList() {
-
-		int startYear = 1980;
-
-		YearMonth currentYearMonth = YearMonth.now();
-		int currentYear = currentYearMonth.getYear();
-
-		List<Integer> yearList = new ArrayList<>();
-
-		while (startYear <= currentYear) {
-			yearList.add(startYear);
-			startYear++;
-		}
-
-		return yearList;
-
-	}
-
-	/**
-	 * 入社月作成
-	 */
-	private List<Integer> createMonthList() {
-
-		int startMonth = 1;
-
-		List<Integer> monthList = new ArrayList<>();
-
-		while (startMonth <= 12) {
-			monthList.add(startMonth);
-			startMonth++;
-		}
-
-		return monthList;
 	}
 
 }

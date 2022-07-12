@@ -21,6 +21,7 @@ import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
 import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 import com.workbench.kato_system.admin.utils.SearchUtils;
 
@@ -89,7 +90,7 @@ public class EmployeeService {
 
   public Specification<Employee> nameContains(String name) {
 		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
-			return cb.or(cb.like(root.get("name"), "%" + name + "%"), 
+			return cb.or(cb.like(root.get("name"), "%" + name + "%"),
         cb.like(root.get("nameKana"), "%" + SearchUtils.HiraganaToKatakana(name) + "%"));
 		};
 	}
@@ -142,6 +143,26 @@ public class EmployeeService {
 
 	public Employee save(EmployeeForm form) {
 
+		Employee employee = setModel(form);
+		employee.setCreatedBy(form.getEmail());
+		employee.setModifiedBy(form.getEmail());
+
+		employee = employeeRepository.save(employee);
+
+		return employee;
+	}
+
+	public Employee save(EmployeeForm form, LoginUserDetails user) {
+
+		Employee employee = setModel(form);
+		employee.setModifiedBy(user.getEmail());
+
+		employee = employeeRepository.save(employee);
+
+		return employee;
+	}
+
+	private Employee setModel(EmployeeForm form) {
 		Employee employee = new Employee();
 
 		employee.setId(form.getId() == null ? null : form.getId());
@@ -159,8 +180,6 @@ public class EmployeeService {
 		employee.setJoinYear(form.getJoinYear());
 		employee.setJoinMonth(form.getJoinMonth());
 		employee.setDelFlg(false);
-
-		employee = employeeRepository.save(employee);
 
 		return employee;
 	}

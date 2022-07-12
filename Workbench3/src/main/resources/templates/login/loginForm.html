@@ -29,11 +29,14 @@
     </div>
     <div class="card-body">
       <div class="alert alert-danger" role="alert" th:if="${hasError}">
-	    <strong>ログインに失敗しました。</strong>
-	  </div>
+        <strong>ログインに失敗しました。</strong>
+      </div>
+      <div class="alert alert-info" role="alert" th:if="${isSuccess}">
+        <strong>ユーザー登録に成功しました。登録したメールアドレスとパスワードでログインしてください。</strong>
+      </div>
       <p class="login-box-msg">ログインしてください</p>
 
-      <form th:action="@{/login}" method="post">
+      <form class="mb-3" th:action="@{/login}" method="post">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Id" id="username" name="username">
           <div class="input-group-append">
@@ -51,22 +54,22 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
           <div class="col-12">
-            <button type="submit" class="btn btn-info btn-block">Login</button>
+            <button type="submit" class="btn btn-info btn-block">
+              <i class="fas fa-sign-in-alt"></i>
+              &nbsp;ログイン
+            </button>
           </div>
           <!-- /.col -->
         </div>
+        <div class="social-auth-links text-center">
+          <p>- OR -</p>
+          <a th:href="@{/loginForm/register}" class="btn btn-block btn-primary">
+            <i class="fa fa-user-plus"></i>
+            &nbsp;新規ユーザー登録
+          </a>
+          </div>
       </form>
-
       <!-- /.social-auth-links -->
     </div>
     <!-- /.card-body -->

@@ -32,7 +32,7 @@ import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
 import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 
 import lombok.RequiredArgsConstructor;
 

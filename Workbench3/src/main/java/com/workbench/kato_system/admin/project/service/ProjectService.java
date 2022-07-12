@@ -22,6 +22,7 @@ import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.form.ProjectChangeProgressForm;
 import com.workbench.kato_system.admin.project.form.ProjectForm;
@@ -36,7 +37,6 @@ import com.workbench.kato_system.admin.project.repository.FactorRepository;
 import com.workbench.kato_system.admin.project.repository.ProgressRepository;
 import com.workbench.kato_system.admin.project.repository.ProjectEmployeeRepository;
 import com.workbench.kato_system.admin.project.repository.ProjectRepository;
-import com.workbench.kato_system.admin.security.LoginUserDetails;
 
 import lombok.RequiredArgsConstructor;
 

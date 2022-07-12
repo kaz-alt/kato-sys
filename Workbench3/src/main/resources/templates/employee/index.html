@@ -35,13 +35,15 @@
         <!-- /.card-header -->
         <div class="card-body">
           <div class="mb-3">
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#employee-create-modal">
+            <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#employee-create-modal">
               <i class="fas fa-plus"></i>&nbsp;社員登録
-            </button>
+            </button> -->
             <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#employee-search-modal">
               <i class="fas fa-search"></i>&nbsp;社員検索
             </button>
           </div>
+          <span class="text-danger text-bold" th:if="${#fields.hasErrors('employeeForm.tel')}"th:errors="${employeeForm.tel}"></span>
+          <span class="text-danger text-bold" th:if="${#fields.hasErrors('employeeForm.email')}"th:errors="${employeeForm.email}"></span>
           <div id="employee-table-div" class="dataTables_wrapper">
             <div class="row">
               <div class="col-sm-12 table-responsive">
