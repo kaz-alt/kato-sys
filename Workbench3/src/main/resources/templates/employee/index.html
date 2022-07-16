@@ -63,24 +63,26 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr th:each="s : ${list}">
-                      <td><a th:href="@{/employee/detail}"><i class="fas fa-external-link-alt fa-2x"></i></a></td>
-                      <td th:text="${s.lastName + ' ' + s.firstName}"></td>
-                      <td th:text="${s.lastNameKana + ' ' + s.firstNameKana}"></td>
-                      <td th:text="${s.department}"></td>
-                      <td th:text="${s.position}"></td>
-                      <td th:text="${s.tel}"></td>
-                      <td th:text="${s.email}"></td>
-                      <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
+                    <tr th:each="e : ${list}">
+                      <td>
+                        <a th:href="@{/employee/detail/{id}(id=${e.id})}"><i class="fas fa-external-link-alt fa-2x"></i></a>
+                      </td>
+                      <td th:text="${e.lastName + ' ' + e.firstName}"></td>
+                      <td th:text="${e.lastNameKana + ' ' + e.firstNameKana}"></td>
+                      <td th:text="${e.department}"></td>
+                      <td th:text="${e.position}"></td>
+                      <td th:text="${e.tel}"></td>
+                      <td th:text="${e.email}"></td>
+                      <td th:text="${e.joinYear + '年' + e.joinMonth + '月'}"></td>
                       <td>
                         <button type="button" class="btn btn-info employee-edit-button" data-toggle="modal"
-                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${s.id}">
+                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${e.id}">
                           <i class="far fa-edit"></i>
                         </button>
                       </td>
                       <td>
                         <button type="button" class="btn btn-danger employee-del-button"
-                          th:attr="data-href=@{/employee/delete}, data-id=${s.id}">
+                          th:attr="data-href=@{/employee/delete}, data-id=${e.id}">
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </td>
