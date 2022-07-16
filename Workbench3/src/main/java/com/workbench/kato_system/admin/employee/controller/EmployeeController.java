@@ -74,6 +74,15 @@ public class EmployeeController {
 	}
 
 	/**
+	 * 詳細ページ
+	 */
+	@GetMapping(value = "/detail")
+	public String detail(Model model) {
+
+		return "employee/detail";
+	}
+
+	/**
 	 * 新規登録
 	 */
 	@PostMapping(value = "/create")

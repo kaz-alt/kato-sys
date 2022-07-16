@@ -50,6 +50,7 @@
                 <table id="employee-table" class="table table-bordered table-striped dataTable text-nowrap">
                   <thead>
                     <tr role="row">
+                      <th class="text-center">詳細</th>
                       <th class="text-center">氏名</th>
                       <th class="text-center">氏名カナ</th>
                       <th class="text-center">担当部署</th>
@@ -63,6 +64,7 @@
                   </thead>
                   <tbody>
                     <tr th:each="s : ${list}">
+                      <td><a th:href="@{/employee/detail}"><i class="fas fa-external-link-alt fa-2x"></i></a></td>
                       <td th:text="${s.lastName + ' ' + s.firstName}"></td>
                       <td th:text="${s.lastNameKana + ' ' + s.firstNameKana}"></td>
                       <td th:text="${s.department}"></td>
