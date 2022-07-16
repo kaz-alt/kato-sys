@@ -2,9 +2,7 @@ package com.workbench.kato_system.admin.product.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.criteria.JoinType;
 
@@ -17,7 +15,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.workbench.kato_system.admin.client.dto.ClientDto;
 import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
 import com.workbench.kato_system.admin.product.dto.ProductDto;
@@ -187,20 +184,4 @@ public class ProductService {
 
 	}
 
-	private Set<ClientDto> model2ClientDto(List<Product> productList) {
-		Set<ClientDto> dtoSet = new HashSet<>();
-
-		if (CollectionUtils.isEmpty(productList)) {
-			return dtoSet;
-		}
-
-		for (Product prduct : productList) {
-			ClientDto dto = new ClientDto();
-			dto.setId(prduct.getClient().getId());
-			dto.setName(prduct.getClient().getName());
-			dtoSet.add(dto);
-		}
-
-		return dtoSet;
-	}
 }

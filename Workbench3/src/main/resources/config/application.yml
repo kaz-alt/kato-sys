@@ -9,10 +9,10 @@ spring:
       org:
         hibernate:
           envers:
-            audit_table_suffix: _history
-            revision_field_name: audit_id
-            revision_type_field_name: audit_type
-            store_data_at_delete: true
+            "[audit_table_suffix]": _history
+            "[revision_field_name]": audit_id
+            "[revision_type_field_name]": audit_type
+            "[store_data_at_delete]": true
 
 logging:
   level:
