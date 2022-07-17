@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>プロフィール画像設定</title>
+</head>
+<body>
+  <div class="contents" th:fragment="profile-picture-modal(id)">
+    <section class="content">
+			<div class="modal fade" id="profile-picture-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title"><em class="fa fa-image"></em>&nbsp;プロフィール画像設定</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/employee/setting_profile_picture}" method="POST" class="container"
+								id="profile-picture-form" enctype="multipart/form-data">
+							<div class="card">
+								<div class="card-body">
+									<input type="hidden" name="id" th:value="${id}"/>
+									<div class="row">
+										<div class="form-group col-lg-7 col-md-10 col-sm-12">
+											<label for="image">プロフィール画像：</label>
+											<input type="file" name="profilePicture" accept="image/*">
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+							<button type="button" class="btn btn-primary" id="submit-profile-picture" disabled>設定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    </section>
+  </div>
+</body>
+</html>

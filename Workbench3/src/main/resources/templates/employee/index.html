@@ -29,17 +29,14 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3><i class="fas fa-user-friends"></i>&nbsp;社員一覧</h3>
+          <h3><em class="fas fa-user-friends"></em>&nbsp;社員一覧</h3>
         </div>
 
         <!-- /.card-header -->
         <div class="card-body">
           <div class="mb-3">
-            <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#employee-create-modal">
-              <i class="fas fa-plus"></i>&nbsp;社員登録
-            </button> -->
             <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#employee-search-modal">
-              <i class="fas fa-search"></i>&nbsp;社員検索
+              <em class="fas fa-search"></em>&nbsp;社員検索
             </button>
           </div>
           <span class="text-danger text-bold" th:if="${#fields.hasErrors('employeeForm.tel')}"th:errors="${employeeForm.tel}"></span>
@@ -48,8 +45,10 @@
             <div class="row">
               <div class="col-sm-12 table-responsive">
                 <table id="employee-table" class="table table-bordered table-striped dataTable text-nowrap">
+                  <caption>社員テーブル</caption>
                   <thead>
                     <tr role="row">
+                      <th class="text-center">詳細</th>
                       <th class="text-center">氏名</th>
                       <th class="text-center">氏名カナ</th>
                       <th class="text-center">担当部署</th>
@@ -62,24 +61,28 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr th:each="s : ${list}">
-                      <td th:text="${s.lastName + ' ' + s.firstName}"></td>
-                      <td th:text="${s.lastNameKana + ' ' + s.firstNameKana}"></td>
-                      <td th:text="${s.department}"></td>
-                      <td th:text="${s.position}"></td>
-                      <td th:text="${s.tel}"></td>
-                      <td th:text="${s.email}"></td>
-                      <td th:text="${s.joinYear + '年' + s.joinMonth + '月'}"></td>
+                    <tr th:each="e : ${list}">
+                      <td>
+                        <a th:href="@{/employee/detail/{id}(id=${e.id})}" data-toggle="tooltip" data-placement="top"
+                        title="詳細ページへ"><em class="fas fa-external-link-alt fa-2x"></em></a>
+                      </td>
+                      <td th:text="${e.lastName + ' ' + e.firstName}"></td>
+                      <td th:text="${e.lastNameKana + ' ' + e.firstNameKana}"></td>
+                      <td th:text="${e.department}"></td>
+                      <td th:text="${e.position}"></td>
+                      <td th:text="${e.tel}"></td>
+                      <td th:text="${e.email}"></td>
+                      <td th:text="${e.joinYear + '年' + e.joinMonth + '月'}"></td>
                       <td>
                         <button type="button" class="btn btn-info employee-edit-button" data-toggle="modal"
-                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${s.id}">
-                          <i class="far fa-edit"></i>
+                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${e.id}">
+                          <em class="far fa-edit"></em>
                         </button>
                       </td>
                       <td>
                         <button type="button" class="btn btn-danger employee-del-button"
-                          th:attr="data-href=@{/employee/delete}, data-id=${s.id}">
-                          <i class="far fa-trash-alt"></i>
+                          th:attr="data-href=@{/employee/delete}, data-id=${e.id}">
+                          <em class="far fa-trash-alt"></em>
                         </button>
                       </td>
                     </tr>

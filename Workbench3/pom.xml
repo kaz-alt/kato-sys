@@ -8,13 +8,13 @@
 		<version>2.7.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>kato-sys</groupId>
 	<artifactId>Workbench3</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Workbench3</name>
 	<description>Workbench</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>15</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

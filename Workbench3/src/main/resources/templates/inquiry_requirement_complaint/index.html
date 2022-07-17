@@ -108,7 +108,7 @@
 	                      th:text="|${#strings.substring(l.content,0,9)}...|"></span>
 						<span th:unless="${10 <= #strings.length(l.content)}" th:text="${l.content}"></span>
 	                  </td>
-	                  <td th:text="${l.employee?.name}"></td>
+	                  <td><a th:href="@{/employee/detail/{id}(id=${l.employee?.id})}" th:text="${l.employee?.name}"></a></td>
 	                  <td th:text="${l.hasSolved ? '解決済み' : '未解決'}"
 	                    th:classappend="${l.hasSolved ? 'text-danger' : 'text-success'}"></td>
 	                  <td th:text="${l.solvedDate}"></td>

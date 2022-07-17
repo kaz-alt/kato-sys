@@ -56,6 +56,38 @@ $(function(){
 		}
 	})
 
+  $('img.profile-picture').on('click', function() {
+    $('#profile-picture-modal').modal('show');
+  });
+
+  $('input[name="profilePicture"]').on('change', function() {
+
+    let hasFile = $(this).val().length;
+
+    if (hasFile) {
+      $('button#submit-profile-picture').prop('disabled', false);
+    } else {
+      $('button#submit-profile-picture').prop('disabled', true);
+    }
+
+  });
+
+  $('button#submit-profile-picture').on('click', function() {
+    let $form = $('#profile-picture-form');
+    let formData = new FormData($('#profile-picture-form').get(0));
+    $.ajax({
+      type : "POST",
+      url : $form.attr('action'),
+      data: formData,
+      contentType: false,
+      processData: false
+    }).done(function(){
+      location.reload();
+		}).fail(function(){
+			alert("プロフィール画像の登録に失敗しました");
+		})
+  });
+
 	$.extend($.validator.messages, {
     required: '*入力必須です',
 		email: '*正しいメールアドレスの形式で入力して下さい',

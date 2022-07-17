@@ -13,7 +13,7 @@ import com.workbench.kato_system.admin.employee.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>, JpaSpecificationExecutor<Employee> {
 
 	@Override
-	@Query("select s from Employee s where s.delFlg = 0")
+	@Query("select e from Employee e where e.delFlg = 0")
 	Page<Employee> findAll(Pageable pageable);
 
 	List<Employee> findByIdIn(List<Integer> idList);

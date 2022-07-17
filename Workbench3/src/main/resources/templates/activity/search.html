@@ -26,20 +26,20 @@
                     th:object="${activitySearchForm}">
                     <div class="card-body">
                       <div class="form-group row">
-                        <label for="activityDate" class="col-lg-2 col-md-10 col-lg-12 col-form-label">活動日：</label>
-                        <div class="col-lg-9 col-md-12 col-lg-12 row">
-                          <input type="text" class="form-control col-lg-5 col-md-12 col-lg-12 datepicker-search" name="startActivityDate"
+                        <label for="activityDate" class="col-lg-2 col-md-10 col-sm-12 col-form-label">活動日：</label>
+                        <div class="col-lg-10 col-md-12 col-sm-12 row">
+                          <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" name="startActivityDate"
                             th:value="*{startActivityDate}" placeholder="クリックして日付を入力">
                           <span class="text-danger" th:if="${#fields.hasErrors('startActivityDate')}">正しい日付を入力してください。</span>
                           <p class="text-center m-1 col-lg-1 col-md-1 col-sm-1">〜</p>
-                          <input type="text" class="form-control col-lg-5 col-md-12 col-lg-12 datepicker-search" name="endActivityDate"
+                          <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" name="endActivityDate"
                             th:value="*{endActivityDate}" placeholder="クリックして日付を入力">
                           <span class="text-danger" th:if="${#fields.hasErrors('endActivityDate')}">正しい日付を入力してください。</span>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="employeeIdList" class="col-lg-2 col-md-10 col-lg-12 col-form-label">社員：</label>
-                        <div class="col-lg-9 col-md-10 col-lg-12 row">
+                        <label for="employeeIdList" class="col-lg-2 col-md-10 col-sm-12 col-form-label">社員：</label>
+                        <div class="col-lg-9 col-md-10 col-sm-12 row">
                           <select class="form-control select2" multiple="multiple" name="employeeIdList" style="width:100%;"
                             th:data-href="@{/employee/api/get_employee}">
                             <option th:each="e : ${selectedEmployee}" th:text="${e.name}"
@@ -48,14 +48,14 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="targetContent" class="col-lg-2 col-md-10 col-lg-12 col-form-label">活動内容：</label>
-                        <div class="col-lg-10 col-md-12 col-lg-12 row">
+                        <label for="targetContent" class="col-lg-2 col-md-10 col-sm-12 col-form-label">活動内容：</label>
+                        <div class="col-lg-10 col-md-12 col-sm-12 row">
                           <textarea class="form-control" th:field="*{targetContent}"></textarea>
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="projectIdList" class="col-lg-2 col-md-10 col-lg-12 col-form-label">関連案件：</label>
-                        <div class="col-lg-9 col-md-12 col-lg-12 row">
+                        <label for="projectIdList" class="col-lg-2 col-md-10 col-sm-12 col-form-label">関連案件：</label>
+                        <div class="col-lg-9 col-md-12 col-sm-12 row">
                           <select class="form-control select2" multiple="multiple" name="projectIdList" style="width:100%;"
                             th:data-href="@{/project/api/get_project}">
                             <option th:each="p : ${selectedProject}" th:text="${p.name}"
