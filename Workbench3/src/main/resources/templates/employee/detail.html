@@ -43,7 +43,7 @@
                 @{/dist/img/default-user-image.png} : ${'data:image/png;base64,' + picture}"
               th:classappend="*{#authentication.principal.email eq email} ? 'mouse-pointer profile-picture' : ''"
               alt="User profile picture"
-              data-toggle="tooltip" data-placement="top" title="クリックして画像を設定する">
+              th:data-toggle="*{#authentication.principal.email eq email} ? 'tooltip' : ''" data-placement="top" title="クリックして画像を設定する">
             </div>
             <p class="text-muted text-center text-sm mt-2 mb-0" th:text="*{lastNameKana + ' ' + firstNameKana}"></p>
             <h3 class="profile-username text-center" th:text="*{lastName + ' ' + firstName}"></h3>

@@ -132,7 +132,7 @@
 	                    </td>
 	                    <td>
 	                      <th:block th:each="s : ${c.employeeClientList}">
-	                        <div><span th:text="${s.employee?.name}" th:class="${s.employee?.delFlg ? 'text-danger' : ''}"></span></div>
+	                        <div><a th:href="@{/employee/detail/{id}(id=${s.employee?.id})}" th:text="${s.employee?.name}" th:class="${s.employee?.delFlg ? 'text-danger' : ''}"></a></div>
 	                        <div th:if="${s.employee?.delFlg}"><span class="text-danger font-italic">※この社員は既に削除されています</span></div>
 	                      </th:block>
 	                    </td>

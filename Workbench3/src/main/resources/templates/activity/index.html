@@ -82,7 +82,7 @@
                   <tbody>
 										<tr th:each="a, stat: ${list}">
 											<td th:text="${a.activityDate}"></td>
-											<td th:text="${a.employee?.name}"></td>
+											<td><a th:href="@{/employee/detail/{id}(id=${a.employee?.id})}" th:text="${a.employee?.name}"></a></td>
 											<td th:text="${a.content}"></td>
 											<td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
 												<a th:href="@{/project/detail/{id}(id=${a.projectId})}"

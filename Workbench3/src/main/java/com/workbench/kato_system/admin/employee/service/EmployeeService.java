@@ -24,6 +24,8 @@ import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
 import com.workbench.kato_system.admin.employee.repository.EmployeeRepository;
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
+import com.workbench.kato_system.admin.user.model.User;
+import com.workbench.kato_system.admin.user.repository.UserRepository;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 import com.workbench.kato_system.admin.utils.SearchUtils;
 
@@ -37,6 +39,7 @@ public class EmployeeService {
 
 	private final EmployeeRepository employeeRepository;
 	private final EmployeeClientRepository employeeClientRepository;
+	private final UserRepository userRepository;
 
 	public List<Employee> getAll() {
 		return employeeRepository.findAll();
@@ -161,6 +164,15 @@ public class EmployeeService {
 
 		employee = employeeRepository.save(employee);
 
+		Optional<User> u = userRepository.findById(employee.getId());
+
+		if (u.isPresent()) {
+			User us = u.get();
+			us.setName(employee.getName());
+			us.setEmail(employee.getEmail());
+			userRepository.save(us);
+		}
+
 		return employee;
 	}
 
@@ -193,6 +205,12 @@ public class EmployeeService {
 			Employee s = employee.get();
 			s.setDelFlg(true);
 			employeeRepository.save(s);
+		}
+
+		Optional<User> user = userRepository.findById(id);
+		if (user.isPresent()) {
+			User u = user.get();
+			userRepository.delete(u);
 		}
 	}
 

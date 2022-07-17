@@ -124,7 +124,7 @@
                       <td th:text="${p.name}"></td>
                       <td>
                         <th:block th:each="pe : ${p.projectEmployee}">
-                          <div><span th:text="${pe.employee?.name}"></span></div>
+                          <div><a th:href="@{/employee/detail/{id}(id=${pe.employee?.id})}" th:text="${pe.employee?.name}"></a></div>
                         </th:block>
                       </td>
                       <td th:text="${p.progress?.name}"></td>

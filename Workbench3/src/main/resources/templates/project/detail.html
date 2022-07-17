@@ -104,9 +104,9 @@
                                 <td th:text="${data.approachRoot != null ? data.approachRoot?.name : ''}"></td>
                                 <td th:text="${data.competitor}"></td>
                                 <td>
-                                  <span
+                                  <a th:href="@{/employee/detail/{id}(id=${pe.employee?.id})}"
                                     th:each="pe, stat : ${data.projectEmployee}"
-                                    th:text="${stat.last ? pe.employee?.name : pe.employee?.name + '、'}"></span>
+                                    th:text="${stat.last ? pe.employee?.name : pe.employee?.name + '、'}"></a>
                                 </td>
                               </tr>
                             </tbody>
