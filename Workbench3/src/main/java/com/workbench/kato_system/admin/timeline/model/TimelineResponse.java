@@ -11,14 +11,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import com.workbench.kato_system.admin.employee.model.Employee;
+
 import lombok.Data;
 
 /**
- * スケジュール
+ * 返信タイムライン
  * @author katoukazuya
  *
  */
@@ -28,8 +31,12 @@ import lombok.Data;
 public class TimelineResponse implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "timeline_id", referencedColumnName = "id", insertable = false, updatable = false)
 	private Timeline timeline;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
+	private Employee employee;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

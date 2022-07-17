@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>タイムライン</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">タイムライン</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><em class="fa fa-clock"></em>&nbsp;タイムライン</h3>
+        </div>
+
+          <section class="content mt-3">
+            <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="timeline">
+
+                  <th:block th:each="t, stat : ${page.content}">
+                    <div class="time-label">
+                      <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy-MM-dd')}"></span>
+                    </div>
+                    <div>
+                      <em class="fas fa-user bg-purple"></em>
+                      <div class="timeline-item">
+                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(t.createdDate, 'HH:mm')}"></span></span>
+                        <h3 class="timeline-header"><a th:href="@{/employee/detail/{id}(id=${t.employeeId})}"
+                          th:text="${t.employee?.name}"></a>が投稿しました。</h3>
+                        <div class="timeline-body" th:text="${t.content}">
+                        </div>
+                        <div class="timeline-footer">
+                          <button type="button" class="btn btn-success btn-sm">コメント</button>
+                          <button type="button" class="btn btn-danger btn-sm">削除</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}">
+                      <em class="fas fa-comments bg-yellow"></em>
+                      <div class="timeline-item">
+                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(r.createdDate, 'HH:mm')}"></span></span>
+                        <h3 class="timeline-header">
+                          <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
+                        <div class="timeline-body" th:text="${r.content}">
+                        </div>
+                      </div>
+                    </div>
+                  </th:block>
+
+                  <div>
+                    <em class="fas fa-clock bg-gray"></em>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
