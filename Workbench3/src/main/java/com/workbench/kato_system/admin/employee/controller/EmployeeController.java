@@ -1,8 +1,12 @@
 package com.workbench.kato_system.admin.employee.controller;
 
+import java.util.Base64;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.workbench.kato_system.admin.employee.dto.EmployeeDto;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeSearchForm;
+import com.workbench.kato_system.admin.employee.form.ProfilePictureForm;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
@@ -80,7 +85,11 @@ public class EmployeeController {
 	@GetMapping(value = "/detail/{id}")
 	public String detail(Model model, @PathVariable("id") Integer id) {
 
-		model.addAttribute("employee", employeeService.getOne(id));
+		Employee e = employeeService.getOne(id);
+		model.addAttribute("employee", e);
+		if (Objects.nonNull(e.getProfilePicture())) {
+			model.addAttribute("picture", Base64.getEncoder().encodeToString(e.getProfilePicture()));
+		}
 
 		return "employee/detail";
 	}
@@ -130,6 +139,26 @@ public class EmployeeController {
 		model.addAttribute("monthList", DateUtils.createMonthList());
 
 		return "employee/edit :: employee-edit";
+	}
+
+	/**
+	 * プロフィール画像保存
+	 */
+	@PostMapping(value = "/setting_profile_picture")
+	@ResponseBody
+	public ResponseEntity<String> settingProfilePicture(@ModelAttribute @Validated ProfilePictureForm form, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return new ResponseEntity<>("fail to save", HttpStatus.BAD_REQUEST);
+		}
+
+		try {
+			employeeService.saveProfilePicture(form);
+		} catch (Exception e) {
+			return new ResponseEntity<>("fail to save", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.employee.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,6 +18,7 @@ import org.springframework.util.StringUtils;
 import com.workbench.kato_system.admin.employee.dto.EmployeeDto;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeSearchForm;
+import com.workbench.kato_system.admin.employee.form.ProfilePictureForm;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.model.EmployeeClient;
 import com.workbench.kato_system.admin.employee.repository.EmployeeClientRepository;
@@ -227,5 +229,15 @@ public class EmployeeService {
 
 		return dtoList;
 	}
+
+  public void saveProfilePicture(ProfilePictureForm form) throws IOException {
+		Optional<Employee> e = employeeRepository.findById(form.getId());
+
+		if (e.isPresent()) {
+			Employee employee = e.get();
+			employee.setProfilePicture(form.getProfilePicture().getBytes());
+			employeeRepository.save(employee);
+		}
+  }
 
 }

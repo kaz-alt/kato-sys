@@ -14,7 +14,7 @@
 	<name>Workbench3</name>
 	<description>Workbench</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>15</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

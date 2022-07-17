@@ -9,8 +9,10 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -82,6 +84,12 @@ public class Employee implements Serializable {
 	/* 入社月 */
 	@Column(name = "join_month")
 	private Integer joinMonth;
+
+	/* 画像データ */
+	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
+	@Column(name = "profile_picture", columnDefinition = "blob", length = 16777215)
+	private byte[] profilePicture;
 
 	/* 作成者 */
 	@Column(name = "created_by", nullable = false, updatable = false)
