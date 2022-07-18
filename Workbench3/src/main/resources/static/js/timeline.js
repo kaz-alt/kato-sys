@@ -1,6 +1,33 @@
 $(function(){
 	"user strict";
 
+  $('#load-timeline').on("click", function(e) {
+    e.preventDefault();
+
+    let pageNumber = $(this).attr('data-page-number');
+    let href = $(this).data('href');
+    let date = $(this).attr('data-oldest-date');
+
+    $('#load-timeline').attr('data-page-number', Number(pageNumber) + 1).change();
+
+    let totalPages = $('#load-timeline').attr('data-total-pages');
+
+    if (Number(pageNumber) >= Number(totalPages)) {
+      $('#load-timeline').addClass('d-none');
+    }
+
+    $.ajax({
+      type : "GET",
+      url : href,
+      data: {pageNumber : pageNumber, date : date},
+      dataType : "html"
+    }).done(function(data){
+      $('#timeline-content').append(data);
+		}).fail(function(){
+			alert("読み込みに失敗しました");
+		})
+  });
+
 	$('.timeline-del-button').click(function(){
 
 		let id = $(this).data('id');
@@ -31,8 +58,7 @@ $(function(){
   });
 
   $('#create-timeline-modal').on('hide.bs.modal', function() {
-    $('textarea.timeline').val('');
-    $('input.timeline-input').val('');
+    $('#create-timeline-form')[0].reset();
     $('span.timeline-span').text('選択されていません');
   });
 

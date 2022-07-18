@@ -42,10 +42,12 @@
             </div>
             <div class="row">
               <div class="col-md-12">
-                <div class="timeline">
+                <div class="timeline" id="timeline-content">
 
                   <th:block th:each="t, stat : ${page.content}">
-                    <div class="time-label">
+                    <div class="time-label" th:if="${stat.first or
+                      #temporals.format(page.content[stat.index - 1].createdDate, 'yyyy-MM-dd') ne
+                      #temporals.format(t.createdDate, 'yyyy-MM-dd')}">
                       <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy-MM-dd')}"></span>
                     </div>
                     <div>
@@ -54,7 +56,12 @@
                         <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(t.createdDate, 'HH:mm')}"></span></span>
                         <h3 class="timeline-header"><a th:href="@{/employee/detail/{id}(id=${t.employeeId})}"
                           th:text="${t.employee?.name}"></a>が投稿しました。</h3>
-                        <div class="timeline-body" th:text="${t.content}">
+                        <div class="timeline-body">
+                          <div th:text="${t.content}"></div>
+                          <div class="w-25 h-25">
+                            <img class="img-fluid" th:if="${t.image != null}"
+                              th:src="${'data:image/png;base64,' + t.getStringImage()}" alt="uploaded image">
+                          </div>
                         </div>
                         <div class="timeline-footer">
                           <button type="button" class="btn btn-success btn-sm">コメント</button>
@@ -75,11 +82,18 @@
                     </div>
                   </th:block>
 
-                  <div>
+                  <div th:if="${page.last}">
                     <em class="fas fa-clock bg-gray"></em>
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="m-3 text-center" th:unless="${page.last}">
+              <a href="#" id="load-timeline"
+              th:data-href="@{/timeline/get_fragment}"
+              th:data-page-number="${page.number + 2}"
+              th:data-total-pages="${page.totalPages}"
+              th:data-oldest-date="${#temporals.format(page.content[page.size - 1].createdDate, 'yyyy-MM-dd')}">さらに読み込む...</a>
             </div>
           </div>
         </section>

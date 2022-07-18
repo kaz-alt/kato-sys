@@ -32,14 +32,15 @@ public class TimelineController {
 
 	private final TimelineService timelineService;
 
-	private final int SIZE = 20;
+	private final int SIZE = 2;
   private final String REDIRECT = "redirect:/timeline";
 
 	/**
 	 * 初期画面
 	 */
 	@GetMapping
-	public String index(Model model, @RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
+	public String index(Model model,
+			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
 
 		Page<Timeline> page = timelineService.getPageList(
 			PageRequest.of(
@@ -48,6 +49,24 @@ public class TimelineController {
 		model.addAttribute("page", page);
 
 		return "timeline/index";
+	}
+
+	/**
+	 * fragmentを返す
+	 */
+	@GetMapping("/get_fragment")
+	public String frag(Model model,
+			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
+			@RequestParam(name = "date") String date) {
+
+		Page<Timeline> page = timelineService.getPageList(
+			PageRequest.of(
+				PageNumberUtils.revisePageNumber(pageNumber), SIZE, Sort.by(Sort.Direction.DESC, "createdDate")));
+
+		model.addAttribute("page", page);
+		model.addAttribute("previousDate", date);
+
+		return "timeline/fragment :: timeline-fragment";
 	}
 
 	/**

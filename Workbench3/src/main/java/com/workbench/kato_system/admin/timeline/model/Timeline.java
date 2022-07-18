@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.timeline.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -62,5 +63,9 @@ public class Timeline implements Serializable {
 	@Type(type = "org.hibernate.type.BinaryType")
 	@Column(name = "image", columnDefinition = "blob", length = 16777215)
 	private byte[] image;
+
+	public String getStringImage() {
+		return Base64.getEncoder().encodeToString(this.image);
+	}
 
 }
