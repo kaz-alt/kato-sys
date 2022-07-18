@@ -34,7 +34,8 @@
             <button type="button" class="btn btn-success btn-sm tm-comment-btn"
             data-toggle="modal" data-target="#comment-timeline-modal"
             th:data-timeline-id="${t.id}">コメント</button>
-            <button type="button" class="btn btn-danger btn-sm">削除</button>
+            <button type="button" class="btn btn-danger btn-sm"
+              th:if="${#authentication.principal.userId eq t.employeeId}">削除</button>
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.timeline.form.CreateTimelineForm;
@@ -37,7 +38,7 @@ public class TimelineService {
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
 		t.setCreatedDate(LocalDateTime.now());
-		if (Objects.nonNull(form.getImage())) {
+		if (Objects.nonNull(form.getImage()) && StringUtils.hasText(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}
 
@@ -51,7 +52,7 @@ public class TimelineService {
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
 		t.setCreatedDate(LocalDateTime.now());
-		if (Objects.nonNull(form.getImage())) {
+		if (Objects.nonNull(form.getImage()) && StringUtils.hasText(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}
 

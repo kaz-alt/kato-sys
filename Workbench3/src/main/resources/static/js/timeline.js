@@ -47,7 +47,17 @@ $(function(){
 		}
 	});
 
-  $(document).on('keyup', '#create-timeline-form textarea.timeline', function (e) {
+  $('#create-timeline-form input[name="image"]').on('change', function () {
+    let file = $(this).prop('files')[0];
+    $('#create-timeline-form span').text(file.name);
+  });
+
+  $('#comment-timeline-form input[name="image"]').on('change', function () {
+    let file = $(this).prop('files')[0];
+    $('#comment-timeline-form span').text(file.name);
+  });
+
+  $(document).on('keyup', '#create-timeline-form textarea.timeline', function () {
     checkValue();
   });
 
@@ -55,11 +65,11 @@ $(function(){
     checkValueInComment();
   });
 
-  $(document).on('change', '#create-timeline-form input.timeline-input', function(e) {
+  $(document).on('change', '#create-timeline-form input.timeline-input', function() {
     checkValue();
   });
 
-  $(document).on('change', '#create-timeline-form input.timeline-input', function(e) {
+  $(document).on('change', '#create-timeline-form input.timeline-input', function() {
     checkValueInComment();
   });
 
@@ -69,7 +79,6 @@ $(function(){
     $('#comment-timeline-form').find('input[name="timelineId"]').val(timelineId);
 
   });
-
 
   function checkValue() {
 
@@ -99,9 +108,22 @@ $(function(){
     }
   }
 
+  $(document).on('hide.bs.modal', '#create-timeline-modal', function() {
+    $('#create-timeline-form')[0].reset();
+    $('#create-timeline-form span.timeline-span').text('選択されていません');
+    $('button#create-post').prop('disabled', true);
+  });
+
+  $(document).on('hide.bs.modal', '#comment-timeline-modal', function() {
+    $('#comment-timeline-form')[0].reset();
+    $('#comment-timeline-form span.timeline-span').text('選択されていません');
+    $('button#comment-post').prop('disabled', true);
+  });
+
   $('button#create-post').on('click', function() {
     let $form = $('#create-timeline-form');
     let formData = new FormData($('#create-timeline-form').get(0));
+    console.log($form.find('input[type="file"]').val());
     $.ajax({
       type : "POST",
       url : $form.attr('action'),
@@ -130,74 +152,5 @@ $(function(){
 			alert("コメントに失敗しました");
 		})
   });
-
-	$.extend($.validator.messages, {
-    required: '*入力必須です',
-		email: '*正しいメールアドレスの形式で入力して下さい',
-		tel: "*正しい電話番号の形式で入力してください",
-    katakana: "*全角カタカナで入力してください"
-  });
-
-	//追加ルールの定義
-  let methods = {
-    tel: function(value, element){
-      return this.optional(element) || /^\d{11}$|^\d{2}-\d{4}-\d{4}$|^\d{3}-\d{4}-\d{4}$/.test(value);
-    },
-    katakana: function(value, element){
-      return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
-    }
-  };
-
-	//メソッドの追加
-  $.each(methods, function(key) {
-    $.validator.addMethod(key, this);
-  });
-
-  //入力項目の検証ルール定義
-  let rules = {
-    lastName: {required: true},
-    firstName: {required: true},
-    lastNameKana: {required: true, katakana: true},
-    firstNameKana: {required: true, katakana: true},
-    department: {required: true},
-    tel: {required: true, tel: true},
-    email: {required: true, email: true}
-  };
-
-  //入力項目ごとのエラーメッセージ定義
-  let messages = {
-    name: {
-        required: "*社員の氏名を入力してください"
-    },
-    department: {
-        required: "*担当部署を入力してください"
-    }
-  };
-
-	validate($("#employee-form"));
-
-	validate($("#employee-edit-form"));
-
-	function validate($form){
-
-		$form.validate({
-      rules: rules,
-      messages: messages,
-
-      //エラーメッセージ出力箇所調整
-      errorPlacement: function(error, element){
-        error.addClass('text-danger');
-        if (element.is('select')) {
-          error.appendTo(element.parent());
-        }else {
-          if(element.hasClass('group')){
-            error.appendTo(element.parent().parent());
-          } else{
-            error.insertAfter(element);
-          }
-        }
-      }
-    });
-	}
 
 })
