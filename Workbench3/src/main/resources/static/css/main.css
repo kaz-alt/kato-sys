@@ -302,3 +302,7 @@ img {
 .box_step05 ul li.done span:after {
   border-left-color: #32CD32;
 }
+
+label.timeline-label {
+  padding: 10px 30px;
+}

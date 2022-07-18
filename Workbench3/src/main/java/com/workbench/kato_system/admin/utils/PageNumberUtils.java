@@ -8,6 +8,9 @@ import org.springframework.data.domain.Sort;
 
 public class PageNumberUtils {
 
+	private PageNumberUtils() {
+	}
+
 	public static Pageable getPageable(Integer pageNumber, Integer size, String sortColumn) {
 
 		if (pageNumber == null || size == null) {

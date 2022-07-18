@@ -10,10 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 
 import com.workbench.kato_system.admin.employee.model.Employee;
@@ -58,5 +60,11 @@ public class TimelineResponse implements Serializable {
 	@Column(name = "created_date", nullable = false, updatable = false)
 	@CreatedDate
 	private LocalDateTime createdDate;
+
+	/* 画像データ */
+	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
+	@Column(name = "image", columnDefinition = "blob", length = 16777215)
+	private byte[] image;
 
 }
