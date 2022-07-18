@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.timeline.form.CreateTimelineForm;
 import com.workbench.kato_system.admin.timeline.model.Timeline;
+import com.workbench.kato_system.admin.timeline.model.TimelineResponse;
 import com.workbench.kato_system.admin.timeline.repository.TimelineRepository;
+import com.workbench.kato_system.admin.timeline.repository.TimelineResponseRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class TimelineService {
 
 	private final TimelineRepository timelineRepository;
+	private final TimelineResponseRepository timelineResponseRepository;
 
 	public Page<Timeline> getPageList(Pageable pageable) {
 
@@ -39,6 +42,20 @@ public class TimelineService {
 		}
 
 		timelineRepository.save(t);
+	}
+
+	public void saveComment(CreateTimelineForm form, LoginUserDetails user) throws IOException {
+
+		TimelineResponse t = new TimelineResponse();
+		t.setTimelineId(form.getTimelineId());
+		t.setEmployeeId(user.getUserId());
+		t.setContent(form.getContent());
+		t.setCreatedDate(LocalDateTime.now());
+		if (Objects.nonNull(form.getImage())) {
+			t.setImage(form.getImage().getBytes());
+		}
+
+		timelineResponseRepository.save(t);
 	}
 
 	public void delete(Integer id) {

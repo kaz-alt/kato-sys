@@ -47,32 +47,55 @@ $(function(){
 		}
 	});
 
-  $('textarea.timeline').on('keyup', function () {
+  $(document).on('keyup', '#create-timeline-form textarea.timeline', function (e) {
     checkValue();
   });
 
-  $('input.timeline-input').on('change', function() {
-    let file = $(this).prop('files')[0];
-    $('span.timeline-span').text(file.name);
+  $(document).on('keyup', '#comment-timeline-form textarea.timeline', function () {
+    checkValueInComment();
+  });
+
+  $(document).on('change', '#create-timeline-form input.timeline-input', function(e) {
     checkValue();
   });
 
-  $('#create-timeline-modal').on('hide.bs.modal', function() {
-    $('#create-timeline-form')[0].reset();
-    $('span.timeline-span').text('選択されていません');
+  $(document).on('change', '#create-timeline-form input.timeline-input', function(e) {
+    checkValueInComment();
   });
+
+  $(document).on('click', '.tm-comment-btn', function() {
+
+    let timelineId = $(this).data('timeline-id');
+    $('#comment-timeline-form').find('input[name="timelineId"]').val(timelineId);
+
+  });
+
 
   function checkValue() {
 
-    let value = $('textarea.timeline').val();
+    let value = $('#create-timeline-form textarea.timeline').val();
     let res = $.trim(value);
 
-    let hasFile = $('input.timeline-input').val().length;
+    let hasFile = $('#create-timeline-form input.timeline-input').val().length;
 
     if (res != null && res != '' || hasFile) {
       $('button#create-post').prop('disabled', false);
     } else {
       $('button#create-post').prop('disabled', true);
+    }
+  }
+
+  function checkValueInComment() {
+
+    let value = $('#comment-timeline-form textarea.timeline').val();
+    let res = $.trim(value);
+
+    let hasFile = $('#comment-timeline-form input.timeline-input').val().length;
+
+    if (res != null && res != '' || hasFile) {
+      $('button#comment-post').prop('disabled', false);
+    } else {
+      $('button#comment-post').prop('disabled', true);
     }
   }
 
@@ -89,6 +112,22 @@ $(function(){
       location.reload();
 		}).fail(function(){
 			alert("投稿に失敗しました");
+		})
+  });
+
+  $('button#comment-post').on('click', function() {
+    let $form = $('#comment-timeline-form');
+    let formData = new FormData($('#comment-timeline-form').get(0));
+    $.ajax({
+      type : "POST",
+      url : $form.attr('action'),
+      data: formData,
+      contentType: false,
+      processData: false
+    }).done(function(){
+      location.reload();
+		}).fail(function(){
+			alert("コメントに失敗しました");
 		})
   });
 

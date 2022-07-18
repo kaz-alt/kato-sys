@@ -17,7 +17,8 @@
         <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy-MM-dd')}"></span>
       </div>
       <div>
-        <em class="fas fa-user bg-purple"></em>
+        <em class="fas fa-user"
+        th:classappend="${#authentication.principal.userId eq t.employeeId} ? bg-blue : bg-purple"></em>
         <div class="timeline-item">
           <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(t.createdDate, 'HH:mm')}"></span></span>
           <h3 class="timeline-header"><a th:href="@{/employee/detail/{id}(id=${t.employeeId})}"
@@ -30,7 +31,9 @@
             </div>
           </div>
           <div class="timeline-footer">
-            <button type="button" class="btn btn-success btn-sm">コメント</button>
+            <button type="button" class="btn btn-success btn-sm tm-comment-btn"
+            data-toggle="modal" data-target="#comment-timeline-modal"
+            th:data-timeline-id="${t.id}">コメント</button>
             <button type="button" class="btn btn-danger btn-sm">削除</button>
           </div>
         </div>
@@ -42,7 +45,12 @@
           <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(r.createdDate, 'HH:mm')}"></span></span>
           <h3 class="timeline-header">
             <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
-          <div class="timeline-body" th:text="${r.content}">
+          <div class="timeline-body">
+            <div th:text="${r.content}"></div>
+            <div class="w-25 h-25">
+              <img class="img-fluid" th:if="${r.image != null}"
+                th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
+            </div>
           </div>
         </div>
       </div>

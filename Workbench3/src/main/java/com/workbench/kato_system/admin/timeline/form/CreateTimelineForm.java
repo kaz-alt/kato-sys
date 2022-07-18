@@ -11,6 +11,8 @@ public class CreateTimelineForm {
 
 	private final String REQUIRED_MESSAGE = "※必須入力です";
 
+	private Integer timelineId;
+
 	@NotEmpty(message=REQUIRED_MESSAGE)
 	private String content;
 

@@ -42,11 +42,7 @@ public class TimelineController {
 	public String index(Model model,
 			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
 
-		Page<Timeline> page = timelineService.getPageList(
-			PageRequest.of(
-				PageNumberUtils.revisePageNumber(pageNumber), SIZE, Sort.by(Sort.Direction.DESC, "createdDate")));
-
-		model.addAttribute("page", page);
+		setUpPage(model, pageNumber);
 
 		return "timeline/index";
 	}
@@ -59,11 +55,7 @@ public class TimelineController {
 			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber,
 			@RequestParam(name = "date") String date) {
 
-		Page<Timeline> page = timelineService.getPageList(
-			PageRequest.of(
-				PageNumberUtils.revisePageNumber(pageNumber), SIZE, Sort.by(Sort.Direction.DESC, "createdDate")));
-
-		model.addAttribute("page", page);
+		setUpPage(model, pageNumber);
 		model.addAttribute("previousDate", date);
 
 		return "timeline/fragment :: timeline-fragment";
@@ -92,6 +84,29 @@ public class TimelineController {
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 
+	/**
+	 * コメント
+	 */
+	@PostMapping(value = "/comment")
+	@ResponseBody
+	public ResponseEntity<String> comment(
+			@ModelAttribute @Validated CreateTimelineForm form,
+			BindingResult result,
+			@AuthenticationPrincipal LoginUserDetails user) {
+
+		if (result.hasErrors()) {
+			return new ResponseEntity<>("fail to save", HttpStatus.BAD_REQUEST);
+		}
+
+		try {
+			timelineService.saveComment(form, user);
+		} catch (Exception e) {
+			return new ResponseEntity<>("an error has occurred while saving", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+
   /**
 	 * 削除
 	 */
@@ -102,6 +117,15 @@ public class TimelineController {
 
 		return REDIRECT;
 
+	}
+
+	private void setUpPage(Model model, int pageNumber) {
+
+		Page<Timeline> page = timelineService.getPageList(
+			PageRequest.of(
+				PageNumberUtils.revisePageNumber(pageNumber), SIZE, Sort.by(Sort.Direction.DESC, "createdDate")));
+
+		model.addAttribute("page", page);
 	}
 
 }

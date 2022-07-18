@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>投稿</title>
+</head>
+<body>
+  <div class="contents" th:fragment="comment-timeline">
+    <section class="content">
+			<div class="modal fade" id="comment-timeline-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title"><em class="fa fa-comment"></em>&nbsp;コメント</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/timeline/comment}" method="POST" class="container"
+								id="comment-timeline-form" enctype="multipart/form-data">
+								<input type="hidden" name="timelineId"/>
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="form-group col-lg-12 col-md-12 col-sm-12">
+											<textarea class="form-control timeline comment" name="content" style="height:150px;"></textarea>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-lg-7 col-md-10 col-sm-12">
+											<label class="timeline-label rounded-pill mouse-pointer bg-teal">
+												<input type="file" class="timeline-input d-none comment" name="image" accept="image/*"><em class="fas fa-image"></em>
+											</label>
+											<span class="timeline-span">選択されていません</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+							<button type="button" class="btn btn-success" id="comment-post" disabled>コメント</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    </section>
+  </div>
+</body>
+</html>
