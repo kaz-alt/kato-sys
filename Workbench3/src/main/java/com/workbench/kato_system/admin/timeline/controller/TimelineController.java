@@ -116,7 +116,6 @@ public class TimelineController {
 		timelineService.delete(id);
 
 		return REDIRECT;
-
 	}
 
 	private void setUpPage(Model model, int pageNumber) {

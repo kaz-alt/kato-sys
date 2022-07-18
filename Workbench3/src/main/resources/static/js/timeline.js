@@ -28,19 +28,19 @@ $(function(){
 		})
   });
 
-	$('.timeline-del-button').click(function(){
+	$(document).on('click', '.timeline-del-button', function(){
 
 		let id = $(this).data('id');
 		let url = $(this).data('href');
 
 		let _csrf = $('meta[name="_csrf"]').attr('content');
 
-		let confirm = window.confirm('データを削除します。よろしいですか？');
+		let confirm = window.confirm('投稿を削除します。よろしいですか？');
 
 		if(confirm){
 
 			$('<form/>', {action: url, method: 'POST'})
-        .append($('<input/>', {type: 'hidden', name: 'employeeId', value: id}))
+        .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
         .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
         .appendTo(document.body)
         .submit();

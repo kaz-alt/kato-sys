@@ -48,7 +48,7 @@
                     <div class="time-label" th:if="${stat.first or
                       #temporals.format(page.content[stat.index - 1].createdDate, 'yyyy-MM-dd') ne
                       #temporals.format(t.createdDate, 'yyyy-MM-dd')}">
-                      <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy-MM-dd')}"></span>
+                      <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy年MM月dd日')}"></span>
                     </div>
                     <div>
                       <em class="fas fa-user"
@@ -68,8 +68,10 @@
                           <button type="button" class="btn btn-success btn-sm tm-comment-btn"
                           data-toggle="modal" data-target="#comment-timeline-modal"
                           th:data-timeline-id="${t.id}">コメント</button>
-                          <button type="button" class="btn btn-danger btn-sm"
-                            th:if="${#authentication.principal.userId eq t.employeeId}">削除</button>
+                          <button type="button" class="btn btn-danger btn-sm timeline-del-button"
+                            th:if="${#authentication.principal.userId eq t.employeeId}"
+                            th:data-id="${t.id}"
+                            th:data-href="@{/timeline/delete}">削除</button>
                         </div>
                       </div>
                     </div>
@@ -77,7 +79,11 @@
                     <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}">
                       <em class="fas fa-comments bg-yellow"></em>
                       <div class="timeline-item">
-                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(r.createdDate, 'HH:mm')}"></span></span>
+                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span
+                          th:text="${#temporals.format(r.createdDate, 'yyyy-MM-dd') eq
+                            #temporals.format(t.createdDate, 'yyyy-MM-dd') ?
+                            #temporals.format(r.createdDate, 'HH:mm') :
+                            #temporals.format(r.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></span>
                         <h3 class="timeline-header">
                           <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
                         <div class="timeline-body">
@@ -102,7 +108,7 @@
               th:data-href="@{/timeline/get_fragment}"
               th:data-page-number="${page.number + 2}"
               th:data-total-pages="${page.totalPages}"
-              th:data-oldest-date="${#temporals.format(page.content[page.size - 1].createdDate, 'yyyy-MM-dd')}">さらに読み込む...</a></h5>
+              th:data-oldest-date="${#temporals.format(page.content[page.size - 1].createdDate, 'yyyy-MM-dd')}">さらに投稿を読み込む...</a></h5>
             </div>
           </div>
         </section>
