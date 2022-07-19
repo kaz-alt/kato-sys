@@ -50,7 +50,7 @@
                       #temporals.format(t.createdDate, 'yyyy-MM-dd')}">
                       <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy年MM月dd日')}"></span>
                     </div>
-                    <div>
+                    <div th:id="|target-timeline-${t.id}|">
                       <em class="fas fa-user"
                       th:classappend="${#authentication.principal.userId eq t.employeeId} ? bg-blue : bg-purple"></em>
                       <div class="timeline-item">
@@ -76,7 +76,8 @@
                       </div>
                     </div>
 
-                    <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}">
+                    <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}"
+                    th:class="|target-comment-${t.id}|">
                       <em class="fas fa-comments bg-yellow"></em>
                       <div class="timeline-item">
                         <span class="time"><em class="fas fa-clock"></em>&nbsp;<span

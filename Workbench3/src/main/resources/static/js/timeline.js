@@ -138,6 +138,7 @@ $(function(){
   });
 
   $('button#comment-post').on('click', function() {
+    let href = $(this).data('href');
     let $form = $('#comment-timeline-form');
     let formData = new FormData($('#comment-timeline-form').get(0));
     $.ajax({
@@ -147,10 +148,26 @@ $(function(){
       contentType: false,
       processData: false
     }).done(function(){
-      location.reload();
+      getCommentFragment($form.find('input[name="timelineId"]').val(), href);
+      $('#comment-timeline-modal').modal('hide');
 		}).fail(function(){
 			alert("コメントに失敗しました");
 		})
   });
+
+  function getCommentFragment(id, href) {
+
+    $.ajax({
+      type : "GET",
+      url : href,
+      data: {id : id},
+      dataType : "html"
+    }).done(function(data){
+      $('.target-comment-' + id).remove();
+      $('#target-timeline-' + id).after(data);
+		}).fail(function(){
+			alert("読み込みに失敗しました");
+		})
+  }
 
 })

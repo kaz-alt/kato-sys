@@ -62,6 +62,19 @@ public class TimelineController {
 	}
 
 	/**
+	 * コメントのfragment取得
+	 */
+	@GetMapping("/get_comment")
+	public String getComment(Model model,
+			@RequestParam(name = "id") Integer id) {
+
+
+		model.addAttribute("timeline", timelineService.getOne(id));
+
+		return "timeline/fragment :: comment-fragment";
+	}
+
+	/**
 	 * 投稿
 	 */
 	@PostMapping(value = "/create")

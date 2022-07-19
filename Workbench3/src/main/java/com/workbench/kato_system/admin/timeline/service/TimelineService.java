@@ -32,6 +32,10 @@ public class TimelineService {
 
 	}
 
+	public Timeline getOne(Integer id) {
+		return timelineRepository.fetchOneById(id);
+	}
+
 	public void save(CreateTimelineForm form, LoginUserDetails user) throws IOException {
 
 		Timeline t = new Timeline();
