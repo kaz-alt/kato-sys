@@ -55,7 +55,7 @@
             <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
           <div class="timeline-body">
             <div th:text="${r.content}"></div>
-            <div class="w-25 h-25">
+            <div class="w-25 h-25 mt-3">
               <img class="img-fluid" th:if="${r.image != null}"
                 th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
             </div>
@@ -83,7 +83,7 @@
           <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
         <div class="timeline-body">
           <div th:text="${r.content}"></div>
-          <div class="w-25 h-25">
+          <div class="w-25 h-25 mt-3">
             <img class="img-fluid" th:if="${r.image != null}"
               th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
           </div>

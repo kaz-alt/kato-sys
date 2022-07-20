@@ -1,8 +1,6 @@
 package com.workbench.kato_system.admin.timeline.dto;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,18 +9,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class TimelineDto {
 
-	private Integer id;
-
-  private Integer employeeId;
-
-	private String employeeName;
-
-  private String content;
+	private Integer timelineId;
 
 	private LocalDateTime createdDate;
 
-	private byte[] image;
+	private Integer employeeId;
 
-  private TimelineResponseDto responses;
+	private LocalDateTime checkTime;
 
 }
