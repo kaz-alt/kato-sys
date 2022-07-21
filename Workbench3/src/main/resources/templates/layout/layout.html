@@ -263,8 +263,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
           <li class="nav-item">
             <a th:href="@{/timeline}" class="nav-link">
               <i class="nav-icon fas fa-clock"></i>
-              <p>
-                タイムライン<span class="right badge badge-danger">New</span>
+              <p id="layout-timeline">
+                タイムライン<span th:unless="${isNotificationChecked}" class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>

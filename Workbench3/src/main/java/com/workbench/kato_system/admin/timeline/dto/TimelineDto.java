@@ -9,12 +9,8 @@ import lombok.Data;
 @AllArgsConstructor
 public class TimelineDto {
 
-	private Integer timelineId;
+	private Integer id;
 
 	private LocalDateTime createdDate;
-
-	private Integer employeeId;
-
-	private LocalDateTime checkTime;
 
 }

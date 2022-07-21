@@ -25,10 +25,6 @@ public class Notification implements Serializable {
 	@Column(name = "employee_id")
 	private Integer employeeId;
 
-	/* タイムラインID */
-	@Column(name = "timeline_id")
-	private Integer timelineId;
-
 	/* 確認日時 */
 	@Column(name = "check_time")
 	private LocalDateTime checkTime;

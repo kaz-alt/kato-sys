@@ -2,7 +2,6 @@ package com.workbench.kato_system.admin.timeline.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -74,8 +73,8 @@ public class TimelineService {
 		}
 	}
 
-	public List<Timeline> getLatestTimelines() {
-		return timelineRepository.findEntityOrderByCreatedDate();
+	public Timeline getLatestTimeline() {
+		return timelineRepository.findFirstByOrderByCreatedDateDesc();
 	}
 
 }

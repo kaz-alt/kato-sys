@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +21,6 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import com.workbench.kato_system.admin.employee.model.Employee;
-import com.workbench.kato_system.admin.notification.model.Notification;
 
 import lombok.Data;
 
@@ -42,10 +40,6 @@ public class Timeline implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id", insertable = false, updatable = false)
 	private Employee employee;
-
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "timeline_id", insertable = false, updatable = false)
-	private Set<Notification> notification;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
