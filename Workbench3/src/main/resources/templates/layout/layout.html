@@ -261,9 +261,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </ul>
           </li>
           <li class="nav-item">
-            <a th:href="@{/timeline}" class="nav-link">
+            <a th:href="@{/timeline}" class="nav-link"
+            id="layout-timeline" th:data-url="@{/notification/update_check_time}">
               <i class="nav-icon fas fa-clock"></i>
-              <p id="layout-timeline" th:data-url="@{/notification/update_check_time}">
+              <p>
                 タイムライン<span th:if="${isNotificationChecked}" class="right badge badge-danger">New</span>
               </p>
             </a>

@@ -1,14 +1,17 @@
 $(function(){
 	"user strict";
 
-  $(document).on("click", "p#layout-timeline", function() {
+  $(document).on("click", "a#layout-timeline", function(e) {
+    e.preventDefault();
+
+    let href = $(this).attr("href");
     let url = $(this).data("url");
 
     $.ajax({
       type : "GET",
       url : url,
     }).done(function(){
-      console.log('success');
+      location.href = href;
 		}).fail(function(){
 			alert("更新に失敗しました");
 		})

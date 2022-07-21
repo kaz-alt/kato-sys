@@ -31,7 +31,7 @@ public class ExistEmailAndTelValidator implements ConstraintValidator<ExistEmail
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
 
-      List<Boolean> validList = new ArrayList<Boolean>();
+      List<Boolean> validList = new ArrayList<>();
 
       BeanWrapper beanWrapper = new BeanWrapperImpl(value);
 
@@ -43,10 +43,18 @@ public class ExistEmailAndTelValidator implements ConstraintValidator<ExistEmail
       Employee e2 = employeeRepository.findByTel(String.valueOf(tel));
 
       message = "※このメールアドレスは既に登録されております";
-      validList.add(this.validator(e1, id, context, message, fields[1], e1.getEmail(), email));
+      if (Objects.isNull(e1)) {
+        validList.add(true);
+      } else {
+        validList.add(this.validator(e1, id, context, message, fields[1], e1.getEmail(), email));
+      }
 
       message = "※この電話番号は既に登録されております";
-      validList.add(this.validator(e2, id, context, message, fields[2], e2.getTel(), tel));
+      if (Objects.isNull(e2)) {
+        validList.add(true);
+      } else {
+        validList.add(this.validator(e2, id, context, message, fields[2], e2.getTel(), tel));
+      }
 
       return !validList.contains(false);
     }
@@ -54,20 +62,15 @@ public class ExistEmailAndTelValidator implements ConstraintValidator<ExistEmail
     private boolean validator(Employee e, Object id, ConstraintValidatorContext context,
         String message, String field, String value, Object target) {
 
-      if (Objects.nonNull(e)) {
-
-        if (e.getId() != null && e.getId().equals(id) && value.equals(target)) {
-          return true;
-        }
-
-        context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate(message).addPropertyNode(field)
-          .addConstraintViolation();
-
-        return false;
+      if (e.getId() != null && e.getId().equals(id) && value.equals(target)) {
+        return true;
       }
 
-      return true;
+      context.disableDefaultConstraintViolation();
+      context.buildConstraintViolationWithTemplate(message).addPropertyNode(field)
+        .addConstraintViolation();
+
+      return false;
     }
 
 }
