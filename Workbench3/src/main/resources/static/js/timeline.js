@@ -1,6 +1,19 @@
 $(function(){
 	"user strict";
 
+  $(document).on("click", "p#layout-timeline", function() {
+    let url = $(this).data("url");
+
+    $.ajax({
+      type : "GET",
+      url : url,
+    }).done(function(){
+      console.log('success');
+		}).fail(function(){
+			alert("更新に失敗しました");
+		})
+  });
+
   $('#load-timeline').on("click", function(e) {
     e.preventDefault();
 

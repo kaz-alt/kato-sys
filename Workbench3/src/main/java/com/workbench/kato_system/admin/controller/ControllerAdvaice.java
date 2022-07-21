@@ -37,7 +37,7 @@ public class ControllerAdvaice {
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 }
