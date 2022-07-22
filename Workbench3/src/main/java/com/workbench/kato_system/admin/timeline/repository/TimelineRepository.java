@@ -1,5 +1,7 @@
 package com.workbench.kato_system.admin.timeline.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +23,18 @@ public interface TimelineRepository extends JpaRepository<Timeline, Integer> {
     + "LEFT JOIN FETCH tr.employee "
     + "WHERE t.id = :id")
   Timeline fetchOneById(@Param("id") Integer id);
+
+  @Query(value =
+      "SELECT * FROM timeline t "
+    + "LEFT JOIN timeline_response r "
+    + "ON t.id = r.timeline_id "
+    + "WHERE t.created_date > ("
+    +   "SELECT n.check_time FROM notification n "
+    +   "WHERE n.employee_id = :employeeId ORDER BY n.check_time LIMIT 1) "
+    + "OR (t.employee_id = :employeeId AND r.created_date > ("
+    +   "SELECT n.check_time FROM notification n "
+    +   "WHERE n.employee_id = :employeeId ORDER BY n.check_time LIMIT 1))", nativeQuery = true)
+  List<Timeline> findByEmployeeIdAndCheckTime(@Param("employeeId") Integer employeeId);
 
   Timeline findFirstByOrderByCreatedDateDesc();
 
