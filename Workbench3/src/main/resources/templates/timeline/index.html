@@ -60,7 +60,7 @@
                         <div class="timeline-body">
                           <div th:text="${t.content}"></div>
                           <div class="w-25 h-25">
-                            <img class="img-fluid" th:if="${t.image != null}"
+                            <img class="img-fluid mouse-pointer timeline-image" th:if="${t.image != null}"
                               th:src="${'data:image/png;base64,' + t.getStringImage()}" alt="uploaded image">
                           </div>
                         </div>
@@ -90,7 +90,7 @@
                         <div class="timeline-body">
                           <div th:text="${r.content}"></div>
                           <div class="w-25 h-25 mt-3">
-                            <img class="img-fluid" th:if="${r.image != null}"
+                            <img class="img-fluid mouse-pointer timeline-image" th:if="${r.image != null}"
                               th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
                           </div>
                         </div>
@@ -114,6 +114,8 @@
           </div>
         </section>
       </div>
+      <!-- zoom modal -->
+      <th:block th:replace="timeline/zoom::timeline-image-zoom-modal"></th:block>
       <!-- create modal -->
       <th:block th:replace="timeline/create::create-timeline"></th:block>
       <!-- comment modal -->

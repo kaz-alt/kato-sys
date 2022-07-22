@@ -1,6 +1,12 @@
 $(function(){
 	"user strict";
 
+  $(document).on('click', 'img.timeline-image', function() {
+		let element = $(this).clone();
+		$('#timeline-image-zoom-modal').find('#zoom').html($(element));
+		$('#timeline-image-zoom-modal').modal('show');
+	})
+
   $(document).on("click", "a#layout-timeline", function(e) {
     e.preventDefault();
 
@@ -85,7 +91,7 @@ $(function(){
     checkValue();
   });
 
-  $(document).on('change', '#create-timeline-form input.timeline-input', function() {
+  $(document).on('change', '#comment-timeline-form input.timeline-input', function() {
     checkValueInComment();
   });
 
