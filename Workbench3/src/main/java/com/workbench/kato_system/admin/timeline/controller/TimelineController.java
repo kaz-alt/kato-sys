@@ -32,7 +32,7 @@ public class TimelineController {
 
 	private final TimelineService timelineService;
 
-	private final int SIZE = 2;
+	private final int SIZE = 20;
   private final String REDIRECT = "redirect:/timeline";
 
 	/**

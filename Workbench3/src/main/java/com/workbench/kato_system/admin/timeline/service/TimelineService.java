@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
+import com.workbench.kato_system.admin.notification.service.NotificationService;
 import com.workbench.kato_system.admin.timeline.form.CreateTimelineForm;
 import com.workbench.kato_system.admin.timeline.model.Timeline;
 import com.workbench.kato_system.admin.timeline.model.TimelineResponse;
@@ -25,6 +26,7 @@ public class TimelineService {
 
 	private final TimelineRepository timelineRepository;
 	private final TimelineResponseRepository timelineResponseRepository;
+	private final NotificationService notificationService;
 
 	public Page<Timeline> getPageList(Pageable pageable) {
 
@@ -47,6 +49,8 @@ public class TimelineService {
 		}
 
 		timelineRepository.save(t);
+
+		notificationService.updateCheckTime(user.getUserId());
 	}
 
 	public void saveComment(CreateTimelineForm form, LoginUserDetails user) throws IOException {
@@ -61,6 +65,8 @@ public class TimelineService {
 		}
 
 		timelineResponseRepository.save(t);
+
+		notificationService.updateCheckTime(user.getUserId());
 	}
 
 	public void delete(Integer id) {
