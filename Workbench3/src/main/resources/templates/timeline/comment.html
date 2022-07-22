@@ -3,7 +3,7 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>投稿</title>
+	<title>コメント</title>
 </head>
 <body>
   <div class="contents" th:fragment="comment-timeline">
@@ -27,6 +27,7 @@
 										<div class="form-group col-lg-12 col-md-12 col-sm-12">
 											<textarea class="form-control timeline comment" name="content" style="height:150px;"></textarea>
 										</div>
+										<p class="text-bold text-danger comment-err-msg d-none">400字以内で入力してください</p>
 									</div>
 									<div class="row">
 										<div class="form-group col-lg-7 col-md-10 col-sm-12">

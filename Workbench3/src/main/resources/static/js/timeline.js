@@ -103,7 +103,13 @@ $(function(){
 
     let hasFile = $('#create-timeline-form input.timeline-input').val().length;
 
-    if (res != null && res != '' || hasFile) {
+    if (res.length > 400) {
+      $('p.err-msg').removeClass('d-none');
+    } else {
+      $('p.err-msg').addClass('d-none');
+    }
+
+    if (res != null && res != '' && res.length <= 400 || hasFile) {
       $('button#create-post').prop('disabled', false);
     } else {
       $('button#create-post').prop('disabled', true);
@@ -117,7 +123,13 @@ $(function(){
 
     let hasFile = $('#comment-timeline-form input.timeline-input').val().length;
 
-    if (res != null && res != '' || hasFile) {
+    if (res.length > 400) {
+      $('p.comment-err-msg').removeClass('d-none');
+    } else {
+      $('p.commen-terr-msg').addClass('d-none');
+    }
+
+    if (res != null && res != '' && res.length <= 400 || hasFile) {
       $('button#comment-post').prop('disabled', false);
     } else {
       $('button#comment-post').prop('disabled', true);
@@ -139,7 +151,6 @@ $(function(){
   $('button#create-post').on('click', function() {
     let $form = $('#create-timeline-form');
     let formData = new FormData($('#create-timeline-form').get(0));
-    console.log($form.find('input[type="file"]').val());
     $.ajax({
       type : "POST",
       url : $form.attr('action'),
