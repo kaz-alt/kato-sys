@@ -34,6 +34,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <script th:src="@{/js/business_card.js}"></script>
     <script th:src="@{/js/project.js}"></script>
     <script th:src="@{/js/activity.js}"></script>
+    <script th:src="@{/js/timeline.js}"></script>
 
 	<!-- Datatables -->
     <link rel="stylesheet" th:href="@{/dist/datatables/css/dataTables.bootstrap4.min.css}">
@@ -87,32 +88,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
-        <a class="nav-link text-light" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
       <li class="nav-item">
         <a class="nav-link text-light" data-widget="fullscreen" href="#" role="button" data-toggle="tooltip"
         data-placement="bottom" title="全画面表示">
@@ -260,10 +235,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a th:href="@{/timeline}" class="nav-link"
+            id="layout-timeline" th:data-url="@{/notification/update_check_time}">
               <i class="nav-icon fas fa-clock"></i>
               <p>
-                タイムライン<span class="right badge badge-danger">New</span>
+                タイムライン<span th:if="${isNotificationChecked}" class="right badge badge-danger">New</span>
               </p>
             </a>
           </li>

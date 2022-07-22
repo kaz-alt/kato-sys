@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>タイムライン</title>
+</head>
+<body>
+  <th:block th:fragment="timeline-fragment">
+    <th:block th:each="t, stat : ${page.content}">
+      <div class="time-label" th:if="${stat.first and (previousDate ne #temporals.format(t.createdDate, 'yyyy-MM-dd')) or
+        not stat.first and (#temporals.format(page.content[stat.index - 1].createdDate, 'yyyy-MM-dd') ne
+        #temporals.format(t.createdDate, 'yyyy-MM-dd'))}">
+        <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy年MM月dd日')}"></span>
+      </div>
+      <div th:id="|target-timeline-${t.id}|">
+        <em class="fas fa-user"
+        th:classappend="${#authentication.principal.userId eq t.employeeId} ? bg-blue : bg-purple"></em>
+        <div class="timeline-item">
+          <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(t.createdDate, 'HH:mm')}"></span></span>
+          <h3 class="timeline-header"><a th:href="@{/employee/detail/{id}(id=${t.employeeId})}"
+            th:text="${t.employee?.name}"></a>が投稿しました。</h3>
+          <div class="timeline-body">
+            <div th:text="${t.content}"></div>
+            <div class="w-25 h-25">
+              <img class="img-fluid mouse-pointer timeline-image" th:if="${t.image != null}"
+                th:src="${'data:image/png;base64,' + t.getStringImage()}" alt="uploaded image">
+            </div>
+          </div>
+          <div class="timeline-footer">
+            <button type="button" class="btn btn-success btn-sm tm-comment-btn"
+            data-toggle="modal" data-target="#comment-timeline-modal"
+            th:data-timeline-id="${t.id}">コメント</button>
+            <button type="button" class="btn btn-danger btn-sm timeline-del-button"
+              th:if="${#authentication.principal.userId eq t.employeeId}"
+              th:data-id="${t.id}"
+              th:data-href="@{/timeline/delete}">削除</button>
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}"
+      th:class="|target-comment-${t.id}|">
+        <em class="fas fa-comments bg-yellow"></em>
+        <div class="timeline-item">
+          <span class="time"><em class="fas fa-clock"></em>&nbsp;<span
+            th:text="${#temporals.format(r.createdDate, 'yyyy-MM-dd') eq
+              #temporals.format(t.createdDate, 'yyyy-MM-dd') ?
+              #temporals.format(r.createdDate, 'HH:mm') :
+              #temporals.format(r.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></span>
+          <h3 class="timeline-header">
+            <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
+          <div class="timeline-body">
+            <div th:text="${r.content}"></div>
+            <div class="w-25 h-25 mt-3">
+              <img class="img-fluid mouse-pointer timeline-image" th:if="${r.image != null}"
+                th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
+            </div>
+          </div>
+        </div>
+      </div>
+    </th:block>
+
+    <div th:if="${page.last}">
+      <em class="fas fa-clock bg-gray"></em>
+    </div>
+  </th:block>
+
+  <th:block th:fragment="comment-fragment">
+    <div th:each="r : ${timeline.timelineResponse}"
+    th:class="|target-comment-${timeline.id}|">
+      <em class="fas fa-comments bg-yellow"></em>
+      <div class="timeline-item">
+        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span
+          th:text="${#temporals.format(r.createdDate, 'yyyy-MM-dd') eq
+            #temporals.format(timeline.createdDate, 'yyyy-MM-dd') ?
+            #temporals.format(r.createdDate, 'HH:mm') :
+            #temporals.format(r.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></span>
+        <h3 class="timeline-header">
+          <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
+        <div class="timeline-body">
+          <div th:text="${r.content}"></div>
+          <div class="w-25 h-25 mt-3">
+            <img class="img-fluid mouse-pointer timeline-image" th:if="${r.image != null}"
+              th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+</body>
+</html>
