@@ -10,50 +10,107 @@
 </head>
 <body>
   <div layout:fragment="contents">
-  <div class="card m-2" style="position: relative; left: 0px; top: 0px;">
-    <div class="card-header ui-sortable-handle">
-      <h3 class="card-title">
-        <em class="fa fa-clipboard-list mr-1"></em>
-      To Do リスト
-      </h3>
-    </div>
-
-    <div class="card-body" id="todo-body" th:data-url="@{/todo/get_todo_fragment}">
-      <th:block th:fragment="todo-fragment">
-        <div th:if="${#lists.isEmpty(todoList)}"
-          class="alert alert-warning alert-dismissible fade show" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-          ※ ToDoはありません。
+    <div class="card card-row card-primary mt-3 ml-2 mr-2 mb-4">
+      <div class="card-header">
+        <h3 class="card-title">
+          <em class="fa fa-calendar-day"></em>
+        本日の予定
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="card card-primary card-outline" th:if="${#lists.isEmpty(scheduleList)}">
+          <div class="card-header">
+            <h5 class="card-title">※ 本日の予定はありません</h5>
+          </div>
         </div>
-
-        <ul class="todo-list ui-sortable" data-widget="todo-list">
-          <li th:each="todo, stat : ${todoList}">
-            <div class="icheck-primary d-inline ml-2">
-              <input class="todo-input" type="checkbox" th:name="|todo${stat.index}|" th:id="|todoCheck${stat.index}|"
-                style="transform: scale(2);" th:checked="${todo.isDone}" th:data-id="${todo.id}"
-                th:data-url="@{/todo/done}">
-              <label th:for="|todoCheck${stat.index}|"></label>
+        <div class="card card-primary card-outline" th:each="schedule, stat : ${scheduleList}">
+          <div class="card-header">
+            <h5 class="card-title" th:text="${schedule.title}"></h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table">
+                <caption class="d-none">スケジュール</caption>
+                <tbody>
+                  <tr>
+                    <th><em class="fa fa-user"></em>&nbsp;担当者：</th>
+                    <td>
+                      <span th:each="se, stat: ${schedule.scheduleEmployee}"
+                        th:text="${stat.last ? se.employee?.name : se.employee?.name + '、'}"></span>
+                    </td>
+                  </tr>
+                  <tr class="text-success" th:if="${schedule.isAllDay}">
+                    <th><em class="fa fa-clock"></em>&nbsp;終日</th>
+                    <td th:text="${schedule.isAllDay ? '◯' : ''}"></td>
+                  </tr>
+                  <tr class="text-danger" th:unless="${schedule.isAllDay}">
+                    <th><em class="fa fa-clock"></em>&nbsp;開始時間：</th>
+                    <td th:text="${#temporals.format(schedule.startTime, 'MM/dd HH:mm')}"></td>
+                  </tr>
+                  <tr class="text-primary" th:unless="*{isAllDay}">
+                    <th><em class="fa fa-clock"></em>&nbsp;終了時間：</th>
+                    <td th:text="${#temporals.format(schedule.endTime, 'MM/dd HH:mm')}"></td>
+                  </tr>
+                  <tr>
+                    <th><em class="fa fa-map-pin"></em>&nbsp;場所：</th>
+                    <td th:text="${schedule.place}"></td>
+                  </tr>
+                  <th><em class="fa fa-info"></em>&nbsp;詳細：</th>
+                  <td th:text="${schedule.detail}"></td>
+                </tbody>
+              </table>
             </div>
-            <span class="text todo-span" th:text="${todo.task}"></span>
-            <small class="badge"
-              th:classappend="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') gt
-                #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-danger' :
-                #calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') eq
-                #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-warning' : 'badge-success'}">
-              <em class="far fa-clock"></em>&nbsp;<span th:text="${#temporals.format(todo.deadline, 'MM月dd日 HH:mm')}"></span>まで</small>
-            <div class="tools">
-              <span class="mouse-pointer todo-del-span" th:data-id="${todo.id}" th:data-href="@{/todo/delete}"><em class="fas fa-trash"></em>削除</span>
-            </div>
-          </li>
-        </ul>
-      </th:block>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="card-footer clearfix">
-      <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#create-todo-modal"><em class="fas fa-plus"></em>&nbsp;ToDo追加</button>
-    </div>
+    <div class="card card-success m-2" style="position: relative; left: 0px; top: 0px;">
+      <div class="card-header ui-sortable-handle">
+        <h3 class="card-title">
+          <em class="fa fa-clipboard-list mr-1"></em>
+        個人用 To Do リスト
+        </h3>
+      </div>
+
+      <div class="card-body" id="todo-body" th:data-url="@{/todo/get_todo_fragment}">
+        <th:block th:fragment="todo-fragment">
+          <div th:if="${#lists.isEmpty(todoList)}"
+            class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+            ※ ToDoはありません。
+          </div>
+
+          <ul class="todo-list ui-sortable" data-widget="todo-list">
+            <li th:each="todo, stat : ${todoList}">
+              <div class="icheck-primary d-inline ml-2">
+                <input class="todo-input" type="checkbox" th:name="|todo${stat.index}|" th:id="|todoCheck${stat.index}|"
+                  style="transform: scale(2);" th:checked="${todo.isDone}" th:data-id="${todo.id}"
+                  th:data-url="@{/todo/done}">
+                <label th:for="|todoCheck${stat.index}|"></label>
+              </div>
+              <span class="text todo-span" th:text="${todo.task}"></span>
+              <small class="badge"
+                th:classappend="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') gt
+                  #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-danger' :
+                  #calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') eq
+                  #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-warning' : 'badge-success'}">
+                <em class="far fa-clock"></em>&nbsp;<span th:text="${#temporals.format(todo.deadline, 'MM月dd日 HH:mm')}"></span>まで</small>
+              <div class="tools">
+                <span class="mouse-pointer todo-del-span" th:data-id="${todo.id}" th:data-href="@{/todo/delete}"><em class="fas fa-trash"></em>削除</span>
+              </div>
+            </li>
+          </ul>
+        </th:block>
+      </div>
+
+      <div class="card-footer clearfix">
+        <button type="button" class="btn btn-primary btn-lg float-right"
+          data-toggle="modal" data-target="#create-todo-modal">
+          <em class="fas fa-plus"></em>&nbsp;ToDo追加</button>
+      </div>
     </div>
     <!-- Create ToDo modal -->
     <th:block th:replace="home/todo::create-todo"></th:block>
