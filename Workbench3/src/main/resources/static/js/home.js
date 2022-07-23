@@ -24,23 +24,32 @@ $(function(){
 		})
   });
 
-	$(document).on('click', 'button.todo-del-button', function(){
+	$(document).on('click', 'span.todo-del-span', function(){
 
-		let id = $(this).data('id');
-		let url = $(this).data('href');
+    let id = $(this).data('id');
+    let url = $(this).data('href');
 
-		let _csrf = $('meta[name="_csrf"]').attr('content');
+    let _csrf = $('meta[name="_csrf"]').attr('content');
 
-		let confirm = window.confirm('ToDoを削除します。よろしいですか？');
+    let confirm = window.confirm('ToDoを削除します。よろしいですか？');
 
-		if(confirm){
+    if(confirm){
 
-			$('<form/>', {action: url, method: 'POST'})
-        .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
-        .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
-        .appendTo(document.body)
-        .submit();
-		}
+      let $form = $('<form/>', {action: url, method: 'POST'})
+                    .append($('<input/>', {type: 'hidden', name: 'id', value: id}))
+                    .append($('<input/>', {type: 'hidden', name: '_csrf', value: _csrf}))
+                    .appendTo(document.body);
+
+      $.ajax({
+        type : "POST",
+        url : $form.attr('action'),
+        data: $form.serialize(),
+      }).done(function(){
+        getFragment();
+      }).fail(function(){
+        alert("ToDoの削除に失敗しました");
+      })
+    }
 	});
 
   $(document).on('keyup', '#create-todo-form textarea.todo', function () {
