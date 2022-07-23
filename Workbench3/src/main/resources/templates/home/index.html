@@ -16,61 +16,82 @@
           <em class="fa fa-calendar-day"></em>
         本日の予定
         </h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <em class="fas fa-minus">&nbsp;表示切替</em>
+          </button>
+        </div>
       </div>
       <div class="card-body">
+        <div class="icheck-primary d-inline ml-2" th:unless="${#lists.isEmpty(scheduleList)}">
+          <input type="checkbox" id="entire-schedule-check"
+            style="transform: scale(1.5);" th:data-url="@{/schedule/get_schedule_fragment}">
+          <label for="entire-schedule-check">&nbsp;全体のスケジュールを表示する</label>
+        </div>
         <div class="card card-primary card-outline" th:if="${#lists.isEmpty(scheduleList)}">
           <div class="card-header">
             <h5 class="card-title">※ 本日の予定はありません</h5>
           </div>
         </div>
-        <div class="card card-primary card-outline" th:each="schedule, stat : ${scheduleList}">
-          <div class="card-header">
-            <h5 class="card-title" th:text="${schedule.title}"></h5>
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-              <table class="table">
-                <caption class="d-none">スケジュール</caption>
-                <tbody>
-                  <tr>
-                    <th><em class="fa fa-user"></em>&nbsp;担当者：</th>
-                    <td>
-                      <span th:each="se, stat: ${schedule.scheduleEmployee}"
-                        th:text="${stat.last ? se.employee?.name : se.employee?.name + '、'}"></span>
-                    </td>
-                  </tr>
-                  <tr class="text-success" th:if="${schedule.isAllDay}">
-                    <th><em class="fa fa-clock"></em>&nbsp;終日</th>
-                    <td th:text="${schedule.isAllDay ? '◯' : ''}"></td>
-                  </tr>
-                  <tr class="text-danger" th:unless="${schedule.isAllDay}">
-                    <th><em class="fa fa-clock"></em>&nbsp;開始時間：</th>
-                    <td th:text="${#temporals.format(schedule.startTime, 'MM/dd HH:mm')}"></td>
-                  </tr>
-                  <tr class="text-primary" th:unless="*{isAllDay}">
-                    <th><em class="fa fa-clock"></em>&nbsp;終了時間：</th>
-                    <td th:text="${#temporals.format(schedule.endTime, 'MM/dd HH:mm')}"></td>
-                  </tr>
-                  <tr>
-                    <th><em class="fa fa-map-pin"></em>&nbsp;場所：</th>
-                    <td th:text="${schedule.place}"></td>
-                  </tr>
-                  <th><em class="fa fa-info"></em>&nbsp;詳細：</th>
-                  <td th:text="${schedule.detail}"></td>
-                </tbody>
-              </table>
+        <div id="home-schedule-body">
+          <th:block th:fragment="schedule-fragment">
+            <div class="card card-primary card-outline mt-3" th:each="schedule, stat : ${scheduleList}">
+              <div class="card-header">
+                <h5 class="card-title" th:text="${schedule.title}"></h5>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <caption class="d-none">スケジュール</caption>
+                    <tbody>
+                      <tr>
+                        <th><em class="fa fa-user"></em>&nbsp;担当者：</th>
+                        <td>
+                          <span th:each="se, stat: ${schedule.scheduleEmployee}"
+                            th:text="${stat.last ? se.employee?.name : se.employee?.name + '、'}"></span>
+                        </td>
+                      </tr>
+                      <tr class="text-success" th:if="${schedule.isAllDay}">
+                        <th><em class="fa fa-clock"></em>&nbsp;終日</th>
+                        <td th:text="${schedule.isAllDay ? '◯' : ''}"></td>
+                      </tr>
+                      <tr class="text-danger" th:unless="${schedule.isAllDay}">
+                        <th><em class="fa fa-clock"></em>&nbsp;開始時間：</th>
+                        <td th:text="${#temporals.format(schedule.startTime, 'MM/dd HH:mm')}"></td>
+                      </tr>
+                      <tr class="text-primary" th:unless="${schedule.isAllDay}">
+                        <th><em class="fa fa-clock"></em>&nbsp;終了時間：</th>
+                        <td th:text="${#temporals.format(schedule.endTime, 'MM/dd HH:mm')}"></td>
+                      </tr>
+                      <tr th:if="${not #strings.isEmpty(schedule.place)}">
+                        <th><em class="fa fa-map-pin"></em>&nbsp;場所：</th>
+                        <td th:text="${schedule.place}"></td>
+                      </tr>
+                      <tr th:if="${not #strings.isEmpty(schedule.detail)}">
+                        <th><em class="fa fa-info"></em>&nbsp;詳細：</th>
+                        <td th:text="${schedule.detail}"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-          </div>
+          </th:block>
         </div>
       </div>
     </div>
 
-    <div class="card card-success m-2" style="position: relative; left: 0px; top: 0px;">
+    <div class="card card-success mt-2 ml-2 mr-2 mb-4">
       <div class="card-header ui-sortable-handle">
         <h3 class="card-title">
           <em class="fa fa-clipboard-list mr-1"></em>
         個人用 To Do リスト
         </h3>
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+            <em class="fas fa-minus">&nbsp;表示切替</em>
+          </button>
+        </div>
       </div>
 
       <div class="card-body" id="todo-body" th:data-url="@{/todo/get_todo_fragment}">

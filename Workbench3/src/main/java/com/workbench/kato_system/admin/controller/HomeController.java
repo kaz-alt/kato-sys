@@ -23,7 +23,7 @@ public class HomeController {
 	@GetMapping(value = { "/", "/home" })
 	String index(Model model, @AuthenticationPrincipal LoginUserDetails user) {
 
-		model.addAttribute("scheduleList", scheduleService.getTodayScheduleList());
+		model.addAttribute("scheduleList", scheduleService.getTodayScheduleList(user.getUserId()));
 		model.addAttribute("todoList", todService.getTodoList(user.getUserId()));
 
 		return "home/index";

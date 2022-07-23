@@ -1,6 +1,24 @@
 $(function(){
 	"user strict";
 
+  $(document).on("click", "input#entire-schedule-check", function() {
+
+    let url = $(this).data('url');
+    let isAll = $(this).prop('checked');
+
+    // fragment(html)取得
+    $.ajax({
+      type : "GET",
+      url : url,
+      data : {isAll : isAll},
+      dataType : "html"
+    }).done(function(data){
+      $('#home-schedule-body').html(data);
+    }).fail(function(){
+      alert("データ取得に失敗しました");
+    })
+  });
+
   $(document).on('click', 'span.todo-span', function() {
     let target = $(this).prev('div').find('input');
     target.trigger('click');

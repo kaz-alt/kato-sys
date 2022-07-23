@@ -85,12 +85,21 @@ public class ScheduleService {
 		}
 	}
 
-	public List<Schedule> getTodayScheduleList() {
+	public List<Schedule> getTodayScheduleList(Integer employeeId) {
 
 		LocalDate now = LocalDate.now();
 		LocalDateTime today = now.atStartOfDay();
 		LocalDateTime tomorrow = now.plusDays(1).atStartOfDay();
 
-		return scheduleRepository.findByCurrentTime(today, tomorrow);
+		return scheduleRepository.findByCurrentTime(today, tomorrow, employeeId);
+	}
+
+	public List<Schedule> getEntireScheduleList() {
+
+		LocalDate now = LocalDate.now();
+		LocalDateTime today = now.atStartOfDay();
+		LocalDateTime tomorrow = now.plusDays(1).atStartOfDay();
+
+		return scheduleRepository.findEntireSchedule(today, tomorrow);
 	}
 }

@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.schedule.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.workbench.kato_system.admin.login.model.LoginUserDetails;
 import com.workbench.kato_system.admin.schedule.dto.ScheduleDto;
 import com.workbench.kato_system.admin.schedule.form.ScheduleForm;
 import com.workbench.kato_system.admin.schedule.form.ScheduleShowForm;
@@ -131,5 +133,30 @@ public class ScheduleController {
 
 		model.addAttribute("data", data);
   }
+
+	/**
+	 * Home画面用
+	 * fragmentを利用してHTMLを返す
+	 */
+	@GetMapping(value = "/get_schedule_fragment")
+	public String getScheduleFragment(Model model,
+		@AuthenticationPrincipal LoginUserDetails user, @RequestParam("isAll") boolean isAll) {
+
+		List<Schedule> scheduleList;
+
+		if (isAll) {
+
+			scheduleList = scheduleService.getEntireScheduleList();
+
+		} else {
+
+			scheduleList = scheduleService.getTodayScheduleList(user.getUserId());
+
+		}
+
+		model.addAttribute("scheduleList", scheduleList);
+
+		return "home/index :: schedule-fragment";
+	}
 
 }
