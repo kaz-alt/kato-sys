@@ -24,7 +24,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     + "WHERE s.id = :id")
   Optional<Schedule> findByScheduleId(@Param("id") Integer id);
 
-  @Query("SELECT s FROM Schedule s "
+  @Query("SELECT DISTINCT s FROM Schedule s "
     + "LEFT JOIN FETCH s.scheduleEmployee se "
     + "LEFT JOIN FETCH se.employee e "
     + "WHERE s.startTime >= :today AND s.endTime < :tomorrow "
@@ -35,7 +35,7 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
     @Param("tomorrow") LocalDateTime tomorrow,
     @Param("employeeId") Integer employeeId);
 
-    @Query("SELECT s FROM Schedule s "
+    @Query("SELECT DISTINCT s FROM Schedule s "
     + "LEFT JOIN FETCH s.scheduleEmployee se "
     + "LEFT JOIN FETCH se.employee e "
     + "WHERE s.startTime >= :today AND s.endTime < :tomorrow "
