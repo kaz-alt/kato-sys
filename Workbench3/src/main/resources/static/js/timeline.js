@@ -110,9 +110,9 @@ $(function(){
     let hasFile = $('#create-timeline-form input.timeline-input').val().length;
 
     if (res.length > 400) {
-      $('p.err-msg').removeClass('d-none');
+      $('#create-timeline-form p.err-msg').removeClass('d-none');
     } else {
-      $('p.err-msg').addClass('d-none');
+      $('#create-timeline-form p.err-msg').addClass('d-none');
     }
 
     if (res != null && res != '' && res.length <= 400 || hasFile) {
@@ -130,9 +130,9 @@ $(function(){
     let hasFile = $('#comment-timeline-form input.timeline-input').val().length;
 
     if (res.length > 400) {
-      $('p.comment-err-msg').removeClass('d-none');
+      $('#comment-timeline-form p.comment-err-msg').removeClass('d-none');
     } else {
-      $('p.commen-terr-msg').addClass('d-none');
+      $('#comment-timeline-form p.commen-terr-msg').addClass('d-none');
     }
 
     if (res != null && res != '' && res.length <= 400 || hasFile) {

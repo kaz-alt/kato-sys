@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.schedule.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,5 +83,23 @@ public class ScheduleService {
 			Schedule s = schedule.get();
 			scheduleRepository.delete(s);
 		}
+	}
+
+	public List<Schedule> getTodayScheduleList(Integer employeeId) {
+
+		LocalDate now = LocalDate.now();
+		LocalDateTime today = now.atStartOfDay();
+		LocalDateTime tomorrow = now.plusDays(1).atStartOfDay();
+
+		return scheduleRepository.findByCurrentTime(today, tomorrow, employeeId);
+	}
+
+	public List<Schedule> getEntireScheduleList() {
+
+		LocalDate now = LocalDate.now();
+		LocalDateTime today = now.atStartOfDay();
+		LocalDateTime tomorrow = now.plusDays(1).atStartOfDay();
+
+		return scheduleRepository.findEntireSchedule(today, tomorrow);
 	}
 }

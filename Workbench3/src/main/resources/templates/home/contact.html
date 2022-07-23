@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>todo</title>
+</head>
+<body>
+  <div class="contents" th:fragment="create-contact">
+    <section class="content">
+			<div class="modal fade" id="create-contact-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title"><em class="fa fa-flag"></em>&nbsp;システム管理者へ報告</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/create_contact}" method="POST" class="container"
+								id="create-contact-form">
+							<div class="card">
+								<div class="card-body">
+									<div class="row">
+										<div class="form-group col-lg-12 col-md-12 col-sm-12">
+											<label>種類：</label>
+											<select class="form-control" name="type">
+												<option value="エラー報告">エラー報告</option>
+												<option value="改善要望">改善要望</option>
+												<option value="その他">その他</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-lg-12 col-md-12 col-sm-12">
+											<label for="industry">報告内容：</label>
+											<textarea class="form-control contact" name="content"></textarea>
+										</div>
+										<p class="text-bold text-danger err-msg d-none">100字以内で入力してください</p>
+									</div>
+								</div>
+							</div>
+						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+							<button type="button" class="btn btn-primary" id="create-contact" disabled>報告</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    </section>
+  </div>
+</body>
+</html>
