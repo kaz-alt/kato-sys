@@ -32,6 +32,7 @@
 	<!-- Main js/css -->
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/home.js}"></script>
     <script th:src="@{/js/client.js}"></script>
     <script th:src="@{/js/client-detail.js}"></script>
     <script th:src="@{/js/product.js}"></script>
@@ -77,7 +78,7 @@
           <a th:href="@{/home}" class="nav-link text-light"><i class="fas fa-home"></i>&nbsp;<span class="d-none d-sm-inline-block">ホーム</span></a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link text-light">
+          <a href="#" class="nav-link text-light" data-toggle="modal" data-target="#create-contact-modal">
             <em class="fas fa-flag"></em>&nbsp;<span class="d-none d-sm-inline-block">報告</span></a>
         </li>
       </ul>
@@ -107,6 +108,9 @@
     <!-- Main Footer -->
     <footer class=""></footer>
   </div>
+
+  <!-- create contact modal -->
+  <th:block th:replace="home/contact::create-contact"></th:block>
 
 <!-- REQUIRED SCRIPTS -->
 </body>

@@ -82,7 +82,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link text-light">
+        <a href="#" class="nav-link text-light" data-toggle="modal" data-target="#create-contact-modal">
           <em class="fas fa-flag"></em>&nbsp;<span class="d-none d-sm-inline-block">報告</span></a>
       </li>
     </ul>
@@ -286,6 +286,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   </footer>
 </div>
 <!-- ./wrapper -->
+
+<!-- create contact modal -->
+<th:block th:replace="home/contact::create-contact"></th:block>
 
 <!-- REQUIRED SCRIPTS -->
 </body>

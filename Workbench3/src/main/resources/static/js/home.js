@@ -78,6 +78,10 @@ $(function(){
     checkValue();
   });
 
+  $(document).on('keyup', '#create-contact-form textarea.contact', function () {
+    checkContactValue();
+  });
+
   function checkValue() {
 
     let value = $('#create-todo-form textarea.todo').val();
@@ -98,9 +102,32 @@ $(function(){
     }
   }
 
+  function checkContactValue() {
+
+    let value = $('#create-contact-form textarea.contact').val();
+    let res = $.trim(value);
+
+    if (res.length > 100) {
+      $('#create-contact-form p.err-msg').removeClass('d-none');
+    } else {
+      $('#create-contact-form p.err-msg').addClass('d-none');
+    }
+
+    if (res != null && res != '' && res.length <= 100) {
+      $('button#create-contact').prop('disabled', false);
+    } else {
+      $('button#create-contact').prop('disabled', true);
+    }
+  }
+
   $(document).on('hide.bs.modal', '#create-todo-modal', function() {
     $('#create-todo-form')[0].reset();
     $('button#create-todo').prop('disabled', true);
+  });
+
+  $(document).on('hide.bs.modal', '#create-contact-modal', function() {
+    $('#create-contact-form')[0].reset();
+    $('button#create-contact').prop('disabled', true);
   });
 
   $('button#create-todo').on('click', function() {
@@ -114,6 +141,21 @@ $(function(){
       getFragment();
 		}).fail(function(){
 			alert("ToDoの追加に失敗しました");
+		})
+  });
+
+  $('button#create-contact').on('click', function() {
+    let $form = $('#create-contact-form');
+    $.ajax({
+      type : "POST",
+      url : $form.attr('action'),
+      data: $form.serialize(),
+    }).done(function(){
+      $('#create-contact-modal').modal('hide');
+      alert("頂いた内容で報告致しました。");
+      getFragment();
+		}).fail(function(){
+			alert("報告に失敗しました");
 		})
   });
 

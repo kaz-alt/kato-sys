@@ -1,4 +1,4 @@
-package com.workbench.kato_system.admin.todo.model;
+package com.workbench.kato_system.admin.contact.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,15 +17,15 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.Data;
 
 /**
- * ToDo
+ * 報告
  * @author katoukazuya
  *
  */
 @Entity
-@Table(name = "todo")
+@Table(name = "contact")
 @EntityListeners(AuditingEntityListener.class)
 @Data
-public class Todo implements Serializable {
+public class Contact implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,21 +36,17 @@ public class Todo implements Serializable {
 	@Column(name = "employee_id")
 	private Integer employeeId;
 
-	/* ToDo */
-	@Column(name = "task")
-	private String task;
+	/* タイプ */
+	@Column(name = "type")
+	private String type;
 
-	/* 期日 */
-	@Column(name = "deadline")
-	private LocalDateTime deadline;
+	/* ToDo */
+	@Column(name = "content")
+	private String content;
 
 	/* 作成日 */
 	@Column(name = "created_date")
 	@CreatedDate
 	private LocalDateTime createdDate;
-
-	/* 完了済みか */
-	@Column(name = "is_done")
-	private Boolean isDone;
 
 }
