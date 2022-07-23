@@ -44,4 +44,16 @@ public class TodoService {
 		}
 	}
 
+  public void done(Integer id, Boolean isDone) {
+
+		Optional<Todo> todo = todoRepository.findById(id);
+
+		if (todo.isPresent()) {
+			Todo t = todo.get();
+			t.setIsDone(isDone);
+			todoRepository.save(t);
+		}
+
+  }
+
 }

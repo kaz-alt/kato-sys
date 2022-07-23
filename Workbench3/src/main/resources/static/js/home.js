@@ -6,17 +6,21 @@ $(function(){
     target.trigger('click');
   });
 
-  $(document).on('change', '', function() {
-    let isChecked = $(this).prop('checked');
+  $(document).on('change', 'input.todo-input', function() {
+
+    let isDone = $(this).prop('checked');
+    let id = $(this).data('id');
+    let url = $(this).data('url');
+    let _csrf = $('meta[name="_csrf"]').attr('content');
 
     $.ajax({
       type : "POST",
-      url : $form.attr('action'),
-      data: $form.serialize(),
+      url : url,
+      data: {id : id, isDone : isDone, _csrf : _csrf},
     }).done(function(){
-      location.reload();
+      getFragment();
 		}).fail(function(){
-			alert("ToDoの追加に失敗しました");
+			alert("ToDoの更新に失敗しました");
 		})
   });
 
@@ -79,10 +83,34 @@ $(function(){
       url : $form.attr('action'),
       data: $form.serialize(),
     }).done(function(){
-      location.reload();
+      $('#create-todo-modal').modal('hide');
+      getFragment();
 		}).fail(function(){
 			alert("ToDoの追加に失敗しました");
 		})
   });
+
+  function getFragment() {
+
+    let url = $('div#todo-body').data('url');
+
+    // fragment(html)取得
+    $.ajax({
+      type : "GET",
+      url : url,
+      dataType : "html"
+    }).done(function(data){
+      $('#todo-body').html(data);
+      $('input.todo-input').each(function() {
+        if ($(this).prop('checked')) {
+          $(this).parent().parent().addClass('done');
+        } else {
+          $(this).parent().parent().removeClass('done');
+        }
+      });
+    }).fail(function(){
+      alert("データ取得に失敗しました");
+    })
+  }
 
 })

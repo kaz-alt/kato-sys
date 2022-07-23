@@ -12,7 +12,8 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
   @Query(value =
       "SELECT t FROM Todo t "
-    + "WHERE t.employeeId = :employeeId")
+    + "WHERE t.employeeId = :employeeId "
+    + "ORDER BY t.deadline DESC")
   List<Todo> findByEmployeeIdAndCreatedDate(@Param("employeeId") Integer employeeId);
 
 }
