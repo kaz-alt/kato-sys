@@ -1,6 +1,5 @@
 package com.workbench.kato_system.admin.todo.repository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,8 +12,7 @@ public interface TodoRepository extends JpaRepository<Todo, Integer> {
 
   @Query(value =
       "SELECT t FROM Todo t "
-    + "WHERE t.employeeId = :employeeId "
-    + "AND YEARWEEK(t.createdDate) = YEARWEEK(:week)")
-  List<Todo> findByEmployeeIdAndCreatedDate(@Param("employeeId") Integer employeeId, @Param("week") LocalDate week);
+    + "WHERE t.employeeId = :employeeId")
+  List<Todo> findByEmployeeIdAndCreatedDate(@Param("employeeId") Integer employeeId);
 
 }

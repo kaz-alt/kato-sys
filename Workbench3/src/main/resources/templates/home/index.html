@@ -23,40 +23,42 @@
   <div class="card" style="position: relative; left: 0px; top: 0px;">
     <div class="card-header ui-sortable-handle">
       <h3 class="card-title">
-      <i class="ion ion-clipboard mr-1"></i>
+      <em class="ion ion-clipboard mr-1"></em>
       To Do リスト
       </h3>
-      <div class="card-tools">
-        <ul class="pagination pagination-sm">
-          <li class="page-item"><a href="#" class="page-link">«</a></li>
-          <li class="page-item"><a href="#" class="page-link">1</a></li>
-          <li class="page-item"><a href="#" class="page-link">2</a></li>
-          <li class="page-item"><a href="#" class="page-link">3</a></li>
-          <li class="page-item"><a href="#" class="page-link">»</a></li>
-        </ul>
-      </div>
     </div>
 
     <div class="card-body">
+      <div th:if="${#lists.isEmpty(todoList)}"
+        class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        ※ ToDoはありません。
+      </div>
+
       <ul class="todo-list ui-sortable" data-widget="todo-list">
-        <li class="done">
+        <li th:each="todo, stat : ${todoList}" th:class="${todo.isDone} ? done : ''">
           <div class="icheck-primary d-inline ml-2">
-            <input type="checkbox" value="" name="todo1" id="todoCheck1" style="transform: scale(2);">
-            <label for="todoCheck1"></label>
+            <input type="checkbox" th:name="|todo${stat.index}|" th:id="|todoCheck${stat.index}|"
+              style="transform: scale(2);" th:checked="${todo.isDone}">
+            <label th:for="|todoCheck${stat.index}|"></label>
           </div>
-          <span class="text">Design a nice theme</span>
-          <small class="badge badge-danger"><em class="far fa-clock"></em>&nbsp;2 mins</small>
+          <span class="text" th:text="${todo.task}"></span>
+          <small class="badge badge-success"><em class="far fa-clock"></em>&nbsp;<span th:text="${#temporals.format(todo.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></small>
           <div class="tools">
-            <span class="mouse-pointer"><em class="fas fa-trash"></em>削除</span>
+            <span class="mouse-pointer" th:data-id="${todo.id}"><em class="fas fa-trash"></em>削除</span>
           </div>
         </li>
       </ul>
     </div>
 
     <div class="card-footer clearfix">
-      <button type="button" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add item</button>
+      <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#create-todo-modal"><em class="fas fa-plus"></em>&nbsp;ToDo追加</button>
     </div>
     </div>
+    <!-- Create ToDo modal -->
+    <th:block th:replace="home/todo::create-todo"></th:block>
   </div>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package com.workbench.kato_system.admin.todo.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,5 +43,10 @@ public class Todo implements Serializable {
 	/* 作成日 */
 	@Column(name = "created_date")
 	@CreatedDate
-	private LocalDate createdDate;
+	private LocalDateTime createdDate;
+
+	/* 完了済みか */
+	@Column(name = "is_done")
+	private Boolean isDone;
+
 }

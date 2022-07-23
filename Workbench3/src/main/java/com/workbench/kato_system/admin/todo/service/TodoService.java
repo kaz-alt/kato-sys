@@ -1,6 +1,5 @@
 package com.workbench.kato_system.admin.todo.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +19,7 @@ public class TodoService {
 	private final TodoRepository todoRepository;
 
 	public List<Todo> getTodoList(Integer employeeId) {
-		return todoRepository.findByEmployeeIdAndCreatedDate(employeeId, LocalDate.now());
+		return todoRepository.findByEmployeeIdAndCreatedDate(employeeId);
 	}
 
 	public void save(ToDoForm form, LoginUserDetails user) {
@@ -28,6 +27,7 @@ public class TodoService {
 		Todo t = new Todo();
 		t.setEmployeeId(user.getUserId());
 		t.setTask(form.getTask());
+		t.setIsDone(false);
 
 		todoRepository.save(t);
 
