@@ -12,7 +12,7 @@
 				<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title"><em class="fa fa-plus"></em>&nbsp;ToDo</h5>
+							<h5 class="modal-title"><em class="fa fa-plus"></em>&nbsp;ToDo追加</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">×</span>
 							</button>
@@ -24,9 +24,17 @@
 								<div class="card-body">
 									<div class="row">
 										<div class="form-group col-lg-12 col-md-12 col-sm-12">
+											<label for="industry">ToDo：</label>
 											<textarea class="form-control todo" name="task"></textarea>
 										</div>
 										<p class="text-bold text-danger err-msg d-none">100字以内で入力してください</p>
+									</div>
+									<div class="row">
+										<div class="form-group col-lg-12 col-md-12 col-sm-12">
+											<label for="industry">期日：</label>
+											<input type="text" class="form-control datetimepicker" name="deadline"
+												placeholder="クリックして日時を入力">
+										</div>
 									</div>
 								</div>
 							</div>

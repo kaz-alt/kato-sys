@@ -40,12 +40,17 @@
       <ul class="todo-list ui-sortable" data-widget="todo-list">
         <li th:each="todo, stat : ${todoList}" th:class="${todo.isDone} ? done : ''">
           <div class="icheck-primary d-inline ml-2">
-            <input type="checkbox" th:name="|todo${stat.index}|" th:id="|todoCheck${stat.index}|"
-              style="transform: scale(2);" th:checked="${todo.isDone}">
+            <input class="todo-input" type="checkbox" th:name="|todo${stat.index}|" th:id="|todoCheck${stat.index}|"
+              style="transform: scale(2.5);" th:checked="${todo.isDone}">
             <label th:for="|todoCheck${stat.index}|"></label>
           </div>
-          <span class="text" th:text="${todo.task}"></span>
-          <small class="badge badge-success"><em class="far fa-clock"></em>&nbsp;<span th:text="${#temporals.format(todo.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></small>
+          <span class="text todo-span" th:text="${todo.task}"></span>
+          <small class="badge"
+            th:classappend="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') gt
+              #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-danger' :
+              #calendars.format(#calendars.createNow(), 'yyyy-MM-dd HH') eq
+              #temporals.format(todo.deadline, 'yyyy-MM-dd HH') ? 'badge-warning' : 'badge-success'}">
+            <em class="far fa-clock"></em>&nbsp;<span th:text="${#temporals.format(todo.deadline, 'MM月dd日 HH:mm')}"></span>まで</small>
           <div class="tools">
             <span class="mouse-pointer" th:data-id="${todo.id}"><em class="fas fa-trash"></em>削除</span>
           </div>

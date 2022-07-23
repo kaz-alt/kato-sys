@@ -1,6 +1,25 @@
 $(function(){
 	"user strict";
 
+  $(document).on('click', 'span.todo-span', function() {
+    let target = $(this).prev('div').find('input');
+    target.trigger('click');
+  });
+
+  $(document).on('change', '', function() {
+    let isChecked = $(this).prop('checked');
+
+    $.ajax({
+      type : "POST",
+      url : $form.attr('action'),
+      data: $form.serialize(),
+    }).done(function(){
+      location.reload();
+		}).fail(function(){
+			alert("ToDoの追加に失敗しました");
+		})
+  });
+
 	$(document).on('click', 'button.todo-del-button', function(){
 
 		let id = $(this).data('id');
@@ -24,6 +43,10 @@ $(function(){
     checkValue();
   });
 
+  $(document).on('change', '#create-todo-form input[name="deadline"]', function () {
+    checkValue();
+  });
+
   function checkValue() {
 
     let value = $('#create-todo-form textarea.todo').val();
@@ -35,7 +58,9 @@ $(function(){
       $('#create-todo-form p.err-msg').addClass('d-none');
     }
 
-    if (res != null && res != '' && res.length <= 100) {
+    let deadline = $('#create-todo-form input[name="deadline"]').val();
+
+    if (res != null && res != '' && res.length <= 100 && deadline != null && deadline != '') {
       $('button#create-todo').prop('disabled', false);
     } else {
       $('button#create-todo').prop('disabled', true);

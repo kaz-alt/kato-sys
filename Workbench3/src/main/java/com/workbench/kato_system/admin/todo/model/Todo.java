@@ -40,6 +40,10 @@ public class Todo implements Serializable {
 	@Column(name = "task")
 	private String task;
 
+	/* 期日 */
+	@Column(name = "deadline")
+	private LocalDateTime deadline;
+
 	/* 作成日 */
 	@Column(name = "created_date")
 	@CreatedDate

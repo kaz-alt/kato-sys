@@ -27,6 +27,7 @@ public class TodoService {
 		Todo t = new Todo();
 		t.setEmployeeId(user.getUserId());
 		t.setTask(form.getTask());
+		t.setDeadline(form.getDeadline());
 		t.setIsDone(false);
 
 		todoRepository.save(t);
