@@ -38,9 +38,13 @@ public class GlobalErrorController implements ErrorController {
 
     String errorPath = Objects.toString(request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI), "UNKNOWN");
 
-    ErrorLog errorLog = new ErrorLog(errorPath, user.getUsername(), LocalDateTime.now());
+    if (Objects.nonNull(user)) {
 
-    errorLogRepository.save(errorLog);
+      ErrorLog errorLog = new ErrorLog(errorPath, user.getUsername(), LocalDateTime.now());
+
+      errorLogRepository.save(errorLog);
+
+    }
 
     if (Objects.nonNull(status) && Integer.valueOf(String.valueOf(status)).equals(HttpStatus.NOT_FOUND.value())) {
 

@@ -28,6 +28,6 @@ server:
   servlet:
     context-path: /demo
     session:
-      timeout: 2000
+      timeout: 1m
   error:
     path: /error

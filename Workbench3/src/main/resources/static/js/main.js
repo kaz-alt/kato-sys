@@ -1,12 +1,9 @@
 $(function(){
 
-  // タイムアウトしてから検索すると、検索エリアにログイン画面が埋め込まれる事象の対応
-  $(document).ajaxSuccess(function(e, xhr, options){
-    // レスポンスにDOCTYPEが含まれたらログイン画面と判断する
-    if(xhr.responseText.match(/<!-- this is login form -->/)){
-      // ログイン画面を受信した場合は自画面に遷移させる（ことで親画面をログイン画面にする）
-      window.location.href = './';
-      return false;
+  // タイムアウトしてからajaxをしたときにログイン画面へ遷移させる
+  $(document).ajaxError(function(e, xhr, options){
+    if (xhr.status == 401) {
+      window.location.href = "./loginForm?timeout";
     }
   });
 
