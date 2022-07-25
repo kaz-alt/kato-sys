@@ -1,4 +1,8 @@
 spring:
+  profiles:
+    active: default
+  devtools:
+    add-properties: true
   datasource:
     url: jdbc:mysql://localhost:3306/workbench
     username: root
@@ -16,6 +20,7 @@ spring:
 
 logging:
   level:
+    web: ERROR
     org:
       hibernate:
         SQL: DEBUG
@@ -28,6 +33,6 @@ server:
   servlet:
     context-path: /demo
     session:
-      timeout: 1m
+      timeout: 30m
   error:
     path: /error

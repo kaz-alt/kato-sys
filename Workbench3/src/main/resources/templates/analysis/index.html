@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>売上分析</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">売上分析</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><em class="fas fa-chart-line"></em>&nbsp;売上分析</h3>
+        </div>
+
+        <section class="content mt-3">
+          <div class="m-3" id="analysis-bubble"></div>
+          <div class="m-3" id="analysis-3d"></div>
+        </section>
+      </div>
+      <!-- create modal -->
+      <th:block th:replace="timeline/create::create-timeline"></th:block>
+      <!-- HighCharts.js -->
+    <link rel="stylesheet" th:href="@{/dist/highcharts/css/highcharts.css}">
+    <script th:src="@{/dist/highcharts/js/highcharts.js}"></script>
+    <script th:src="@{/dist/highcharts/js/highcharts-more.js}"></script>
+    <script th:src="@{/dist/highcharts/js/highcharts-3d.js}"></script>
+    <script th:src="@{/dist/highcharts/js/accessibility.js}"></script>
+    <script th:src="@{/js/analysis.js}"></script>
+    </section>
+  </div>
+</body>
+</html>
