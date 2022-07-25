@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
+import com.workbench.kato_system.admin.project.service.ProjectService;
 import com.workbench.kato_system.admin.timeline.form.CreateTimelineForm;
 import com.workbench.kato_system.admin.timeline.model.Timeline;
 import com.workbench.kato_system.admin.timeline.service.TimelineService;
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class AnalysisController {
 
 	private final TimelineService timelineService;
+	private final ProjectService projectService;
 
 	private final int SIZE = 20;
   private final String REDIRECT = "redirect:/timeline";
@@ -41,6 +43,8 @@ public class AnalysisController {
 	@GetMapping
 	public String index(Model model,
 			@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
+
+		model.addAttribute("analysis", projectService.getAnalysisDtoList());
 
 		return "analysis/index";
 	}
