@@ -69,6 +69,8 @@ List<Project> findByIdIn(List<Integer> idList);
   +   "p.clientId, c.name, max(p.expectedOrderDate), count(p.estimatedOrderAmount), sum(p.estimatedOrderAmount)) "
   + "from Project p "
   + "inner join p.client c "
+  + "where p.expectedOrderDate is not null "
+  + "and p.estimatedOrderAmount is not null "
   + "group by p.clientId")
   List<AnalysisDto> fetchAnalysisDto();
 

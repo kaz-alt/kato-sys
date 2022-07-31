@@ -34,7 +34,7 @@ public class AnalysisController {
 	 * データ表示
 	 */
   @ResponseBody
-	@GetMapping("/show")
+	@GetMapping("/get_data")
 	public List<AnalysisDto> show(@RequestParam(name = "pageNumber", defaultValue = "0") Integer pageNumber) {
 
 		return projectService.getAnalysisDtoList();
