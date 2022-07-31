@@ -31,6 +31,9 @@
       <div class="alert alert-danger" role="alert" th:if="${hasError}">
         <strong>ログインに失敗しました。</strong>
       </div>
+      <div class="alert alert-danger" role="alert" th:if="${param.timeout}">
+        <strong>タイムアウトしました。</strong>
+      </div>
       <div class="alert alert-info" role="alert" th:if="${isSuccess}">
         <strong>ユーザー登録に成功しました。登録したメールアドレスとパスワードでログインしてください。</strong>
       </div>

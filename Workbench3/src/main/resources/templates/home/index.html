@@ -23,12 +23,12 @@
         </div>
       </div>
       <div class="card-body">
-        <div class="icheck-primary d-inline ml-2" th:unless="${#lists.isEmpty(scheduleList)}">
+        <div class="icheck-primary d-inline ml-2">
           <input type="checkbox" id="entire-schedule-check"
             style="transform: scale(1.5);" th:data-url="@{/schedule/get_schedule_fragment}">
           <label for="entire-schedule-check">&nbsp;全体のスケジュールを表示する</label>
         </div>
-        <div class="card card-primary card-outline" th:if="${#lists.isEmpty(scheduleList)}">
+        <div class="card card-primary card-outline mt-3" th:if="${#lists.isEmpty(scheduleList)}">
           <div class="card-header">
             <h5 class="card-title">※ 本日の予定はありません</h5>
           </div>

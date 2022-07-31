@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.workbench.kato_system.admin.analysis.dto.AnalysisDto;
 import com.workbench.kato_system.admin.project.dto.ProjectDto;
 import com.workbench.kato_system.admin.project.model.Project;
 
@@ -29,7 +30,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
     + "WHERE p.id = :id")
   Optional<Project> findByProjectId(@Param("id") Integer id);
 
-
 	@Override
 	@Query(value = "select p from Project p "
     + "inner join fetch p.progress "
@@ -45,7 +45,6 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
       + "left join pe.employee "
       + "where p.delFlg = 0")
 	Page<Project> findAll(Pageable pagable);
-
 	@Query(value = "select p from Project p "
 			+ "inner join fetch p.progress "
 			+ "inner join fetch p.approachRoot "
@@ -59,12 +58,20 @@ public interface ProjectRepository extends JpaRepository<Project, Integer>, JpaS
 			+ "and p.expectedOrderDate <= :endDate")
 	Set<Project> findByClientIdAndExpectedOrderDate(@Param("clientId") Integer clientId,
 			@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
-
-
-  @Query("SELECT new com.workbench.kato_system.admin.project.dto.ProjectDto(p.id, p.name) FROM Project p WHERE p.delFlg = 0 AND p.name LIKE %:name%")
+  @Query("SELECT new com.workbench.kato_system.admin.project.dto.ProjectDto(p.id, p.name) FROM Project p "
+    + "WHERE p.delFlg = 0 AND p.name LIKE %:name%")
   List<ProjectDto> fetchDtoByName(@Param("name") String name);
 
-
 List<Project> findByIdIn(List<Integer> idList);
+
+@Query("select "
+  + "new com.workbench.kato_system.admin.analysis.dto.AnalysisDto("
+  +   "p.clientId, c.name, max(p.expectedOrderDate), count(p.estimatedOrderAmount), sum(p.estimatedOrderAmount)) "
+  + "from Project p "
+  + "inner join p.client c "
+  + "where p.expectedOrderDate is not null "
+  + "and p.estimatedOrderAmount is not null "
+  + "group by p.clientId")
+  List<AnalysisDto> fetchAnalysisDto();
 
 }

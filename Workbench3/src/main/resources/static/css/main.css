@@ -306,3 +306,29 @@ img {
 label.timeline-label {
   padding: 10px 30px;
 }
+
+@media only screen and (max-width: 479px) {
+  .table-analysis th, .table-analysis td {
+    font-size: 0.4rem;
+  }
+}
+
+.rank-1 {
+  background: #ffa0c0;
+}
+
+.rank-2 {
+  background: #ffb8d0;
+}
+
+.rank-3 {
+  background: #ffcedf;
+}
+
+.rank-4 {
+  background: #fddbe6;
+}
+
+.rank-5 {
+  background: #FFF0F5;
+}

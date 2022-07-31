@@ -103,7 +103,7 @@ $(function(){
 
 　　		// fragment(html)取得
 　　		$.ajax({
-	 		type : "GET",
+	 				type : "GET",
 　　　　		url : paramUrl,
 　　　　		dataType : "html"
 　　		}).done(function(data){
@@ -111,6 +111,7 @@ $(function(){
 		    window.main.createEmployeeOptionWithId($('#client-edit-form select[name="employeeIdList"]'));
 			clientEmployeeContents();
 			validateClientEmployee();
+			$('#client-edit-modal').modal('show');
 			$('.datepicker').datepicker(window.main.datepicker());
 		}).fail(function(){
 			alert("データ取得に失敗しました");

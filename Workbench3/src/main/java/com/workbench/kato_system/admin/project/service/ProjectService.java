@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.workbench.kato_system.admin.analysis.dto.AnalysisDto;
 import com.workbench.kato_system.admin.client.model.entity.Client;
 import com.workbench.kato_system.admin.client.repository.ClientRepository;
 import com.workbench.kato_system.admin.employee.model.Employee;
@@ -92,6 +93,10 @@ public class ProjectService {
 
 	public List<Progress> getAllProgress() {
 		return progressRepository.findAll();
+	}
+
+	public List<AnalysisDto> getAnalysisDtoList() {
+		return projectRepository.fetchAnalysisDto();
 	}
 
 	public Project save(ProjectForm form, LoginUserDetails user) {
