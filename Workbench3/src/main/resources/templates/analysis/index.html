@@ -6,7 +6,7 @@
   layout:decorate="~{layout/layout}">
 
 <head>
-<title>売上分析</title>
+<title>顧客分析</title>
 </head>
 <body>
   <div layout:fragment="contents">
@@ -18,7 +18,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
-              <li class="breadcrumb-item active">売上分析</li>
+              <li class="breadcrumb-item active">顧客分析</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +29,7 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3><em class="fas fa-chart-line"></em>&nbsp;売上分析</h3>
+          <h3><em class="fa fa-chart-bar"></em>&nbsp;顧客分析</h3>
         </div>
 
         <section class="content mt-3">
@@ -89,7 +89,6 @@
       <!-- HighCharts.js -->
     <script th:src="@{/dist/highcharts/js/highcharts.js}"></script>
     <script th:src="@{/dist/highcharts/js/highcharts-more.js}"></script>
-    <script th:src="@{/dist/highcharts/js/highcharts-3d.js}"></script>
     <script th:src="@{/dist/highcharts/js/accessibility.js}"></script>
     <script th:src="@{/dist/highcharts/js/heatmap.js}"></script>
     <script th:src="@{/js/analysis.js}"></script>
