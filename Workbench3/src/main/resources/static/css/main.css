@@ -332,3 +332,11 @@ label.timeline-label {
 .rank-5 {
   background: #FFF0F5;
 }
+
+.w-40 {
+  width: 40%;
+}
+
+.w-60 {
+  width: 60%;
+}

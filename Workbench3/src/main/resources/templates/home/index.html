@@ -45,8 +45,8 @@
                     <caption class="d-none">スケジュール</caption>
                     <tbody>
                       <tr>
-                        <th><em class="fa fa-user"></em>&nbsp;担当者：</th>
-                        <td>
+                        <th class="w-40"><em class="fa fa-user"></em>&nbsp;担当者：</th>
+                        <td class="w-60">
                           <span th:each="se, stat: ${schedule.scheduleEmployee}"
                             th:text="${stat.last ? se.employee?.name : se.employee?.name + '、'}"></span>
                         </td>
