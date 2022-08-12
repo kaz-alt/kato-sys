@@ -1,5 +1,6 @@
 package com.workbench.kato_system.admin.user.service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.workbench.kato_system.admin.employee.form.ChangePasswordForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.user.model.User;
@@ -60,5 +62,14 @@ public class UserService {
 
 		return u;
 	}
+
+	public void changePassword(ChangePasswordForm form) {
+		User u = userRepository.findByEmail(form.getEmail());
+
+		if (Objects.nonNull(u)) {
+			u.setPassword(passwordEncoder.encode(form.getPassword()));
+			userRepository.save(u);
+		}
+  }
 
 }

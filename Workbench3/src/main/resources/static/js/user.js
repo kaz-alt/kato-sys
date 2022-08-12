@@ -3,6 +3,20 @@ $(function(){
 
   $('#register-button').on('click', function() {
     $('#employee-form').submit();
+  });
+
+  $('#change-password').on('click', function() {
+    let $form = $('#change-password-form');
+    $.ajax({
+      type : $form.attr('method'),
+      url : $form.attr('action'),
+      data: $form.serialize()
+    }).done(function(){
+      alert('パスワードを変更しました。');
+      location.reload();
+    }).fail(function(){
+      alert("パスワードの変更に失敗しました");
+    })
   })
 
 	$.extend($.validator.messages, {
@@ -12,7 +26,7 @@ $(function(){
     katakana: "*全角カタカナで入力してください",
     minlength: "*5文字以上で入力してください",
     maxlength: "*10文字以内で入力してください",
-    alphabet: "*半角英数字で入力してください",
+    alphabet: "*半角英数字記号で入力してください",
     equalTo: "*パスワードが異なります"
   });
 
@@ -25,7 +39,7 @@ $(function(){
       return this.optional(element) || /^([ァ-ヶー]+)$/.test(value);
     },
     alphabet: function(value, element){
-      return this.optional(element) || /^([a-zA-Z0-9]+)$/.test(value);
+      return this.optional(element) || /^[a-zA-Z0-9!-/:-@¥[-`{-~]*$/.test(value);
     }
   };
 
@@ -44,7 +58,9 @@ $(function(){
     "tel": {required: true, tel: true},
     "email": {required: true, email: true},
     "userForm.password": {required: true, alphabet: true, minlength: 5, maxlength: 10},
-    "userForm.confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="userForm.password"]'}
+    "userForm.confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="password"]'},
+    "password": {required: true, alphabet: true, minlength: 5, maxlength: 10},
+    "confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="password"]'}
   };
 
   //入力項目ごとのエラーメッセージ定義
@@ -58,6 +74,7 @@ $(function(){
   };
 
 	validate($("#employee-form"));
+  validate($("#change-password-form"));
 
 	function validate($form){
 

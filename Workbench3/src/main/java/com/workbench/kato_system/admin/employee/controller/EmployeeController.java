@@ -22,12 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workbench.kato_system.admin.employee.dto.EmployeeDto;
+import com.workbench.kato_system.admin.employee.form.ChangePasswordForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
 import com.workbench.kato_system.admin.employee.form.EmployeeSearchForm;
 import com.workbench.kato_system.admin.employee.form.ProfilePictureForm;
 import com.workbench.kato_system.admin.employee.model.Employee;
 import com.workbench.kato_system.admin.employee.service.EmployeeService;
 import com.workbench.kato_system.admin.login.model.LoginUserDetails;
+import com.workbench.kato_system.admin.user.service.UserService;
 import com.workbench.kato_system.admin.utils.DateUtils;
 import com.workbench.kato_system.admin.utils.PageNumberUtils;
 
@@ -42,6 +44,7 @@ public class EmployeeController {
   private final String REDIRECT = "redirect:/employee";
 
 	private final EmployeeService employeeService;
+	private final UserService userService;
 
 	@ModelAttribute
 	EmployeeForm setUpEmployeeForm() {
@@ -156,6 +159,26 @@ public class EmployeeController {
 			employeeService.saveProfilePicture(form);
 		} catch (Exception e) {
 			return new ResponseEntity<>("fail to save", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		return new ResponseEntity<>("success", HttpStatus.OK);
+	}
+
+	/**
+	 * パスワード変更
+	 */
+	@PostMapping(value = "/change_password")
+	@ResponseBody
+	public ResponseEntity<String> changePassword(@ModelAttribute @Validated ChangePasswordForm form, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return new ResponseEntity<>("fail to change", HttpStatus.BAD_REQUEST);
+		}
+
+		try {
+			userService.changePassword(form);
+		} catch (Exception e) {
+			return new ResponseEntity<>("fail to change", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		return new ResponseEntity<>("success", HttpStatus.OK);

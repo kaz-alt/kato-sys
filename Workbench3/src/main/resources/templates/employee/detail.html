@@ -7,6 +7,8 @@
 
 <head>
 <title>社員詳細</title>
+  <!-- User js -->
+  <script th:src="@{/js/user.js}"></script>
 </head>
 <body>
   <div layout:fragment="contents">
@@ -37,29 +39,35 @@
         <div class="card-body" th:object="${employee}">
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
-            <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle"
-              th:src="*{profilePicture eq null} ?
-                @{/dist/img/default-user-image.png} : ${'data:image/png;base64,' + picture}"
-              th:classappend="*{#authentication.principal.email eq email} ? 'mouse-pointer profile-picture' : ''"
-              alt="User profile picture"
-              th:data-toggle="*{#authentication.principal.email eq email} ? 'tooltip' : ''" data-placement="top" title="クリックして画像を設定する">
-            </div>
-            <p class="text-muted text-center text-sm mt-2 mb-0" th:text="*{lastNameKana + ' ' + firstNameKana}"></p>
-            <h3 class="profile-username text-center" th:text="*{lastName + ' ' + firstName}"></h3>
-            <p class="text-muted text-center" th:text="*{department}"></p>
-            <p class="text-muted text-center" th:text="*{position}"></p>
-            <ul class="list-group list-group-unbordered mb-3">
-            <li class="list-group-item">
-            <strong>電話番号</strong> <span class="float-right" th:text="*{tel}"></span>
-            </li>
-            <li class="list-group-item">
-            <strong>メールアドレス</strong> <span class="float-right" th:text="*{email}"></span>
-            </li>
-            <li class="list-group-item">
-            <strong>入社年月</strong> <span class="float-right" th:text="*{joinYear + '年' + joinMonth + '月'}"></span>
-            </li>
-            </ul>
+              <div class="text-center">
+                <img class="profile-user-img img-fluid img-circle"
+                  th:src="*{profilePicture eq null} ?
+                    @{/dist/img/default-user-image.png} : ${'data:image/png;base64,' + picture}"
+                  th:classappend="*{#authentication.principal.email eq email} ? 'mouse-pointer profile-picture' : ''"
+                  alt="User profile picture"
+                  th:data-toggle="*{#authentication.principal.email eq email} ? 'tooltip' : ''" data-placement="top" title="クリックして画像を設定する">
+              </div>
+              <p class="text-muted text-center text-sm mt-2 mb-0" th:text="*{lastNameKana + ' ' + firstNameKana}"></p>
+              <h3 class="profile-username text-center" th:text="*{lastName + ' ' + firstName}"></h3>
+              <p class="text-muted text-center" th:text="*{department}"></p>
+              <p class="text-muted text-center" th:text="*{position}"></p>
+              <ul class="list-group list-group-unbordered mb-3">
+                <li class="list-group-item">
+                  <strong>電話番号</strong> <span class="float-right" th:text="*{tel}"></span>
+                </li>
+                <li class="list-group-item">
+                  <strong>メールアドレス</strong> <span class="float-right" th:text="*{email}"></span>
+                </li>
+                <li class="list-group-item">
+                  <strong>入社年月</strong> <span class="float-right" th:text="*{joinYear + '年' + joinMonth + '月'}"></span>
+                </li>
+                <li class="list-group-item" th:if="*{#authentication.principal.email eq email}">
+                  <strong>パスワード</strong> 
+                  <span class="float-right">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#change-password-modal">変更</button>
+                  </span>
+                </li>
+              </ul>
             </div>
             </div>
         </div>
@@ -67,6 +75,8 @@
       </div>
       <!-- Create modal -->
       <th:block th:replace="employee/profile-picture::profile-picture-modal(${employee.id})"></th:block>
+      <!-- Change Password modal -->
+      <th:block th:replace="employee/changePassword::change-password(${employee.email})"></th:block>
     </section>
   </div>
 </body>
