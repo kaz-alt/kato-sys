@@ -6,7 +6,7 @@ spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/workbench
     username: root
-    password: root
+    password: !sampleDBPass9097
   jpa:
     open-in-view: false
     properties:
