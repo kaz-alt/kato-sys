@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="business-card-zoom-modal">
+    <section class="content">
+	  <!-- Detail Modal -->
+	  <div class="modal" id="business-card-zoom-modal" aria-hidden="true" data-keyboard="false">
+	    <div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-content">
+		    <div class="modal-body">
+		      <div class="zoom-card text-center"></div>
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-danger" data-dismiss="modal">閉じる</button>
+		    </div>
+		  </div>
+		</div>
+	  </div>
+    </section>
+  </div>
+</body>
+</html>

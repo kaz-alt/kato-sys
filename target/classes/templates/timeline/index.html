@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>タイムライン</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">タイムライン</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><em class="fa fa-clock"></em>&nbsp;タイムライン</h3>
+        </div>
+
+        <section class="content mt-3">
+          <div class="container-fluid">
+            <div class="mb-2 mr-4 text-right">
+              <button class="btn btn-primary btn-lg" type="button"
+              data-toggle="modal" data-target="#create-timeline-modal">
+                <em class="fas fa-plus"></em>&nbsp;投稿
+              </button>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="timeline" id="timeline-content">
+
+                  <th:block th:each="t, stat : ${page.content}">
+                    <div class="time-label" th:if="${stat.first or
+                      #temporals.format(page.content[stat.index - 1].createdDate, 'yyyy-MM-dd') ne
+                      #temporals.format(t.createdDate, 'yyyy-MM-dd')}">
+                      <span class="bg-light" th:text="${#temporals.format(t.createdDate, 'yyyy年MM月dd日')}"></span>
+                    </div>
+                    <div th:id="|target-timeline-${t.id}|">
+                      <em class="fas fa-user"
+                      th:classappend="${#authentication.principal.userId eq t.employeeId} ? bg-blue : bg-purple"></em>
+                      <div class="timeline-item">
+                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span th:text="${#temporals.format(t.createdDate, 'HH:mm')}"></span></span>
+                        <h3 class="timeline-header"><a th:href="@{/employee/detail/{id}(id=${t.employeeId})}"
+                          th:text="${t.employee?.name}"></a>が投稿しました。</h3>
+                        <div class="timeline-body">
+                          <div th:text="${t.content}"></div>
+                          <div class="w-25 h-25">
+                            <img class="img-fluid mouse-pointer timeline-image" th:if="${t.image != null}"
+                              th:src="${'data:image/png;base64,' + t.getStringImage()}" alt="uploaded image">
+                          </div>
+                        </div>
+                        <div class="timeline-footer">
+                          <button type="button" class="btn btn-success btn-sm tm-comment-btn"
+                          data-toggle="modal" data-target="#comment-timeline-modal"
+                          th:data-timeline-id="${t.id}">コメント</button>
+                          <button type="button" class="btn btn-danger btn-sm timeline-del-button"
+                            th:if="${#authentication.principal.userId eq t.employeeId}"
+                            th:data-id="${t.id}"
+                            th:data-href="@{/timeline/delete}">削除</button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div th:if="${t.timelineResponse ne null}" th:each="r : ${t.timelineResponse}"
+                    th:class="|target-comment-${t.id}|">
+                      <em class="fas fa-comments bg-yellow"></em>
+                      <div class="timeline-item">
+                        <span class="time"><em class="fas fa-clock"></em>&nbsp;<span
+                          th:text="${#temporals.format(r.createdDate, 'yyyy-MM-dd') eq
+                            #temporals.format(t.createdDate, 'yyyy-MM-dd') ?
+                            #temporals.format(r.createdDate, 'HH:mm') :
+                            #temporals.format(r.createdDate, 'yyyy年MM月dd日 HH:mm')}"></span></span>
+                        <h3 class="timeline-header">
+                          <a th:href="@{/employee/detail/{id}(id=${r.employeeId})}" th:text="${r.employee?.name}"></a>がコメントしました。</h3>
+                        <div class="timeline-body">
+                          <div th:text="${r.content}"></div>
+                          <div class="w-25 h-25 mt-3">
+                            <img class="img-fluid mouse-pointer timeline-image" th:if="${r.image != null}"
+                              th:src="${'data:image/png;base64,' + r.getStringImage()}" alt="uploaded image">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </th:block>
+
+                  <div th:if="${page.last}">
+                    <em class="fas fa-clock bg-gray"></em>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 mr-3 ml-3 mb-4 text-center" th:unless="${page.last}">
+              <h5><a href="#" id="load-timeline" class="text-bold"
+              th:data-href="@{/timeline/get_fragment}"
+              th:data-page-number="${page.number + 2}"
+              th:data-total-pages="${page.totalPages}"
+              th:data-oldest-date="${#temporals.format(page.content[page.size - 1].createdDate, 'yyyy-MM-dd')}">さらに投稿を読み込む...</a></h5>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- zoom modal -->
+      <th:block th:replace="timeline/zoom::timeline-image-zoom-modal"></th:block>
+      <!-- create modal -->
+      <th:block th:replace="timeline/create::create-timeline"></th:block>
+      <!-- comment modal -->
+      <th:block th:replace="timeline/comment::comment-timeline"></th:block>
+    </section>
+  </div>
+</body>
+</html>

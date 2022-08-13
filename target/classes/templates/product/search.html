@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="product-search-modal">
+    <section class="content">
+      <!-- Detail Modal -->
+      <div class="modal fade" id="product-search-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fas fa-search"></i>&nbsp;製品・サービス検索</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card card-pink">
+            <div class="card-header">
+              <h3 class="card-title">製品・サービス情報検索</h3>
+            </div>
+            <div class="card-body" style="display: block;">
+              <!-- form start -->
+              <form th:action="@{/product/search}" method="GET" id="productSearchForm" class="form-horizontal"
+                th:object="${productSearchForm}">
+                <div class="card-body">
+                  <div class="form-group row">
+                    <label for="searchIndustryId" class="col-lg-2 col-md-10 col-sm-12 col-form-label">顧客：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
+                      <select class="form-control select2" multiple="multiple" name="clientIdList" style="width:100%;"
+                        th:data-href="@{/client/api/get_client}">
+                        <option th:each="client : ${selectedClient}" th:text="${client.name}"
+                          th:value="${client.id}" selected/>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="searchClientName" class="col-lg-2 col-md-10 col-sm-12 col-form-label">製品・サービス名：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
+                      <input type="text" class="form-control" th:field="*{targetProductName}">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="searchClientName" class="col-lg-2 col-md-10 col-sm-12 col-form-label">売上金額：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
+                      <div class="input-group col-lg-5 col-md-12 col-sm-12 row">
+                        <input type="number" class="form-control search text-right" th:field="*{startProductSales}" min=0>
+                        <div class="input-group-append">
+                          <span class="input-group-text">万円</span>
+                        </div>
+                      </div>
+                      <span class="text-danger" th:if="${#fields.hasErrors('startProductSales')}">正しい金額を入力してください。</span>
+                      <p class="text-center m-1 col-lg-1 col-md-1 col-sm-1">〜</p>
+                      <div class="input-group col-lg-5 col-md-12 col-sm-12 row">
+                        <input type="number" class="form-control search text-right" th:field="*{endProductSales}" min=0>
+                        <div class="input-group-append">
+                          <span class="input-group-text">万円</span>
+                        </div>
+                      </div>
+                      <span class="text-danger" th:if="${#fields.hasErrors('endProductSales')}">正しい金額を入力してください。</span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="searchClientName" class="col-lg-2 col-md-10 col-sm-12 col-form-label">受注日：</label>
+                    <div class="col-lg-9 col-md-12 col-sm-12 row">
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" th:field="*{startPurchasedDate}"
+                        placeholder="クリックして日付を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('startPurchasedDate')}">正しい日付を入力してください。</span>
+                      <p class="text-center m-1 col-lg-1 col-md-1  col-sm-1">〜</p>
+                      <input type="text" class="form-control col-lg-5 col-md-12 col-sm-12 datepicker-search" th:field="*{endPurchasedDate}"
+                        placeholder="クリックして日付を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('endPurchasedDate')}">正しい日付を入力してください。</span>
+                    </div>
+                  </div>
+                  <input type="hidden" th:field="*{sortData}"/>
+                  <input type="hidden" th:field="*{sortOrder}"/>
+                  <input type="hidden" th:field="*{pageNumber}"/>
+                </div>
+                <div class="card-footer">
+                  <button type="button" class="btn btn-light bg-pink btn-lg search-btn ml-3 float-right">検索</button>
+                  <button type="button" class="btn btn-light bg-pink btn-lg reset-search-form-btn float-right">検索条件クリア</button>
+                </div>
+              </form>
+            </div>
+          </div>
+		    </div>
+		    <div class="modal-footer">
+		      <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+		    </div>
+		  </div>
+		</div>
+	  </div>
+    </section>
+  </div>
+</body>
+</html>

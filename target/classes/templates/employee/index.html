@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>社員一覧</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">社員一覧</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><em class="fas fa-user-friends"></em>&nbsp;社員一覧</h3>
+        </div>
+
+        <!-- /.card-header -->
+        <div class="card-body">
+          <div class="mb-3">
+            <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#employee-search-modal">
+              <em class="fas fa-search"></em>&nbsp;社員検索
+            </button>
+          </div>
+          <span class="text-danger text-bold" th:if="${#fields.hasErrors('employeeForm.tel')}"th:errors="${employeeForm.tel}"></span>
+          <span class="text-danger text-bold" th:if="${#fields.hasErrors('employeeForm.email')}"th:errors="${employeeForm.email}"></span>
+          <div id="employee-table-div" class="dataTables_wrapper">
+            <div class="row">
+              <div class="col-sm-12 table-responsive">
+                <table id="employee-table" class="table table-bordered table-striped dataTable text-nowrap">
+                  <caption>社員テーブル</caption>
+                  <thead>
+                    <tr role="row">
+                      <th class="text-center">詳細</th>
+                      <th class="text-center">氏名</th>
+                      <th class="text-center">氏名カナ</th>
+                      <th class="text-center">担当部署</th>
+                      <th class="text-center">役職</th>
+                      <th class="text-center">電話番号</th>
+                      <th class="text-center">メールアドレス</th>
+                      <th class="text-center">入社年月</th>
+                      <th class="text-center">編集</th>
+                      <th class="text-center">削除</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="e : ${list}">
+                      <td>
+                        <a th:href="@{/employee/detail/{id}(id=${e.id})}" data-toggle="tooltip" data-placement="top"
+                        title="詳細ページへ"><em class="fas fa-external-link-alt fa-2x"></em></a>
+                      </td>
+                      <td th:text="${e.lastName + ' ' + e.firstName}"></td>
+                      <td th:text="${e.lastNameKana + ' ' + e.firstNameKana}"></td>
+                      <td th:text="${e.department}"></td>
+                      <td th:text="${e.position}"></td>
+                      <td th:text="${e.tel}"></td>
+                      <td th:text="${e.email}"></td>
+                      <td th:text="${e.joinYear + '年' + e.joinMonth + '月'}"></td>
+                      <td>
+                        <button type="button" class="btn btn-info employee-edit-button" data-toggle="modal"
+                          data-target="#employee-edit-modal" th:attr="data-href=@{/employee/show}, data-id=${e.id}">
+                          <em class="far fa-edit"></em>
+                        </button>
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger employee-del-button"
+                          th:attr="data-href=@{/employee/delete}, data-id=${e.id}">
+                          <em class="far fa-trash-alt"></em>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <th:block th:include="/layout/pagination::pagination"></th:block>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- Search modal -->
+      <th:block th:replace="employee/search::employee-search-modal"></th:block>
+      <!-- Create modal -->
+      <th:block th:replace="employee/create::employee-create-modal"></th:block>
+      <!-- Edit modal -->
+      <th:block th:replace="employee/edit::employee-edit-modal"></th:block>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout}">
+
+<head>
+<title>活動記録</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">活動記録</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fa fa-book-open"></i>&nbsp;活動記録</h3>
+        </div>
+        <!-- /.card-header -->
+
+        <div class="card-body">
+          <div class="mt-4 mb-3">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+							data-target="#activity-create-modal">
+              <i class="fas fa-plus"></i>&nbsp;活動登録
+            </button>
+            <button type="button" class="btn btn-light btn-lg" data-toggle="modal"
+							data-target="#activity-search-modal">
+              <i class="fas fa-search"></i>&nbsp;活動検索
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="dataTables_wrapper" th:fragment="activity-table">
+            <div class="row">
+              <div class="col-sm-12 table-scroll">
+                <span class="text-danger" th:if="${hasErrors}">※検索フォームの項目にエラーがあります。</span>
+                <table id="activity-table" class="table table-bordered table-striped dataTable text-nowrap" style="width:100%;">
+									<thead>
+										<tr class="bg-navy" role="row" th:with="sortOrder = ${activitySearchForm.sortOrder}, sortData = ${activitySearchForm.sortData}">
+											<th class="text-center sort-pointer" data-sort-data="activityDate" th:data-sort-order="${sortOrder}"
+												th:classappend="${sortData == 'activityDate' ? 'active' : ''}">
+												活動日
+												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'activityDate' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'activityDate' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+											</th>
+											<th class="text-center sort-pointer" data-sort-data="employeeId" th:data-sort-order="${sortOrder}"
+												th:classappend="${sortData == 'employeeId' ? 'active' : ''}">
+												社員名
+												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'employeeId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'employeeId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+											</th>
+											<th class="text-center sort-pointer" data-sort-data="content" th:data-sort-order="${sortOrder}"
+												th:classappend="${sortData == 'content' ? 'active' : ''}">
+												活動内容
+												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'content' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'content' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+											</th>
+											<th th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}"
+												class="text-center sort-pointer" data-sort-data="projectId" th:data-sort-order="${sortOrder}"
+												th:classappend="${sortData == 'projectId' ? 'active' : ''}">
+												関連案件名
+												<i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'projectId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'projectId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+											</th>
+											<th class="text-center" style="width:10%;">編集</th>
+											<th class="text-center" style="width:10%;">削除</th>
+										</tr>
+									</thead>
+                  <tbody>
+										<tr th:each="a, stat: ${list}">
+											<td th:text="${a.activityDate}"></td>
+											<td><a th:href="@{/employee/detail/{id}(id=${a.employee?.id})}" th:text="${a.employee?.name}"></a></td>
+											<td th:text="${a.content}"></td>
+											<td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
+												<a th:href="@{/project/detail/{id}(id=${a.projectId})}"
+													th:text="${a.project?.name}"
+													class="w-100 h-100" style="display:block;">
+												</a>
+											</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-info activity-edit-button" id="activity-edit-button"
+													th:attr="data-href=@{/activity/show}, data-id=${a.id}"
+													data-toggle="modal" data-target="#activity-edit-modal">
+													<i class="far fa-edit"></i>
+												</button>
+											</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-danger activity-del-button"
+													th:attr="data-href=@{/activity/delete}, data-id=${a.id}">
+													<i class="far fa-trash-alt"></i>
+												</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div th:if="${not #lists.isEmpty(list)}">
+						<th:block th:include="/layout/pagination::pagination"></th:block>
+					</div>
+				</div>
+				<!-- /.card-body -->
+			</div>
+			<!-- search modal -->
+			<th:block th:replace="activity/search::activity-search-modal"></th:block>
+			<!-- create modal -->
+			<th:block th:replace="activity/create::activity-create-modal"></th:block>
+			<!-- edit modal -->
+			<th:block th:replace="activity/edit::activity-edit-modal"></th:block>
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="activity-create-modal">
+    <section class="content">
+      <!-- Detail Modal -->
+      <div class="modal fade" id="activity-create-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="fas fa-plus"></i>&nbsp;活動登録</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form th:action="@{/activity/create}" method="POST" class="container" id="activity-form" th:object="${activityForm}">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-lg-7 col-md-10 col-sm-12">
+                      <label>活動日&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <input type="text" class="form-control datepicker" th:field="*{activityDate}"
+                        placeholder="クリックして日付を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('activityDate')}"th:errors="*{activityDate}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-lg-8 col-md-10 col-sm-12">
+                      <label>社員名&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <select class="select2 form-control" th:field="*{employeeId}"
+                        th:data-href="@{/employee/api/get_employee}">
+                      </select>
+                      <span class="text-danger" th:if="${#fields.hasErrors('employeeId')}"th:errors="*{employeeId}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label>活動内容&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <textarea class="form-control" th:field="*{content}"></textarea>
+                      <span class="text-danger" th:if="${#fields.hasErrors('content')}"th:errors="*{content}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-lg-10 col-md-12 col-sm-12">
+                      <label for="industry">関連案件名：</label>
+                      <select class="select2 form-control" th:field="*{projectId}"
+                        th:data-href="@{/project/api/get_project}">
+                      </select>
+                      <span class="text-danger" th:if="${#fields.hasErrors('projectId')}"th:errors="*{projectId}"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+              <button type="button" class="btn btn-primary" id="create-button">登録</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

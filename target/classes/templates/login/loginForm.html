@@ -1,0 +1,84 @@
+<!DOCTYPE html> <!-- this is login form -->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}" >
+
+    <title>Login Form</title>
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" th:href="@{/dist/fontawesome/css/all.min.css}">
+    <!-- Theme style -->
+    <link rel="stylesheet" th:href="@{/dist/adminlte/css/adminlte.min.css}">
+
+    <!-- jQuery -->
+	<script th:src="@{/dist/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/dist/bootstrap/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/adminlte/js/adminlte.min.js}"></script>
+</head>
+<body class="login-page" style="min-height: 466px;">
+<div class="login-box">
+  <!-- /.login-logo -->
+  <div class="card card-outline card-info">
+    <div class="card-header text-center">
+      <h3>Login Page</h3>
+    </div>
+    <div class="card-body">
+      <div class="alert alert-danger" role="alert" th:if="${hasError}">
+        <strong>ログインに失敗しました。</strong>
+      </div>
+      <div class="alert alert-danger" role="alert" th:if="${param.timeout}">
+        <strong>タイムアウトしました。</strong>
+      </div>
+      <div class="alert alert-info" role="alert" th:if="${isSuccess}">
+        <strong>ユーザー登録に成功しました。登録したメールアドレスとパスワードでログインしてください。</strong>
+      </div>
+      <p class="login-box-msg">ログインしてください</p>
+
+      <form class="mb-3" th:action="@{/login}" method="post">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Id" id="username" name="username">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-id-badge"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" id="password" name="password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn btn-info btn-block">
+              <i class="fas fa-sign-in-alt"></i>
+              &nbsp;ログイン
+            </button>
+          </div>
+          <!-- /.col -->
+        </div>
+        <div class="social-auth-links text-center">
+          <p>- OR -</p>
+          <a th:href="@{/loginForm/register}" class="btn btn-block btn-primary">
+            <i class="fa fa-user-plus"></i>
+            &nbsp;新規ユーザー登録
+          </a>
+          </div>
+      </form>
+      <!-- /.social-auth-links -->
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+<!-- /.login-box -->
+</body>
+</html>

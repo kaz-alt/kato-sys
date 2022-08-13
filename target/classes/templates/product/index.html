@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout/layout}">
+
+<head>
+<title>製品・サービス一覧</title>
+</head>
+<body>
+  <div layout:fragment="contents">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2 bg-white">
+          <div class="col-sm-6"></div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a th:href="@{/home}">Home</a></li>
+              <li class="breadcrumb-item active">製品・サービス一覧</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3><i class="fas fa-box"></i>&nbsp;製品・サービス一覧</h3>
+        </div>
+        <!-- /.card-header -->
+
+        <div class="card-body">
+          <div class="mt-4 mb-3">
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#product-create-modal">
+              <i class="fas fa-plus"></i>&nbsp;製品・サービス登録
+            </button>
+            <button type="button" class="btn btn-light btn-lg" data-toggle="modal" data-target="#product-search-modal">
+              <i class="fas fa-search"></i>&nbsp;製品・サービス検索
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="dataTables_wrapper" th:fragment="product-table">
+            <div class="row">
+              <div class="col-sm-12 table-scroll">
+                <span class="text-danger" th:if="${hasErrors}">※検索フォームの項目にエラーがあります。</span>
+                <table id="product-table" class="table table-bordered table-striped dataTable text-nowrap" style="width:100%;">
+	              <thead>
+	                <tr class="bg-purple" role="row" th:with="sortOrder = ${productSearchForm.sortOrder}, sortData = ${productSearchForm.sortData}">
+	                  <th class="text-center" th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">詳細</th>
+	                  <th th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}"
+	                    class="text-center sort-pointer" data-sort-data="clientId" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'clientId' ? 'active' : ''}">
+	                    顧客名
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'clientId' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'clientId' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                  </th>
+	                  <th class="text-center sort-pointer" data-sort-data="purchasedDate" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'purchasedDate' ? 'active' : ''}">
+	                    受注日
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'purchasedDate' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'purchasedDate' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                  </th>
+	                  <th class="text-center sort-pointer" data-sort-data="name" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'name' ? 'active' : ''}">
+	                    製品・サービス名
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'name' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'name' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                  </th>
+	                  <th class="text-center sort-pointer" data-sort-data="quantity" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'quantity' ? 'active' : ''}">
+	                    個数
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'quantity' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'quantity' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                  </th>
+	                  <th class="text-center sort-pointer" data-sort-data="sales" th:data-sort-order="${sortOrder}"
+	                    th:classappend="${sortData == 'sales' ? 'active' : ''}">
+	                    売上金額
+	                    <i class="fas fa-long-arrow-alt-up" th:classappend="${sortData == 'sales' && sortOrder == 'asc' ? 'sort-active' : ''}"></i><i class="fas fa-long-arrow-alt-down" th:classappend="${sortData == 'sales' && sortOrder == 'desc' ? 'sort-active' : ''}"></i>
+	                    </th>
+	                  <th class="text-center" style="width:10%;">編集</th>
+	                  <th class="text-center" style="width:10%;">削除</th>
+	                </tr>
+	              </thead>
+                  <tbody>
+	                <tr th:each="p, stat: ${list}">
+	                  <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail') OR p.client?.delFlg}"
+	                      class="text-center" data-toggle="tooltip" data-placement="top"
+	                      title="詳細ページへ">
+	                    <a th:href="@{/client/detail/{id}(id=${p.client?.id})}" class="w-100 h-100" style="display:block;">
+	                      <i class="fas fa-external-link-alt fa-2x"></i>
+	                    </a>
+	                  </td>
+	                  <td th:if="${p.client?.delFlg}"></td>
+	                  <td th:unless="${#strings.contains(#httpServletRequest.requestURI, '/detail')}">
+	                    <div><span th:text="${p.client?.name}" th:class="${p.client?.delFlg ? 'text-danger' : ''}"></span></div>
+	                    <div><span th:if="${p.client?.delFlg}" class="text-danger font-italic">※この顧客は既に削除されています</span></div>
+	                  </td>
+	                  <td th:text="${p.purchasedDate}"></td>
+	                  <td th:text="${p.name}"></td>
+	                  <td th:text="|${p.quantity}個|"></td>
+	                  <td th:text="|${p.sales < 100 ? p.sales : #numbers.formatInteger(p.sales, 3, 'COMMA')}万円|"></td>
+	                  <td class="text-center">
+	                    <button type="button" class="btn btn-info product-edit-button" id="product-edit-button"
+	                      th:attr="data-href=@{/product/show}, data-id=${p.id}"
+	                      data-toggle="modal" data-target="#product-edit-modal">
+	                      <i class="far fa-edit"></i>
+	                    </button>
+	                  </td>
+	                  <td class="text-center">
+	                    <button type="button" class="btn btn-danger product-del-button"
+	                      th:attr="data-href=@{/product/delete}, data-id=${p.id}">
+	                      <i class="far fa-trash-alt"></i>
+	                    </button>
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+	      <div th:if="${not #lists.isEmpty(list)}">
+	        <th:block th:include="/layout/pagination::pagination"></th:block>
+	      </div>
+	    </div>
+	    <!-- /.card-body -->
+	  </div>
+	  <!-- search modal -->
+	  <th:block th:replace="product/search::product-search-modal"></th:block>
+	  <!-- create modal -->
+	  <th:block th:replace="product/create::product-create-modal"></th:block>
+	  <!-- edit modal -->
+	  <th:block th:replace="product/edit::product-edit-modal"></th:block>
+    </section>
+  </div>
+</body>
+</html>

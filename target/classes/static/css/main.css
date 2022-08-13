@@ -1,0 +1,342 @@
+.navbar-color{
+  background-color: #3ab0c3;
+}
+
+.sidebar-color{
+ background-color: #EEEEEE;
+}
+
+a.disabled{
+	pointer-events: none;
+}
+
+@media only screen and (min-width: 1200px) {
+  .search-btn{
+    width:30%;
+  }
+  .reset-search-form-btn {
+    width:30%;
+  }
+}
+
+@media only screen and (min-width:479px) and (max-width:768px) {
+  .search-btn{
+    width:50%;
+  }
+  .reset-search-form-btn {
+    width:50%;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  .search-btn{
+    width:80%;
+  }
+  .reset-search-form-btn {
+    width:80%;
+  }
+}
+
+select2-selection__rendered {
+    line-height: 35px !important;
+}
+.select2-container .select2-selection--single {
+    height: 38px !important;
+}
+.select2-selection__arrow {
+    height: 36px !important;
+}
+
+/* 日曜日のカラー設定 */
+td.ui-datepicker-week-end:last-child a.ui-state-default{
+  background-color: #ffecec;   /* 背景色を設定 */
+  color: #f00!important;       /* 文字色を設定 */
+}
+/* 土曜日のカラー設定 */
+td.ui-datepicker-week-end a.ui-state-default{
+  background-color: #eaeaff;   /* 背景色を設定 */
+  color: #00f!important;       /* 文字色を設定 */
+}
+/* ホバー時の動作 */
+td.ui-datepicker-week-end a.ui-state-hover{
+  opacity: 0.8;
+}
+/* 当日を示す色はそのまま */
+td.ui-datepicker-week-end a.ui-state-highlight{
+  background-color: #fffa90!important;
+}
+
+.dataTable th, .dataTable td{
+	border : none;
+}
+
+th.sort-pointer{
+  cursor:pointer;
+}
+
+th.sort-pointer:hover{
+  opacity:0.7;
+  transform: translate3d(0, 1px, 0);
+}
+
+.sort-active{
+  opacity:1.0;
+}
+
+th i{
+  opacity:0.4;
+}
+
+.zoom {
+  display:none;
+}
+
+@media screen and (max-width:480px) {
+	.zoom {
+    display:block;
+	}
+}
+
+.mouse-pointer{
+	cursor:pointer;
+}
+
+.table-scroll {
+  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ul {
+  padding-left: 0;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+img {
+  vertical-align: top;
+}
+
+/*-----リセット----*/
+/*-----↓デザイン↓----*/
+
+.box_step05 {
+  width: 90%;
+  margin: 0 auto;
+}
+@media only screen and (max-width: 767px) {
+  .box_step05 {
+    width: 75%;
+  }
+}
+.box_step05 ul {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+.box_step05 ul li {
+  position: relative;
+  text-align: center;
+  background: #c7c7c7;
+}
+@media only screen and (min-width: 768px) {
+  .box_step05 ul li {
+    width: 33.33333%;
+  }
+}
+@media print {
+  .box_step05 ul li {
+    width: 33.33333%;
+  }
+}
+.ie8 .box_step05 ul li {
+  width: 33.33333%;
+}
+@media only screen and (max-width: 767px) {
+  .box_step05 ul li {
+    display: none;
+  }
+}
+.box_step05 ul li:nth-child(n+2) {
+  margin-left: 2.5%;
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .box_step05 ul li:nth-child(n+2) {
+    margin-left: 5%;
+  }
+  .box_step05 ul li span {
+    font-size: 10px;
+  }
+}
+.box_step05 ul li:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border: 0 solid #c7c7c7;
+  border-width: 24.9px 20px;
+  width: 0;
+  height: 0;
+  left: -20px;
+  border-left-color: transparent;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.box_step05 ul li span {
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+}
+.box_step05 ul li span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border: 0 solid #c7c7c7;
+  border-width: 24.9px 20px;
+  width: 0;
+  height: 0;
+  left: 100%;
+  border-color: transparent;
+  border-left-color: #c7c7c7;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.box_step05 ul li.active {
+  background: #00d1d1;
+}
+
+.box_step05 ul li.done {
+  background: #32CD32;
+}
+
+.box_step05 ul li.active:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border: 0 solid #00d1d1;
+  border-width: 24.9px 20px;
+  width: 0;
+  height: 0;
+  left: -20px;
+  border-left-color: transparent;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.box_step05 ul li.done:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  border: 0 solid #32CD32;
+  border-width: 24.9px 20px;
+  width: 0;
+  height: 0;
+  left: -20px;
+  border-left-color: transparent;
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+@media only screen and (max-width: 767px) {
+  .box_step05 ul li.active {
+    display: block;
+    width: 100%;
+  }
+}
+.box_step05 ul li.active span {
+  color: #fff;
+  background: #00d1d1;
+}
+
+.box_step05 ul li.done span {
+  color: #fff;
+  background: #32CD32;
+}
+
+.box_step05 ul li.active span:before {
+  background: #00d1d1;
+}
+
+.box_step05 ul li.done span:before {
+  background: #32CD32;
+}
+
+.box_step05 ul li.active span:after {
+  border-left-color: #00d1d1;
+}
+
+.box_step05 ul li.done span:after {
+  border-left-color: #32CD32;
+}
+
+label.timeline-label {
+  padding: 10px 30px;
+}
+
+@media only screen and (max-width: 479px) {
+  .table-analysis th, .table-analysis td {
+    font-size: 0.4rem;
+  }
+}
+
+.rank-1 {
+  background: #ffa0c0;
+}
+
+.rank-2 {
+  background: #ffb8d0;
+}
+
+.rank-3 {
+  background: #ffcedf;
+}
+
+.rank-4 {
+  background: #fddbe6;
+}
+
+.rank-5 {
+  background: #FFF0F5;
+}
+
+.w-40 {
+  width: 40%;
+}
+
+.w-60 {
+  width: 60%;
+}

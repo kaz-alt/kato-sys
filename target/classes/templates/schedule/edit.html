@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div class="contents" th:fragment="schedule-edit-modal">
+    <section class="content">
+      <!-- Detail Modal -->
+      <div class="modal fade" id="schedule-edit-modal" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title"><i class="far fa-edit"></i>&nbsp;スケジュール編集</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" th:fragment="schedule-edit">
+              <form th:action="@{/schedule/edit}" method="POST" class="container" id="schedule-edit-form"
+                th:object="${scheduleForm}">
+              <th:block th:object="${data}" th:if="${data != null}">
+              <input type="hidden" name="id" th:value=${data.id}>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label for="industry">タイトル&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <input type="text" class="form-control" th:field="*{title}">
+                      <span class="text-danger" th:if="${#fields.hasErrors('title')}"th:errors="*{title}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-md-8 col-sm-8">
+                      <label for="industry">担当者&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <select class="select2 form-control" multiple="multiple" name="employeeIdList"
+                        th:data-href="@{/employee/api/get_employee}" th:data-url="@{/employee/api/get_employee_by_client_id}">
+                        <option th:each="se : ${data.scheduleEmployee}" th:value="${se.employee?.id}" th:text="${se.employee?.name}" selected>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="input-group mb-3 mt-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input type="checkbox" id="isAllDay" th:field="*{isAllDay}" style="transform:scale(1.5);">
+                      </div>
+                    </div>
+                    <label class="form-control all-day-label" for="isAllDay">終日</label>
+                  </div>
+                  <div class="row time-body" th:style="*{isAllDay ? 'display:none' : ''}">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                      <label for="industry">開始時間&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <input type="text" class="form-control datetimepicker" name="startTime" th:value="${#temporals.format(data.startTime, 'yyyy-MM-dd HH:mm')}"
+                        placeholder="クリックして日時を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('startTime')}"th:errors="*{startTime}"></span>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                      <label for="industry">終了時間&nbsp;<span class="text-danger">*必須</span>：</label>
+                      <input type="text" class="form-control datetimepicker" name="endTime" th:value="${#temporals.format(data.endTime, 'yyyy-MM-dd HH:mm')}"
+                        placeholder="クリックして日時を入力">
+                      <span class="text-danger" th:if="${#fields.hasErrors('endTime')}"th:errors="*{endTime}"></span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label for="industry">場所：</label>
+                      <input type="text" class="form-control" th:field="*{place}">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="form-group col-12">
+                      <label for="industry">詳細：</label>
+                      <textarea  class="form-control" th:field="*{detail}"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </th:block>
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+              <button type="button" class="btn btn-info" id="edit-schedule-button">編集</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
