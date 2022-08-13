@@ -225,8 +225,8 @@ public class ClientController {
 	@RequestMapping("/api/get_client_name")
 	@ResponseBody
 	public List<String> getClient(@RequestParam(name = "name") String name) {
-		if (!StringUtils.isEmpty(name))
-			return new ArrayList<String>();
+		if (StringUtils.isEmpty(name))
+			return new ArrayList<>();
 		return clientService.getClienNameListtByName(name);
 	}
 
@@ -236,8 +236,8 @@ public class ClientController {
 	@RequestMapping("api/get_client")
 	@ResponseBody
 	public List<ClientDto> getClients(@RequestParam(name = "name") String name) {
-		if (!StringUtils.isEmpty(name))
-			return new ArrayList<ClientDto>();
+		if (StringUtils.isEmpty(name))
+			return new ArrayList<>();
 		List<ClientDto> dto = clientService.getClientDtoByName(name);
 		return dto;
 	}

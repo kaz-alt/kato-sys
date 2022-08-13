@@ -169,7 +169,7 @@ public class ProjectService {
 	}
 
 	public Specification<Project> nameContains(String name) {
-		return !StringUtils.isBlank(name) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			return cb.like(root.get("name"), "%" + name + "%");
 		};
 	}

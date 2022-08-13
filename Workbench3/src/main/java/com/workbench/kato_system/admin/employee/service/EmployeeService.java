@@ -94,20 +94,20 @@ public class EmployeeService {
 	}
 
   public Specification<Employee> nameContains(String name) {
-		return !StringUtils.isBlank(name) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			return cb.or(cb.like(root.get("name"), "%" + name + "%"),
         cb.like(root.get("nameKana"), "%" + SearchUtils.HiraganaToKatakana(name) + "%"));
 		};
 	}
 
   public Specification<Employee> departmentContains(String department) {
-		return !StringUtils.isBlank(department) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(department) ? null : (root, query, cb) -> {
 			return cb.like(root.get("department"), "%" + department + "%");
 		};
 	}
 
   public Specification<Employee> positionContains(String position) {
-		return !StringUtils.isBlank(position) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(position) ? null : (root, query, cb) -> {
 			return cb.like(root.get("position"), "%" + position + "%");
 		};
 	}

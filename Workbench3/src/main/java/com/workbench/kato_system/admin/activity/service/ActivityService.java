@@ -105,7 +105,7 @@ public class ActivityService {
 	}
 
   public Specification<Activity> contentContains(String content) {
-		return !StringUtils.isEmpty(content)? null : (root, query, cb) -> {
+		return StringUtils.isBlank(content)? null : (root, query, cb) -> {
 			return cb.like(root.get("content"), "%" + content + "%");
 		};
   }

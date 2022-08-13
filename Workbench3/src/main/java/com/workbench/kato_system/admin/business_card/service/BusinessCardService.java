@@ -92,7 +92,7 @@ public class BusinessCardService {
 	}
 
 	public Specification<BusinessCard> nameContains(String name) {
-		return !StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			query.distinct(true);
 			return cb.like(root.get("name"), "%" + name + "%");
 		};
@@ -144,7 +144,7 @@ public class BusinessCardService {
 		bc.setTel(form.getTel());
 		bc.setEmail(form.getEmail());
 		bc.setExchangeDate(form.getExchangeDate());
-		if (form.getImage() != null && StringUtils.isEmpty(form.getImage().getOriginalFilename())) {
+		if (form.getImage() != null && StringUtils.isNotBlank(form.getImage().getOriginalFilename())) {
 			bc.setFileName(form.getImage().getOriginalFilename());
 			bc.setContentType(form.getImage().getContentType());
 			bc.setImage(form.getImage().getBytes());

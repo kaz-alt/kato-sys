@@ -154,7 +154,7 @@ public class InquiryRequirementComplaintService {
 	}
 
 	public Specification<InquiryRequirementComplaint> contentFreeWordContains(String freeWord) {
-		return StringUtils.isEmpty(freeWord) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(freeWord) ? null : (root, query, cb) -> {
 			return cb.or(cb.like(root.get("content"), "%" + freeWord + "%"),
 					cb.like(root.get("solvedContent"), "%" + freeWord + "%"));
 		};

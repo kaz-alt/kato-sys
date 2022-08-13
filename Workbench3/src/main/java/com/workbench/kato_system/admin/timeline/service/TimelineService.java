@@ -45,7 +45,7 @@ public class TimelineService {
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
 		t.setCreatedDate(LocalDateTime.now());
-		if (Objects.nonNull(form.getImage()) && StringUtils.isBlank(form.getImage().getOriginalFilename())) {
+		if (Objects.nonNull(form.getImage()) && StringUtils.isNotBlank(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}
 
@@ -61,7 +61,7 @@ public class TimelineService {
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
 		t.setCreatedDate(LocalDateTime.now());
-		if (Objects.nonNull(form.getImage()) && StringUtils.isBlank(form.getImage().getOriginalFilename())) {
+		if (Objects.nonNull(form.getImage()) && StringUtils.isNotBlank(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}
 

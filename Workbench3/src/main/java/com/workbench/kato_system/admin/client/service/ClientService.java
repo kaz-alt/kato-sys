@@ -169,13 +169,13 @@ public class ClientService {
 	}
 
 	public Specification<Client> telContains(String tel) {
-		return !StringUtils.isBlank(tel) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(tel) ? null : (root, query, cb) -> {
 			return cb.like(root.join(CLINET_EMPLOYEE_LIST, JoinType.LEFT).get("tel"), "%" + tel + "%");
 		};
 	}
 
 	public Specification<Client> emailContains(String email) {
-		return !StringUtils.isBlank(email) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(email) ? null : (root, query, cb) -> {
 			return cb.like(root.join(CLINET_EMPLOYEE_LIST, JoinType.LEFT).get("email"), "%" + email + "%");
 		};
 	}

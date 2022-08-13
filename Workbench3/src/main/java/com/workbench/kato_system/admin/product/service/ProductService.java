@@ -106,7 +106,7 @@ public class ProductService {
 	}
 
 	public Specification<Product> nameContains(String name) {
-		return StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
+		return StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			query.distinct(true);
 			return cb.like(root.get("name"), "%" + name + "%");
 		};
