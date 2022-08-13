@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.employee.dto.EmployeeDto;
 import com.workbench.kato_system.admin.employee.form.EmployeeForm;
@@ -94,20 +94,20 @@ public class EmployeeService {
 	}
 
   public Specification<Employee> nameContains(String name) {
-		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
+		return !StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			return cb.or(cb.like(root.get("name"), "%" + name + "%"),
         cb.like(root.get("nameKana"), "%" + SearchUtils.HiraganaToKatakana(name) + "%"));
 		};
 	}
 
   public Specification<Employee> departmentContains(String department) {
-		return !StringUtils.hasText(department) ? null : (root, query, cb) -> {
+		return !StringUtils.isBlank(department) ? null : (root, query, cb) -> {
 			return cb.like(root.get("department"), "%" + department + "%");
 		};
 	}
 
   public Specification<Employee> positionContains(String position) {
-		return !StringUtils.hasText(position) ? null : (root, query, cb) -> {
+		return !StringUtils.isBlank(position) ? null : (root, query, cb) -> {
 			return cb.like(root.get("position"), "%" + position + "%");
 		};
 	}

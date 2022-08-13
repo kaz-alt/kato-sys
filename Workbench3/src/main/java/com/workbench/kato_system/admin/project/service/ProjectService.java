@@ -9,14 +9,14 @@ import java.util.Set;
 
 import javax.persistence.criteria.JoinType;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.analysis.dto.AnalysisDto;
 import com.workbench.kato_system.admin.client.model.entity.Client;
@@ -169,7 +169,7 @@ public class ProjectService {
 	}
 
 	public Specification<Project> nameContains(String name) {
-		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
+		return !StringUtils.isBlank(name) ? null : (root, query, cb) -> {
 			return cb.like(root.get("name"), "%" + name + "%");
 		};
 	}

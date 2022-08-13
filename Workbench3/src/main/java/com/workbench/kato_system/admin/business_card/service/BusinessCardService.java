@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.business_card.form.BusinessCardForm;
 import com.workbench.kato_system.admin.business_card.form.BusinessCardSearchForm;
@@ -92,7 +92,7 @@ public class BusinessCardService {
 	}
 
 	public Specification<BusinessCard> nameContains(String name) {
-		return !StringUtils.hasText(name) ? null : (root, query, cb) -> {
+		return !StringUtils.isEmpty(name) ? null : (root, query, cb) -> {
 			query.distinct(true);
 			return cb.like(root.get("name"), "%" + name + "%");
 		};
@@ -144,7 +144,7 @@ public class BusinessCardService {
 		bc.setTel(form.getTel());
 		bc.setEmail(form.getEmail());
 		bc.setExchangeDate(form.getExchangeDate());
-		if (form.getImage() != null && StringUtils.hasText(form.getImage().getOriginalFilename())) {
+		if (form.getImage() != null && StringUtils.isEmpty(form.getImage().getOriginalFilename())) {
 			bc.setFileName(form.getImage().getOriginalFilename());
 			bc.setContentType(form.getImage().getContentType());
 			bc.setImage(form.getImage().getBytes());

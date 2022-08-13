@@ -10,19 +10,6 @@
             "request": "launch",
             "mainClass": "com.workbench.kato_system.admin.Workbench3Application",
             "projectName": "Workbench3"
-        },
-        {
-            "type": "java",
-            "name": "Launch Current File",
-            "request": "launch",
-            "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Launch Workbench3Application",
-            "request": "launch",
-            "mainClass": "com.workbench.kato_system.admin.Workbench3Application",
-            "projectName": "Workbench3 (2)"
         }
     ]
 }

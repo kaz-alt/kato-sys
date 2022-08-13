@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -225,7 +225,7 @@ public class ClientController {
 	@RequestMapping("/api/get_client_name")
 	@ResponseBody
 	public List<String> getClient(@RequestParam(name = "name") String name) {
-		if (!StringUtils.hasText(name))
+		if (!StringUtils.isEmpty(name))
 			return new ArrayList<String>();
 		return clientService.getClienNameListtByName(name);
 	}
@@ -236,7 +236,7 @@ public class ClientController {
 	@RequestMapping("api/get_client")
 	@ResponseBody
 	public List<ClientDto> getClients(@RequestParam(name = "name") String name) {
-		if (!StringUtils.hasText(name))
+		if (!StringUtils.isEmpty(name))
 			return new ArrayList<ClientDto>();
 		List<ClientDto> dto = clientService.getClientDtoByName(name);
 		return dto;

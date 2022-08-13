@@ -10,14 +10,14 @@ import java.util.Set;
 
 import javax.persistence.criteria.JoinType;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.client.dto.ClientDto;
 import com.workbench.kato_system.admin.client.dto.ClientEmployeeDto;
@@ -46,6 +46,7 @@ public class ClientService {
 	private final EmployeeClientRepository employeeClientRepository;
 
 	private final int SEARCH_SIZE = 10;
+	private final String CLINET_EMPLOYEE_LIST = "clientEmployeeList";
 
 	public List<Client> getAll() {
 		return clientRepository.findAll();
@@ -131,7 +132,7 @@ public class ClientService {
 			if (Long.class != query.getResultType()) {
 				query.distinct(true);
 				root.fetch("employeeClientList", JoinType.INNER).fetch("employee", JoinType.INNER);
-				root.fetch("clientEmployeeList", JoinType.INNER);
+				root.fetch(CLINET_EMPLOYEE_LIST, JoinType.INNER);
 			}
 			return cb.conjunction();
 		};
@@ -168,14 +169,14 @@ public class ClientService {
 	}
 
 	public Specification<Client> telContains(String tel) {
-		return !StringUtils.hasText(tel) ? null : (root, query, cb) -> {
-			return cb.like(root.join("clientEmployeeList", JoinType.LEFT).get("tel"), "%" + tel + "%");
+		return !StringUtils.isBlank(tel) ? null : (root, query, cb) -> {
+			return cb.like(root.join(CLINET_EMPLOYEE_LIST, JoinType.LEFT).get("tel"), "%" + tel + "%");
 		};
 	}
 
 	public Specification<Client> emailContains(String email) {
-		return !StringUtils.hasText(email) ? null : (root, query, cb) -> {
-			return cb.like(root.join("clientEmployeeList", JoinType.LEFT).get("email"), "%" + email + "%");
+		return !StringUtils.isBlank(email) ? null : (root, query, cb) -> {
+			return cb.like(root.join(CLINET_EMPLOYEE_LIST, JoinType.LEFT).get("email"), "%" + email + "%");
 		};
 	}
 
@@ -220,7 +221,7 @@ public class ClientService {
 	private Set<ClientEmployee> form2clientEmployee(ClientForm form, Client client, LoginUserDetails user,
 			LocalDateTime now) {
 
-		Set<ClientEmployee> ClientEmployeeList = new HashSet<>();
+		Set<ClientEmployee> ClientEmployeeSet = new HashSet<>();
 
 		List<ClientEmployeeForm> clientEmployeeFormList = form.getClientEmployee();
 
@@ -238,10 +239,10 @@ public class ClientService {
 			clientEmployee.setClientId(client.getId());
 			clientEmployee.setCreatedBy(user.getUsername());
 			clientEmployee.setCreatedDate(now);
-			ClientEmployeeList.add(clientEmployee);
+			ClientEmployeeSet.add(clientEmployee);
 		}
 
-		return ClientEmployeeList;
+		return ClientEmployeeSet;
 	}
 
 	private Set<EmployeeClient> form2EmployeeClient(ClientForm form, Client client, LoginUserDetails user,

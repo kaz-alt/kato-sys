@@ -6,14 +6,14 @@ import java.util.Optional;
 
 import javax.persistence.criteria.JoinType;
 
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import com.workbench.kato_system.admin.activity.form.ActivityForm;
 import com.workbench.kato_system.admin.activity.form.ActivitySearchForm;
@@ -105,7 +105,7 @@ public class ActivityService {
 	}
 
   public Specification<Activity> contentContains(String content) {
-		return !StringUtils.hasText(content)? null : (root, query, cb) -> {
+		return !StringUtils.isEmpty(content)? null : (root, query, cb) -> {
 			return cb.like(root.get("content"), "%" + content + "%");
 		};
   }
