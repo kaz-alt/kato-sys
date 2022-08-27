@@ -4,9 +4,9 @@ spring:
   devtools:
     add-properties: true
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/workbench
-    username: root
-    password: sampleDBPass9097!
+    url: jdbc:mysql://us-cdbr-east-06.cleardb.net:3306/heroku_8c62eb6cb171949
+    username: bf307a52ec7f48
+    password: fed99610
   jpa:
     open-in-view: false
     properties:
