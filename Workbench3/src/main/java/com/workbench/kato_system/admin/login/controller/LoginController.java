@@ -48,7 +48,7 @@ public class LoginController {
       model.addAttribute("hasError",true);
 		}
 
-		return "/login/loginForm";
+		return "login/loginForm";
 	}
 
 	@GetMapping("/register")
@@ -58,7 +58,7 @@ public class LoginController {
 		model.addAttribute("yearList", DateUtils.createYearList());
 		model.addAttribute("monthList", DateUtils.createMonthList());
 
-		return "/login/register";
+		return "login/register";
 	}
 
 	@PostMapping("/register")

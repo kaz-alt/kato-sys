@@ -124,7 +124,7 @@ public class ClientController {
 
 		search(form, model, pageNumber);
 
-		return "/client/index";
+		return "client/index";
 	}
 
 	/**
