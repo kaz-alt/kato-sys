@@ -1,6 +1,7 @@
 package com.workbench.kato_system.admin.controller;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
@@ -40,7 +41,7 @@ public class GlobalErrorController implements ErrorController {
 
     if (Objects.nonNull(user)) {
 
-      ErrorLog errorLog = new ErrorLog(errorPath, user.getUsername(), LocalDateTime.now());
+      ErrorLog errorLog = new ErrorLog(errorPath, user.getUsername(), LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
 
       errorLogRepository.save(errorLog);
 

@@ -1,6 +1,7 @@
 package com.workbench.kato_system.admin.client.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -199,7 +200,7 @@ public class ClientService {
 		client.setDelFlg(false);
 		client = clientRepository.save(client);
 
-		LocalDateTime now = LocalDateTime.now();
+		LocalDateTime now = LocalDateTime.now(ZoneId.of("Asia/Tokyo"));
 		// 顧客担当者を登録
 		Set<ClientEmployee> clientEmployeeList = form2clientEmployee(form, client, user, now);
 		// 当社担当者を登録

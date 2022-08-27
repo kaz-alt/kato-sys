@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.timeline.service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -44,7 +45,7 @@ public class TimelineService {
 		Timeline t = new Timeline();
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
-		t.setCreatedDate(LocalDateTime.now());
+		t.setCreatedDate(LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
 		if (Objects.nonNull(form.getImage()) && StringUtils.isNotBlank(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}
@@ -60,7 +61,7 @@ public class TimelineService {
 		t.setTimelineId(form.getTimelineId());
 		t.setEmployeeId(user.getUserId());
 		t.setContent(form.getContent());
-		t.setCreatedDate(LocalDateTime.now());
+		t.setCreatedDate(LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
 		if (Objects.nonNull(form.getImage()) && StringUtils.isNotBlank(form.getImage().getOriginalFilename())) {
 			t.setImage(form.getImage().getBytes());
 		}

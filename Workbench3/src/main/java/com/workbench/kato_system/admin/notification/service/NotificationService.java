@@ -1,6 +1,7 @@
 package com.workbench.kato_system.admin.notification.service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class NotificationService {
 
 	public void updateCheckTime(Integer employeeId) {
 
-		notificationRepository.updateCheckTime(LocalDateTime.now(), employeeId);
+		notificationRepository.updateCheckTime(LocalDateTime.now(ZoneId.of("Asia/Tokyo")), employeeId);
 
 	}
 

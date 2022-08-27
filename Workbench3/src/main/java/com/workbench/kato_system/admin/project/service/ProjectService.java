@@ -2,6 +2,7 @@ package com.workbench.kato_system.admin.project.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -285,7 +286,7 @@ public class ProjectService {
 			pe.setEmployee(employee);
 			pe.setProjectId(project.getId());
 			pe.setProject(project);
-			pe.setCreatedDate(LocalDateTime.now());
+			pe.setCreatedDate(LocalDateTime.now(ZoneId.of("Asia/Tokyo")));
 			pe.setCreatedBy(user.getUsername());
 			set.add(pe);
 		}
