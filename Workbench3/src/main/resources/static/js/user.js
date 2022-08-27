@@ -58,7 +58,7 @@ $(function(){
     "tel": {required: true, tel: true},
     "email": {required: true, email: true},
     "userForm.password": {required: true, alphabet: true, minlength: 5, maxlength: 10},
-    "userForm.confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="password"]'},
+    "userForm.confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="userForm.password"]'},
     "password": {required: true, alphabet: true, minlength: 5, maxlength: 10},
     "confirmPassword": {required: true, alphabet: true, minlength: 5, maxlength: 10, equalTo: '[name="password"]'}
   };
