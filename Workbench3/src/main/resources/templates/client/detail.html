@@ -254,7 +254,7 @@
                                 </button>
                               </a>
                             </div>
-                            <div th:include="/project/index::project-table"></div>
+                            <div th:include="project/index::project-table"></div>
                           </div>
                           <div class="tab-pane fade" id="tab-product" role="tabpanel">
                             <div class="mb-3">
@@ -265,7 +265,7 @@
                                 </button>
                               </a>
                             </div>
-                            <div th:include="/product/index::product-table"></div>
+                            <div th:include="product/index::product-table"></div>
                           </div>
                           <div class="tab-pane fade" id="tab-inquiry" role="tabpanel">
                             <div class="card" th:each="i : ${inquiryData}">
