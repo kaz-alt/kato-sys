@@ -12,6 +12,7 @@ spring:
     properties:
       org:
         hibernate:
+          dialect: org.hibernate.dialect.MySQL8Dialect
           envers:
             "[audit_table_suffix]": _history
             "[revision_field_name]": audit_id

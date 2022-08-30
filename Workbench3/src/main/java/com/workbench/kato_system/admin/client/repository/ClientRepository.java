@@ -47,7 +47,7 @@ public interface ClientRepository extends JpaRepository<Client, Integer>, JpaSpe
 	@Query("select c from Client c where c.name like %:name% and c.delFlg = 0")
 	List<Client> findListByName(@Param("name") String name);
 
-	@Query("select c from Client c where c.name = :name and c.delFlg = 0")
+	@Query("select c from Client c left join fetch c.clientEmployeeList where c.name = :name and c.delFlg = 0")
 	List<Client> findByName(@Param("name") String name);
 
 	List<Client> findByIdIn(List<Integer> clientIdList);
